@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-scripts/reproduce.sh
+scripts/evaluate.sh
+python validate.py --compare
