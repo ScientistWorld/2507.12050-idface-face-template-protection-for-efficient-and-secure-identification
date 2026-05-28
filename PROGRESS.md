@@ -21,6 +21,7 @@
 
 - The paper was not present at the provided local path initially; it was fetched from arXiv.
 - The login environment does not currently have `numpy`, so full smoke testing is deferred to the containerized CPU job.
+- First container build failed because `ghcr.io/astral-sh/uv:python3.11-bookworm-slim` is not an accepted portable Docker Hub base. The container now uses `python:3.11-slim-bookworm`, and `setup.sh` falls back to `python -m pip install numpy` if `uv` is unavailable.
 
 ## Deviations from Paper
 
