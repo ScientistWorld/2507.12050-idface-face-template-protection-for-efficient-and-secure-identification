@@ -1,0 +1,12 @@
+data/downloads/
+checkpoints/
+logs/
+tmp/
+__pycache__/
+*.pyc
+.codex/
+.git-shims/
+shared/
+scoring/scores.json
+method/outputs/
+baseline/outputs/

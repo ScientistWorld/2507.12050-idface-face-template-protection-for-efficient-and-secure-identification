@@ -1,0 +1,5 @@
+action: submit
+gpus: 0
+test: true
+milestone: none
+notes: "CPU smoke job: build/run portable IDFace reproduction, baselines, evaluator, and validate scores."
