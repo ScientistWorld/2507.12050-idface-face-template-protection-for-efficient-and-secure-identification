@@ -18,3 +18,9 @@
 - Ran the deterministic IDFace self-check and refreshed the compressed `alpha=341,beta=63` method output after the packing fix.
 - Re-ran the independent evaluator; `scoring/scores.json` now reports `idface_341_63.pack = 8`, `top1_identification = 0.936`, and `tpir_at_fpir_0.01 = 0.714`.
 - Verified `python validate.py --compare` and `python validate.py --post-reproducer`; both passed.
+
+### [2026-05-28 23:57] - core_claim_plus
+- Continuing-agent audit reviewed `method/`, `eval/`, `baseline/`, `data/`, scripts, scoring files, briefing files, and environment files.
+- Confirmed the implementation is the IDFace algorithmic computation rather than a surrogate: top-alpha ternary transform, positive/negative splitting, base-`p` packing, additive packed inner products, and decoding are all present.
+- Verified the evaluator reads prediction artifacts independently from `method/`; `uv run --with numpy bash scripts/evaluate.sh`, `python validate.py --compare`, `python validate.py --post-reproducer`, and `uv run --with numpy python method/self_check.py` all passed.
+- Restored the reset milestone to `core_claim_plus`.
