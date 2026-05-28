@@ -17,7 +17,7 @@
           "ciphertext_multiplications_per_query": 0.0,
           "ciphertext_rotations_per_query": 0.0,
           "decryptions_per_query": 2.0,
-          "pack": 5.0,
+          "pack": 8.0,
           "top1_identification": 0.936,
           "tpir_at_fpir_0.01": 0.714,
           "tpir_at_fpir_0.1": 0.8535

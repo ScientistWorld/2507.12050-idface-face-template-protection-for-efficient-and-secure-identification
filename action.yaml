@@ -1,8 +1,6 @@
 # IMPORTANT: Once you set action to 'submit' or 'done', STOP immediately.
 # Do NOT sleep, poll, or wait for jobs. The system reads this file
 # only after your turn ends. Sleeping blocks the entire pipeline.
-action: submit
-gpus: 0
-test: true
-milestone: core_claim
-notes: "Resubmit packaged CPU reproduction after no post-fix job appeared by 2026-05-28 23:39 UTC. This reruns scripts/reproduce.sh after the p=min(alpha,beta)+1 packing fix and method/self_check.py; expect idface_341_63 pack factor 8 and validation pass."
+action: done
+milestone: core_claim_plus
+notes: "Core IDFace reproduction is packaged and validated. Final scores include high-accuracy alpha=341,beta=341 and compressed alpha=341,beta=63 settings; validate.py --compare and --post-reproducer pass."

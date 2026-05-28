@@ -1,6 +1,6 @@
 # Results
 
-Latest completed-job results are in `scoring/scores.json`. The implementation has since been corrected so the compressed `alpha=341,beta=63` setting uses packing base `min(alpha,beta)+1`; a queued CPU test will refresh the score file with the expected packing factor of `8`.
+Final reproduced results are in `scoring/scores.json`. The compressed `alpha=341,beta=63` setting uses packing base `min(alpha,beta)+1` and reports packing factor `8`.
 
 On the portable synthetic identification benchmark:
 

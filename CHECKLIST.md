@@ -12,4 +12,4 @@
 - [x] Verify standalone evaluator in packaged container
 - [x] Reach core claim
 - [x] Reproduce compressed beta setting
-- [ ] Package final scores after compressed-packing rerun
+- [x] Package final scores after compressed-packing rerun

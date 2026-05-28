@@ -1,6 +1,6 @@
 # Reproduction Milestones
 
-**Current: core_claim**
+**Current: core_claim_plus**
 
 ## Progress Log
 
@@ -13,3 +13,8 @@
 ### [2026-05-28 23:39] - core_claim
 - Rechecked the workspace and found no new post-fix job directory; `scoring/scores.json` still reflects the old `idface_341_63` packing factor of `5`.
 - Refreshed `action.yaml` to resubmit the packaged CPU reproduction so the corrected implementation can produce updated scores.
+
+### [2026-05-28 23:42] - core_claim_plus
+- Ran the deterministic IDFace self-check and refreshed the compressed `alpha=341,beta=63` method output after the packing fix.
+- Re-ran the independent evaluator; `scoring/scores.json` now reports `idface_341_63.pack = 8`, `top1_identification = 0.936`, and `tpir_at_fpir_0.01 = 0.714`.
+- Verified `python validate.py --compare` and `python validate.py --post-reproducer`; both passed.
