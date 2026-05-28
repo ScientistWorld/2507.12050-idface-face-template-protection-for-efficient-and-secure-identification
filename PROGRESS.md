@@ -10,7 +10,8 @@
 
 ## Results Achieved
 
-- No reproduction run has completed yet.
+- CPU smoke job `369146f1-281` executed the pipeline but failed final validation because `scores.json` emitted undeclared metrics and the random baseline was missing from `reference.json`.
+- The same job exposed a synthetic-data bug: unscaled Gaussian noise made both gallery and query embeddings effectively random, so the plain baseline top-1 score was only 0.002.
 
 ## What Remains
 
@@ -22,6 +23,7 @@
 - The paper was not present at the provided local path initially; it was fetched from arXiv.
 - The login environment does not currently have `numpy`, so full smoke testing is deferred to the containerized CPU job.
 - First container build failed because `ghcr.io/astral-sh/uv:python3.11-bookworm-slim` is not an accepted portable Docker Hub base. The container now uses `python:3.11-slim-bookworm`, and `setup.sh` falls back to `python -m pip install numpy` if `uv` is unavailable.
+- Fixed the synthetic generator to scale Gaussian noise by `sqrt(dim)`, and aligned emitted evaluation metrics with `scoring/reference.json`.
 
 ## Deviations from Paper
 

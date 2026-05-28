@@ -19,15 +19,19 @@ def generate(
     dim: int = 512,
     genuine_queries: int = 2000,
     impostor_queries: int = 2000,
-    noise: float = 0.82,
+    noise: float = 2.5,
     seed: int = 20260712,
 ) -> None:
     rng = np.random.default_rng(seed)
     centers = _unit(rng.normal(size=(identities, dim)).astype(np.float32))
-    gallery = _unit(centers + 0.10 * rng.normal(size=(identities, dim)).astype(np.float32))
+    per_dim_gallery_noise = 0.40 / np.sqrt(dim)
+    per_dim_query_noise = noise / np.sqrt(dim)
+    gallery = _unit(centers + per_dim_gallery_noise * rng.normal(size=(identities, dim)).astype(np.float32))
 
     query_labels = rng.integers(0, identities, size=genuine_queries, endpoint=False)
-    genuine = _unit(centers[query_labels] + noise * rng.normal(size=(genuine_queries, dim)).astype(np.float32))
+    genuine = _unit(
+        centers[query_labels] + per_dim_query_noise * rng.normal(size=(genuine_queries, dim)).astype(np.float32)
+    )
     impostors = _unit(rng.normal(size=(impostor_queries, dim)).astype(np.float32))
 
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -51,7 +55,7 @@ def main() -> None:
     parser.add_argument("--dim", type=int, default=512)
     parser.add_argument("--genuine-queries", type=int, default=2000)
     parser.add_argument("--impostor-queries", type=int, default=2000)
-    parser.add_argument("--noise", type=float, default=0.82)
+    parser.add_argument("--noise", type=float, default=2.5)
     parser.add_argument("--seed", type=int, default=20260712)
     args = parser.parse_args()
     generate(args.out, args.identities, args.dim, args.genuine_queries, args.impostor_queries, args.noise, args.seed)

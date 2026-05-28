@@ -36,7 +36,6 @@ def identification_metrics(pred: dict[str, np.ndarray]) -> dict[str, float]:
         threshold = _threshold_at_fpir(impostor_scores, fpir)
         accepted_correct = correct_top1 & (top_scores >= threshold)
         metrics[f"tpir_at_fpir_{fpir:g}"] = float(np.mean(accepted_correct))
-        metrics[f"threshold_at_fpir_{fpir:g}"] = threshold
     return metrics
 
 

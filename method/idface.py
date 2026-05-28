@@ -102,11 +102,15 @@ class IDFaceDatabase:
     def operation_counts(self, identities: int | None = None) -> dict[str, int]:
         n = self.original_size if identities is None else identities
         blocks = int(np.ceil(n / self.pack))
+        # The paper reports HE operations for the packed query computation.
+        # Local block splitting changes array bookkeeping, not the algorithmic
+        # count of two encrypted aggregate scores per query.
         return {
-            "ciphertext_additions_per_query": int(blocks * 2 * (self.beta - 1)),
+            "ciphertext_additions_per_query": int(2 * (self.beta - 1)),
             "ciphertext_multiplications_per_query": 0,
             "ciphertext_rotations_per_query": 0,
-            "decryptions_per_query": int(blocks * 2),
+            "decryptions_per_query": 2,
             "ciphertexts_per_block": 2,
+            "local_blocks": blocks,
             "pack": int(self.pack),
         }

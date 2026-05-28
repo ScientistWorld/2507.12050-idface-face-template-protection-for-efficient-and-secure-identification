@@ -2,4 +2,4 @@ action: submit
 gpus: 0
 test: true
 milestone: none
-notes: "CPU smoke job: build/run portable IDFace reproduction, baselines, evaluator, and validate scores."
+notes: "CPU smoke job after fixing synthetic-noise scale and score schema; expect method/baselines/evaluator to complete and validate."

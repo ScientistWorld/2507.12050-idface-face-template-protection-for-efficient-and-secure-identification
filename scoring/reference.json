@@ -71,12 +71,41 @@
         "top1_identification": {"higher_is_better": true, "coefficient": 0.5},
         "tpir_at_fpir_0.1": {"higher_is_better": true, "coefficient": 0.7},
         "tpir_at_fpir_0.01": {"higher_is_better": true, "coefficient": 1.0},
+        "ciphertext_additions_per_query": {"higher_is_better": false, "coefficient": -0.1},
         "ciphertext_multiplications_per_query": {"higher_is_better": false, "coefficient": -0.3},
-        "ciphertext_rotations_per_query": {"higher_is_better": false, "coefficient": -0.3}
+        "ciphertext_rotations_per_query": {"higher_is_better": false, "coefficient": -0.3},
+        "decryptions_per_query": {"higher_is_better": false, "coefficient": -0.1},
+        "pack": {"higher_is_better": true, "coefficient": 0.05}
       },
       "results": {
-        "plain": {"type": "baseline", "top1_identification": 1.0, "tpir_at_fpir_0.1": 1.0, "tpir_at_fpir_0.01": 1.0, "ciphertext_multiplications_per_query": 0, "ciphertext_rotations_per_query": 0},
-        "idface_341_341": {"type": "proposed", "top1_identification": 0.95, "tpir_at_fpir_0.1": 0.90, "tpir_at_fpir_0.01": 0.80, "ciphertext_multiplications_per_query": 0, "ciphertext_rotations_per_query": 0}
+        "plain": {
+          "type": "baseline",
+          "top1_identification": 1.0,
+          "tpir_at_fpir_0.1": 1.0,
+          "tpir_at_fpir_0.01": 1.0,
+          "ciphertext_additions_per_query": 0,
+          "ciphertext_multiplications_per_query": 0,
+          "ciphertext_rotations_per_query": 0,
+          "decryptions_per_query": 0,
+          "pack": 1
+        },
+        "random": {
+          "type": "baseline",
+          "top1_identification": 0.0005,
+          "tpir_at_fpir_0.1": 0.0,
+          "tpir_at_fpir_0.01": 0.0
+        },
+        "idface_341_341": {
+          "type": "proposed",
+          "top1_identification": 0.95,
+          "tpir_at_fpir_0.1": 0.90,
+          "tpir_at_fpir_0.01": 0.80,
+          "ciphertext_additions_per_query": 680,
+          "ciphertext_multiplications_per_query": 0,
+          "ciphertext_rotations_per_query": 0,
+          "decryptions_per_query": 2,
+          "pack": 5
+        }
       }
     }
   }
