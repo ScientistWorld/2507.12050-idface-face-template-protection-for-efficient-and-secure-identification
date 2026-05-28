@@ -1,4 +1,5 @@
 data/downloads/
+data/synthetic_embeddings.npz
 checkpoints/
 logs/
 tmp/
