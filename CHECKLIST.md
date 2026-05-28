@@ -9,6 +9,7 @@
 - [x] Document experiment mapping
 - [x] Package environment scripts
 - [x] Run smoke test job
+- [x] Verify standalone evaluator in packaged container
 - [x] Reach core claim
 - [x] Reproduce compressed beta setting
 - [x] Package final scores

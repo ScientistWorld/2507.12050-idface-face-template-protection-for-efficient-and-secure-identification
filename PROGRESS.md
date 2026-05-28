@@ -16,11 +16,13 @@
 - CPU smoke job `5ede7b09-dba` completed successfully. On `synthetic_identification`, plain achieved top-1 `1.0` and `tpir_at_fpir_0.01 = 1.0`; random achieved `0.0`; IDFace `alpha=341,beta=341` achieved top-1 `0.9995` and `tpir_at_fpir_0.01 = 0.986` with zero ciphertext multiplications/rotations.
 - CPU smoke job `58a94f2d-fe7` completed successfully with the compressed setting. IDFace `alpha=341,beta=63` achieved top-1 `0.936`, `tpir_at_fpir_0.1 = 0.8535`, and `tpir_at_fpir_0.01 = 0.714`, while reducing additive operations per query from `680` to `124` and keeping zero ciphertext multiplications/rotations.
 - Continuing audit ran `python validate.py --compare` successfully and added `scoring/EXPERIMENTS.md` plus an explicit compressed-output argument in `scripts/evaluate.sh`. Direct `scripts/evaluate.sh` execution on the login Python failed because `numpy` is only installed by `environment/setup.sh`; a CPU test job was submitted to verify the script in the packaged environment.
+- CPU test job `6313c13f-d71` completed successfully after the audit changes. It ran `scripts/evaluate.sh` inside the packaged container and `python validate.py --compare`; all scoring and structure checks passed.
 
 ## What Remains
 
 - The portable reproduction is complete at `core_claim_plus`.
 - Higher milestones would require acquiring the original AdaFace/WebFace12M embedding pipeline and restricted/discontinued face benchmarks, which is beyond the reusable synthetic gym packaged here.
+- No further work is needed for the packaged core reproduction.
 
 ## Issues Encountered
 
