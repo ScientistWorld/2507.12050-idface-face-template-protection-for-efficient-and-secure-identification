@@ -18,6 +18,7 @@
 - Continuing audit ran `python validate.py --compare` successfully and added `scoring/EXPERIMENTS.md` plus an explicit compressed-output argument in `scripts/evaluate.sh`. Direct `scripts/evaluate.sh` execution on the login Python failed because `numpy` is only installed by `environment/setup.sh`; a CPU test job was submitted to verify the script in the packaged environment.
 - CPU test job `6313c13f-d71` completed successfully after the audit changes. It ran `scripts/evaluate.sh` inside the packaged container and `python validate.py --compare`; all scoring and structure checks passed.
 - Continuing audit found that the compressed packing implementation used `max(alpha,beta)+1` as the packing base. The paper's decoded digit bound is `min(alpha,beta)`, so this has been fixed to `min(alpha,beta)+1` and a deterministic method self-check was added. The old `scores.json` still reflects the pre-fix run until the queued CPU test completes.
+- A follow-up check at 2026-05-28 23:39 UTC found no new post-fix job directory, so `action.yaml` was refreshed to submit the packaged CPU reproduction again.
 
 ## What Remains
 

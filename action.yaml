@@ -5,4 +5,4 @@ action: submit
 gpus: 0
 test: true
 milestone: core_claim
-notes: "Rerun packaged CPU reproduction after fixing IDFace compressed packing base to p=min(alpha,beta)+1 and adding an IDFace arithmetic self-check; expect beta=63 pack factor 8 and validation pass."
+notes: "Resubmit packaged CPU reproduction after no post-fix job appeared by 2026-05-28 23:39 UTC. This reruns scripts/reproduce.sh after the p=min(alpha,beta)+1 packing fix and method/self_check.py; expect idface_341_63 pack factor 8 and validation pass."
