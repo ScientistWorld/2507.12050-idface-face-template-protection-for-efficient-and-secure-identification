@@ -1,3 +1,8 @@
-action: done
-milestone: core_claim_plus
-notes: "Reproduced IDFace core claim and compressed beta=63 setting on the packaged synthetic benchmark; environment, evaluator, scripts, reference, and final scores are ready."
+# IMPORTANT: Once you set action to 'submit' or 'done', STOP immediately.
+# Do NOT sleep, poll, or wait for jobs. The system reads this file
+# only after your turn ends. Sleeping blocks the entire pipeline.
+action: pending
+gpus: 1
+test: false
+milestone: core_claim
+notes: ""
