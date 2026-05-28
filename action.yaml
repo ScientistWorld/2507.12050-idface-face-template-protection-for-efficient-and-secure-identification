@@ -1,5 +1,3 @@
-action: submit
-gpus: 0
-test: true
-milestone: core_claim
-notes: "CPU test job to extend reproduction with the compressed IDFace alpha=341,beta=63 setting alongside the validated beta=341 run."
+action: done
+milestone: core_claim_plus
+notes: "Reproduced IDFace core claim and compressed beta=63 setting on the packaged synthetic benchmark; environment, evaluator, scripts, reference, and final scores are ready."

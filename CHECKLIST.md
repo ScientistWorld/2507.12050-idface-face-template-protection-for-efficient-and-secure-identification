@@ -9,4 +9,5 @@
 - [x] Package environment scripts
 - [x] Run smoke test job
 - [x] Reach core claim
-- [ ] Reproduce compressed beta setting
+- [x] Reproduce compressed beta setting
+- [x] Package final scores

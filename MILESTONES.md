@@ -1,6 +1,6 @@
 # Reproduction Milestones
 
-**Current: core_claim**
+**Current: core_claim_plus**
 
 ## Progress Log
 
@@ -26,3 +26,8 @@
 - CPU smoke job completed and passed validation.
 - Reproduced IDFace on the portable synthetic benchmark: `tpir_at_fpir_0.01 = 0.986`, top-1 `0.9995`, with zero ciphertext multiplications and rotations.
 - Added the paper's compressed `beta=63` setting for the next job.
+
+### [2026-05-28 19:45] - core_claim_plus
+- Compressed `alpha=341,beta=63` setting completed and passed validation.
+- Reproduced the expected accuracy/efficiency trade-off: top-1 `0.936`, `tpir_at_fpir_0.01 = 0.714`, zero ciphertext multiplications/rotations, and additive operations reduced from `680` to `124`.
+- Final packaged environment is ready for reuse.

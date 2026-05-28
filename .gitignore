@@ -8,7 +8,6 @@ __pycache__/
 .codex/
 .git-shims/
 shared/
-scoring/scores.json
 method/outputs/
 baseline/outputs/
 

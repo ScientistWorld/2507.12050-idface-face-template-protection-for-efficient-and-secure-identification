@@ -1,0 +1,43 @@
+{
+  "experiments": {
+    "synthetic_identification": {
+      "results": {
+        "idface_341_341": {
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 2.0,
+          "pack": 5.0,
+          "top1_identification": 0.9995,
+          "tpir_at_fpir_0.01": 0.986,
+          "tpir_at_fpir_0.1": 0.997
+        },
+        "idface_341_63": {
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 2.0,
+          "pack": 5.0,
+          "top1_identification": 0.936,
+          "tpir_at_fpir_0.01": 0.714,
+          "tpir_at_fpir_0.1": 0.8535
+        },
+        "plain": {
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 0.0,
+          "pack": 1.0,
+          "top1_identification": 1.0,
+          "tpir_at_fpir_0.01": 1.0,
+          "tpir_at_fpir_0.1": 1.0
+        },
+        "random": {
+          "top1_identification": 0.0,
+          "tpir_at_fpir_0.01": 0.0,
+          "tpir_at_fpir_0.1": 0.0
+        }
+      }
+    }
+  }
+}
