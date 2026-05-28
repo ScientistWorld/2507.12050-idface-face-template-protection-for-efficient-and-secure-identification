@@ -73,7 +73,11 @@ class IDFaceDatabase:
 
     @classmethod
     def enroll(cls, gallery: np.ndarray, labels: np.ndarray, alpha: int, beta: int, plaintext_bits: int = 50) -> "IDFaceDatabase":
-        p = max(alpha, beta) + 1
+        # Decoded digits are binary overlap counts between an alpha-sparse
+        # enrolled template and a beta-sparse query, so each count is bounded
+        # by min(alpha, beta). This is the paper's space-efficiency gain when
+        # beta is reduced while alpha is fixed.
+        p = min(alpha, beta) + 1
         pack = max(1, int(plaintext_bits // np.ceil(np.log2(p))))
         pad = (-len(gallery)) % pack
         if pad:
