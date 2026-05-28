@@ -1,5 +1,5 @@
 action: submit
 gpus: 0
 test: true
-milestone: none
-notes: "CPU smoke job after fixing synthetic-noise scale and score schema; expect method/baselines/evaluator to complete and validate."
+milestone: core_claim
+notes: "CPU test job to extend reproduction with the compressed IDFace alpha=341,beta=63 setting alongside the validated beta=341 run."

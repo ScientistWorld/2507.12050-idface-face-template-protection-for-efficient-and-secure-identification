@@ -12,11 +12,12 @@
 
 - CPU smoke job `369146f1-281` executed the pipeline but failed final validation because `scores.json` emitted undeclared metrics and the random baseline was missing from `reference.json`.
 - The same job exposed a synthetic-data bug: unscaled Gaussian noise made both gallery and query embeddings effectively random, so the plain baseline top-1 score was only 0.002.
+- CPU smoke job `5ede7b09-dba` completed successfully. On `synthetic_identification`, plain achieved top-1 `1.0` and `tpir_at_fpir_0.01 = 1.0`; random achieved `0.0`; IDFace `alpha=341,beta=341` achieved top-1 `0.9995` and `tpir_at_fpir_0.01 = 0.986` with zero ciphertext multiplications/rotations.
 
 ## What Remains
 
-- Run the method and evaluator through a submitted job.
-- Inspect scores and decide whether the synthetic benchmark supports the core claim.
+- Run the compressed IDFace `alpha=341,beta=63` setting to cover the paper's smaller-template regime.
+- If the compressed setting validates, update the milestone to `core_claim_plus`.
 
 ## Issues Encountered
 

@@ -12,6 +12,8 @@ The implementation follows the paper's algorithmic steps:
 
 The paper instantiates the additive database with Paillier or CKKS. This gym uses a deterministic additive ciphertext mock for portability: the stored packed arrays stand in for ciphertext payloads, and method metadata records the corresponding encrypted operation counts. This preserves the computation being reproduced while avoiding unavailable HE libraries and heavy build requirements.
 
+The default reproduction runs the paper's high-accuracy setting `alpha=341,beta=341` and the compressed setting `alpha=341,beta=63`.
+
 ## Deviations
 
 - Uses synthetic 512-D unit embeddings instead of AdaFace embeddings on gated/discontinued face benchmarks.

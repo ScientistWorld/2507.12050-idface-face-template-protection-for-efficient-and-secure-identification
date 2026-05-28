@@ -1,6 +1,6 @@
 # Reproduction Milestones
 
-**Current: none**
+**Current: core_claim**
 
 ## Progress Log
 
@@ -21,3 +21,8 @@
 - CPU smoke job ran the pipeline but failed score-schema validation.
 - Fixed metric declarations and a synthetic-data noise bug that made the plain baseline random-level.
 - Resubmitting CPU smoke job.
+
+### [2026-05-28 19:35] - core_claim
+- CPU smoke job completed and passed validation.
+- Reproduced IDFace on the portable synthetic benchmark: `tpir_at_fpir_0.01 = 0.986`, top-1 `0.9995`, with zero ciphertext multiplications and rotations.
+- Added the paper's compressed `beta=63` setting for the next job.

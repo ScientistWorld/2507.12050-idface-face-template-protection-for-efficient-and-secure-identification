@@ -105,6 +105,17 @@
           "ciphertext_rotations_per_query": 0,
           "decryptions_per_query": 2,
           "pack": 5
+        },
+        "idface_341_63": {
+          "type": "proposed",
+          "top1_identification": 0.90,
+          "tpir_at_fpir_0.1": 0.80,
+          "tpir_at_fpir_0.01": 0.65,
+          "ciphertext_additions_per_query": 124,
+          "ciphertext_multiplications_per_query": 0,
+          "ciphertext_rotations_per_query": 0,
+          "decryptions_per_query": 2,
+          "pack": 5
         }
       }
     }

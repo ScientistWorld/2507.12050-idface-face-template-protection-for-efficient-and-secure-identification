@@ -72,11 +72,17 @@ def main() -> None:
     parser.add_argument("--plain", type=Path, default=Path("baseline/outputs/plain_synthetic"))
     parser.add_argument("--random", type=Path, default=Path("baseline/outputs/random_synthetic"))
     parser.add_argument("--idface", type=Path, default=Path("method/outputs/idface_synthetic"))
+    parser.add_argument("--idface-compressed", type=Path, default=Path("method/outputs/idface_synthetic_beta63"))
     parser.add_argument("--out", type=Path, default=Path("scoring/scores.json"))
     args = parser.parse_args()
 
     results = {}
-    for name, path in [("plain", args.plain), ("random", args.random), ("idface_341_341", args.idface)]:
+    for name, path in [
+        ("plain", args.plain),
+        ("random", args.random),
+        ("idface_341_341", args.idface),
+        ("idface_341_63", args.idface_compressed),
+    ]:
         if (path / "predictions.npz").exists():
             results[name] = evaluate_method("plain" if name == "plain" else name, path)
 
