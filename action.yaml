@@ -1,5 +1,2 @@
-action: submit
-gpus: 0
-milestone: core_claim_plus
-test: false
-notes: "Run full deterministic reproduction, then regenerate train/test split scores; verifies actual IDFace method path for core_claim_plus."
+action: done
+notes: "Made run.sh use repo-relative checkpoints and verified download/shared path packaging checks pass."
