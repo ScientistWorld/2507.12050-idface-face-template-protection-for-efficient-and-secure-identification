@@ -49,6 +49,31 @@ def _threshold_at_fpir(impostor_scores: np.ndarray, fpir: float) -> float:
     return float(np.quantile(max_impostor, 1.0 - fpir, method="higher"))
 
 
+def _binary_auc(positive_scores: np.ndarray, negative_scores: np.ndarray) -> float:
+    scores = np.concatenate([positive_scores, negative_scores])
+    order = np.argsort(scores, kind="mergesort")
+    ranks = np.empty_like(order, dtype=np.float64)
+    ranks[order] = np.arange(1, len(scores) + 1, dtype=np.float64)
+
+    # Average ranks across ties so score quantization cannot inflate AUC.
+    sorted_scores = scores[order]
+    start = 0
+    while start < len(sorted_scores):
+        end = start + 1
+        while end < len(sorted_scores) and sorted_scores[end] == sorted_scores[start]:
+            end += 1
+        if end - start > 1:
+            ranks[order[start:end]] = (start + 1 + end) / 2.0
+        start = end
+
+    n_pos = len(positive_scores)
+    n_neg = len(negative_scores)
+    if n_pos == 0 or n_neg == 0:
+        raise ValueError("AUC requires at least one positive and one negative score")
+    rank_sum_pos = float(np.sum(ranks[:n_pos]))
+    return (rank_sum_pos - n_pos * (n_pos + 1) / 2.0) / (n_pos * n_neg)
+
+
 def identification_metrics(pred: dict[str, np.ndarray]) -> dict[str, float]:
     genuine_scores = pred["genuine_scores"]
     impostor_scores = pred["impostor_scores"]
@@ -63,20 +88,59 @@ def identification_metrics(pred: dict[str, np.ndarray]) -> dict[str, float]:
     true_gallery = gallery_labels[None, :] == genuine_labels[:, None]
     true_scores = np.max(np.where(true_gallery, genuine_scores, -np.inf), axis=1)
     best_wrong_scores = np.max(np.where(true_gallery, -np.inf, genuine_scores), axis=1)
+    genuine_ranks = 1 + np.sum(genuine_scores > true_scores[:, None], axis=1)
+    impostor_top_scores = np.max(impostor_scores, axis=1)
 
     metrics = {
         "top1_identification": float(np.mean(correct_top1)),
+        "mean_reciprocal_rank": float(np.mean(1.0 / genuine_ranks)),
         "mean_genuine_rank_margin": float(np.mean(true_scores - best_wrong_scores)),
+        "open_set_score_auc": float(_binary_auc(true_scores, impostor_top_scores)),
     }
-    for fpir in (1e-1, 1e-2):
+    for fpir in (1e-1, 1e-2, 1e-3):
         threshold = _threshold_at_fpir(impostor_scores, fpir)
         accepted_correct = correct_top1 & (top_scores >= threshold)
         metrics[f"tpir_at_fpir_{fpir:g}"] = float(np.mean(accepted_correct))
     return metrics
 
 
+def _baseline_operation_metrics(name: str) -> dict[str, float] | None:
+    if name == "plain":
+        return {
+            "ciphertext_additions_per_query": 0.0,
+            "ciphertext_multiplications_per_query": 0.0,
+            "ciphertext_rotations_per_query": 0.0,
+            "decryptions_per_query": 0.0,
+            "pack": 1.0,
+        }
+    if name == "random":
+        return {
+            "ciphertext_additions_per_query": 0.0,
+            "ciphertext_multiplications_per_query": 0.0,
+            "ciphertext_rotations_per_query": 0.0,
+            "decryptions_per_query": 0.0,
+            "pack": 0.0,
+        }
+    return None
+
+
+def _missing_operation_metrics() -> dict[str, float]:
+    return {
+        "ciphertext_additions_per_query": 1_000_000_000.0,
+        "ciphertext_multiplications_per_query": 1_000_000_000.0,
+        "ciphertext_rotations_per_query": 1_000_000_000.0,
+        "decryptions_per_query": 1_000_000_000.0,
+        "pack": 0.0,
+    }
+
+
 def evaluate_method(name: str, path: Path) -> dict[str, float]:
     metrics = identification_metrics(_slice_predictions(_load_predictions(path), TEST_RESIDUE))
+    baseline_metrics = _baseline_operation_metrics(name)
+    if baseline_metrics is not None:
+        metrics.update(baseline_metrics)
+        return metrics
+
     metadata_file = path / "metadata.json"
     if metadata_file.exists():
         metadata = json.loads(metadata_file.read_text())
@@ -90,16 +154,8 @@ def evaluate_method(name: str, path: Path) -> dict[str, float]:
         ):
             if key in counts:
                 metrics[key] = float(counts[key])
-        if name == "plain":
-            metrics.update(
-                {
-                    "ciphertext_additions_per_query": 0.0,
-                    "ciphertext_multiplications_per_query": 0.0,
-                    "ciphertext_rotations_per_query": 0.0,
-                    "decryptions_per_query": 0.0,
-                    "pack": 1.0,
-                }
-            )
+    for key, value in _missing_operation_metrics().items():
+        metrics.setdefault(key, value)
     return metrics
 
 
