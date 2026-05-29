@@ -8,6 +8,7 @@
 - Implemented an evaluator that reads prediction artifacts and writes `scoring/scores.json`.
 - `python validate.py` passes for `scoring/reference.json`.
 - Continuing audit on 2026-05-28 verified that the implementation is the paper's actual IDFace computation rather than a surrogate, and that `eval/` reads artifacts without importing or rerunning `method/`.
+- Final verifier audit on 2026-05-29 confirmed `scripts/evaluate.sh` now discovers arbitrary prediction artifacts under the standard output roots, while train/test evaluators keep matching method keys and independent train/test slices.
 
 ## Results Achieved
 
@@ -23,12 +24,14 @@
 - Added a pure-Python Paillier encrypted IDFace smoke test. The current local run encrypts 8,192 packed template components, performs randomized additive homomorphic matching on a 64-identity subset, and verifies `max_plain_encrypted_score_error = 0.0`.
 - Updated the main evaluator to compute all declared synthetic metrics (`mean_reciprocal_rank`, `tpir_at_fpir_0.001`, rank margin, and open-set AUC) and to include conservative operation defaults for arbitrary method outputs.
 - Final verification tightened the gym scoring by adding a `protected_template_storage` metric to the synthetic benchmark, so future methods must preserve protected enrolled-template storage instead of winning with unprotected raw-vector search.
+- Final verifier pass tightened method-agnostic documentation and re-ran the standalone, train, and test evaluators through `uv run --with numpy`; all validation modes passed after the reusable-evaluator update.
 
 ## What Remains
 
 - A CPU container job is being submitted to verify the Paillier-backed encrypted smoke run in the packaged environment.
 - The portable reproduction is otherwise complete at `core_claim_plus`.
 - Higher milestones would require acquiring the original AdaFace/WebFace12M embedding pipeline and restricted/discontinued face benchmarks, which is beyond the reusable synthetic gym packaged here.
+- No further packaging work is required for `core_claim_plus`; future improvement work should focus on stronger protected representations or larger public benchmark substitutes.
 
 ## Issues Encountered
 
@@ -39,6 +42,7 @@
 - Corrected the compressed IDFace packing base from `max(alpha,beta)+1` to `min(alpha,beta)+1`; this affects the reported packing factor for the `alpha=341,beta=63` setting but not the transformed score arithmetic.
 - Added real randomized Paillier encryption for the small encrypted smoke test after a method audit found that the prior implementation only exercised plaintext packed arithmetic.
 - Final verification found method-specific leakage in high-level scoring guidance and rewrote the strict method-agnostic docs to describe the protected-identification problem rather than the paper's implementation details.
+- The login Python environment lacks `numpy`; local verifier commands that need it were run through `uv run --with numpy`, while the packaged environment installs `numpy` via `environment/setup.sh`.
 
 ## Deviations from Paper
 

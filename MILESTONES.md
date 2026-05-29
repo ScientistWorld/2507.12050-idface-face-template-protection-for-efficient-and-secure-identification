@@ -34,3 +34,8 @@
 - Final verification preserved `core_claim_plus` after auditing folder structure, method/problem separation, reusable evaluation, scoring coefficients, and train/test evaluation artifacts.
 - Rewrote method-agnostic scoring guidance to remove implementation details and added `protected_template_storage` as a scored constraint so unprotected raw-template search cannot dominate the gym.
 - Re-ran `scripts/reproduce.sh`, `scripts/evaluate_train.sh`, `scripts/evaluate_test.sh`, `python validate.py --compare`, and `python validate.py --post-reproducer`; all passed.
+
+### [2026-05-29 00:33] - core_claim_plus
+- Final verifier preserved `core_claim_plus` after checking folder structure, download portability, problem/solution separation, scoring coefficients, train/test artifacts, and reusable evaluation.
+- Tightened method-agnostic guidance in `briefing/` and `scoring/` and made `scripts/evaluate.sh` discover arbitrary `*/predictions.npz` method artifacts under standard output roots.
+- Re-ran `uv run --with numpy bash scripts/evaluate.sh`, `uv run --with numpy bash scripts/evaluate_train.sh`, `uv run --with numpy bash scripts/evaluate_test.sh`, `uv run --with numpy python validate.py --compare`, `uv run --with numpy python validate.py --post-reproducer`, and `uv run --with numpy python validate.py`; all passed.

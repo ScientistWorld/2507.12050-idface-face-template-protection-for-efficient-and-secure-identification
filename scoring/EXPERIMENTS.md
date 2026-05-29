@@ -17,8 +17,8 @@ Expected interpretation:
 - `plain` is the unprotected cosine-search upper bound.
 - `random` verifies that the evaluator does not grant credit to arbitrary scores.
 - Protected-method rows test whether a submitted representation preserves identification utility while storing enrolled templates in a protected form and reporting machine-independent operation costs.
-- The small encrypted row verifies that protected stored templates can be searched through an encrypted computation path, not only through plaintext score matrices.
+- Optional secure-computation smoke rows can be included when a method provides an additional artifact showing that protected stored templates are actually searched through the claimed protected computation path.
 
 ## Paper-Reported Reference Groups
 
-`face_benchmark_accuracy` and `efficiency_1m` in `scoring/reference.json` record the paper's reported numbers from Tables 2 and 3. They are included for context and target setting alignment. The portable reproduction does not score these groups because the exact face benchmarks and large-scale encrypted backend setup are not part of the reusable local gym.
+`face_benchmark_accuracy` and `efficiency_1m` in `scoring/reference.json` record published reference numbers for context and target alignment. They are not present in `scoring/scores.json`, so the portable gym does not rank future methods on those groups.

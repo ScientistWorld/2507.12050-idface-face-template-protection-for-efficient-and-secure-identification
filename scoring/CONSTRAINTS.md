@@ -6,4 +6,4 @@
 - Evaluation must consume prediction artifacts written by `method/` or `baseline/`.
 - Submitted protected methods must not store enrolled gallery templates as raw reusable unit vectors.
 - Protected methods must report machine-independent operation metadata used by the evaluator.
-- Encrypted variants must recover scores only after computation over protected stored templates followed by the appropriate reveal/decode step.
+- Secure-computation variants must recover scores only after computation over protected stored templates followed by the appropriate reveal/decode step.

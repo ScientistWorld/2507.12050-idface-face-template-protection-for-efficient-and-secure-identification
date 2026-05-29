@@ -2,10 +2,14 @@
 
 The task is privacy-preserving biometric identification over unit-norm templates.
 
-Given an enrolled gallery of identity templates and a query template, the system must return the closest identity when the query matches an enrolled subject and reject non-enrolled impostor queries. Templates are real-valued unit vectors, matching is based on inner product or cosine similarity, and the benchmark fixes a gallery, genuine queries with labels, and impostor queries.
+Given an enrolled gallery of identity templates and a query template, the system must identify the matching enrolled subject when the query is genuine and reject non-enrolled impostor queries. Templates are fixed 512-dimensional real-valued unit vectors, matching quality is judged from gallery-query scores, and the benchmark fixes:
 
-The problem is method-agnostic: any method may transform or protect templates, but it must produce a score matrix for genuine queries and impostor queries against the fixed gallery so the evaluator can compute identification metrics at fixed false-positive identification rates.
+- one enrolled gallery template per identity,
+- genuine query templates with identity labels,
+- impostor query templates that should be rejected at calibrated thresholds.
+
+The problem is method-agnostic. Any submitted method may use any protected representation or matching procedure, provided it writes gallery-query score matrices in the required artifact format and does not store enrolled gallery templates as raw reusable unit vectors when claiming protected-template performance.
 
 ## Portable Dataset
 
-The original paper evaluates on LFW, CFP-FP, AgeDB, and IJB-C with AdaFace embeddings. IJB-C distribution has been discontinued and AgeDB requires an email/password flow, so this gym includes a reproducible synthetic unit-vector benchmark in `data/generate_synthetic.py`. The substitute preserves the relevant structure: 512-dimensional unit embeddings, enrolled identities, noisy genuine queries, and random impostor queries.
+The gym uses a reproducible synthetic unit-vector benchmark in `data/generate_synthetic.py`. The generated data preserves the relevant identification structure: high-dimensional normalized templates, same-identity query variation, many enrolled identities, and impostor queries used to set false-positive identification thresholds.

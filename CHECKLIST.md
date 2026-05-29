@@ -14,3 +14,4 @@
 - [x] Reproduce compressed beta setting
 - [x] Add encrypted Paillier smoke test
 - [x] Package final scores after compressed-packing rerun
+- [x] Final verifier pass

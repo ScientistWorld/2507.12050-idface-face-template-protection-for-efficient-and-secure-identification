@@ -140,26 +140,82 @@ def _parse_method_arg(value: str) -> tuple[str, Path]:
     return _safe_name(name), Path(raw_path)
 
 
+DEFAULT_METHODS = {
+    "plain": Path("baseline/outputs/plain_synthetic"),
+    "random": Path("baseline/outputs/random_synthetic"),
+    "idface_341_341": Path("method/outputs/idface_synthetic"),
+    "idface_341_63": Path("method/outputs/idface_synthetic_beta63"),
+}
+KNOWN_PATH_NAMES = {path.as_posix(): name for name, path in DEFAULT_METHODS.items()}
+
+
+def _method_name_for_path(path: Path) -> str:
+    normalized = path.as_posix().rstrip("/")
+    return KNOWN_PATH_NAMES.get(normalized, _safe_name(path.name))
+
+
+def _candidate_roots(extra_roots: list[Path]) -> list[Path]:
+    roots = [Path("baseline/outputs"), Path("method/outputs"), Path("checkpoints")]
+    for root in extra_roots:
+        roots.append(root)
+        roots.append(root / "outputs")
+    return roots
+
+
+def _discover_output_dirs(extra_roots: list[Path]) -> dict[str, Path]:
+    methods: dict[str, Path] = {}
+    seen_roots: set[str] = set()
+    for root in _candidate_roots(extra_roots):
+        root_key = root.as_posix().rstrip("/")
+        if root_key in seen_roots:
+            continue
+        seen_roots.add(root_key)
+        if not root.exists():
+            continue
+        for pred_file in sorted(root.glob("*/predictions.npz")):
+            method_path = pred_file.parent
+            methods.setdefault(_method_name_for_path(method_path), method_path)
+    return methods
+
+
+def _collect_methods(args: argparse.Namespace) -> dict[str, Path]:
+    methods = _discover_output_dirs(args.roots)
+    for name, path in {
+        "plain": args.plain,
+        "random": args.random,
+        "idface_341_341": args.idface,
+        "idface_341_63": args.idface_compressed,
+    }.items():
+        methods[name] = path
+    for name, path in args.method:
+        methods[name] = path
+    return {
+        name: path
+        for name, path in sorted(methods.items())
+        if (path / "predictions.npz").exists()
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--plain", type=Path, default=Path("baseline/outputs/plain_synthetic"))
-    parser.add_argument("--random", type=Path, default=Path("baseline/outputs/random_synthetic"))
-    parser.add_argument("--idface", type=Path, default=Path("method/outputs/idface_synthetic"))
-    parser.add_argument("--idface-compressed", type=Path, default=Path("method/outputs/idface_synthetic_beta63"))
+    parser.add_argument(
+        "roots",
+        nargs="*",
+        type=Path,
+        help="Optional output/checkpoint roots to scan for */predictions.npz directories.",
+    )
+    parser.add_argument("--plain", type=Path, default=DEFAULT_METHODS["plain"])
+    parser.add_argument("--random", type=Path, default=DEFAULT_METHODS["random"])
+    parser.add_argument("--idface", type=Path, default=DEFAULT_METHODS["idface_341_341"])
+    parser.add_argument("--idface-compressed", type=Path, default=DEFAULT_METHODS["idface_341_63"])
     parser.add_argument("--method", action="append", default=[], type=_parse_method_arg, help="Extra NAME=PATH prediction artifact to score.")
     parser.add_argument("--out", type=Path, default=Path("scoring/scores.json"))
     args = parser.parse_args()
 
-    results = {}
-    for name, path in [
-        ("plain", args.plain),
-        ("random", args.random),
-        ("idface_341_341", args.idface),
-        ("idface_341_63", args.idface_compressed),
-        *args.method,
-    ]:
-        if (path / "predictions.npz").exists():
-            results[name] = evaluate_method(name, path)
+    results = {
+        name: evaluate_method(name, path)
+        for name, path in _collect_methods(args).items()
+    }
 
     output = {"experiments": {"synthetic_identification": {"results": results}}}
     args.out.parent.mkdir(parents=True, exist_ok=True)

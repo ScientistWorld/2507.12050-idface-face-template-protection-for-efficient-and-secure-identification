@@ -77,7 +77,7 @@
         "mean_genuine_rank_margin": {"higher_is_better": true, "coefficient": 0.25, "description": "Average score gap between the true enrolled identity and the best wrong identity on genuine queries; larger margins catch fragile rank-only shortcuts."},
         "open_set_score_auc": {"higher_is_better": true, "coefficient": 0.45, "description": "Threshold-independent probability that a genuine true-identity score exceeds an impostor query's strongest gallery score."},
         "ciphertext_additions_per_query": {"higher_is_better": false, "coefficient": -0.08, "description": "Machine-independent encrypted additions required per query; missing non-baseline metadata is scored conservatively."},
-        "ciphertext_multiplications_per_query": {"higher_is_better": false, "coefficient": -0.35, "description": "Machine-independent encrypted multiplications required per query, penalizing methods that lose the paper's addition-only advantage."},
+        "ciphertext_multiplications_per_query": {"higher_is_better": false, "coefficient": -0.35, "description": "Machine-independent protected-domain multiplications required per query; lower is better because these operations are substantially more expensive than additions."},
         "ciphertext_rotations_per_query": {"higher_is_better": false, "coefficient": -0.30, "description": "Machine-independent encrypted rotations required per query."},
         "decryptions_per_query": {"higher_is_better": false, "coefficient": -0.08, "description": "Number of decryptions required per query."},
         "pack": {"higher_is_better": true, "coefficient": 0.08, "description": "Number of protected templates packed per plaintext slot, rewarding space-efficient encoding."},
