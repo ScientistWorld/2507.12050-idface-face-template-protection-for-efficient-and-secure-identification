@@ -71,6 +71,7 @@
         "top1_identification": {"higher_is_better": true, "coefficient": 0.5},
         "tpir_at_fpir_0.1": {"higher_is_better": true, "coefficient": 0.7},
         "tpir_at_fpir_0.01": {"higher_is_better": true, "coefficient": 1.0},
+        "mean_genuine_rank_margin": {"higher_is_better": true, "coefficient": 0.3, "description": "Average score gap between the true enrolled identity and the best wrong identity on genuine queries; larger margins catch fragile rank-only shortcuts."},
         "ciphertext_additions_per_query": {"higher_is_better": false, "coefficient": -0.1},
         "ciphertext_multiplications_per_query": {"higher_is_better": false, "coefficient": -0.3},
         "ciphertext_rotations_per_query": {"higher_is_better": false, "coefficient": -0.3},
