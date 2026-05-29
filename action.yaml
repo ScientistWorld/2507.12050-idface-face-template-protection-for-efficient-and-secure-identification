@@ -1,9 +1,4 @@
-# This iteration writes files only — do NOT submit compute jobs.
-# Once you set action to 'done', STOP immediately.
-# Do NOT sleep, poll, or wait. The system reads this file
-# only after your turn ends.
-action: done
+action: submit
 gpus: 0
 test: false
-milestone: none
-notes: "Validation fixes applied; python validate.py passes; no GPU work requested."
+notes: "Run split post-hoc scoring over saved prediction artifacts; populate scores_train.json and scores_test.json."

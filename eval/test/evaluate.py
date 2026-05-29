@@ -169,9 +169,22 @@ def _method_name_for_path(path: Path) -> str:
     return KNOWN_PATH_NAMES.get(normalized, _safe_name(path.name))
 
 
-def _discover_output_dirs() -> dict[str, Path]:
+def _candidate_roots(extra_roots: list[Path]) -> list[Path]:
+    roots = [Path("baseline/outputs"), Path("method/outputs"), Path("checkpoints")]
+    for root in extra_roots:
+        roots.append(root)
+        roots.append(root / "outputs")
+    return roots
+
+
+def _discover_output_dirs(extra_roots: list[Path]) -> dict[str, Path]:
     methods: dict[str, Path] = {}
-    for root in (Path("baseline/outputs"), Path("method/outputs"), Path("checkpoints")):
+    seen_roots: set[str] = set()
+    for root in _candidate_roots(extra_roots):
+        root_key = root.as_posix().rstrip("/")
+        if root_key in seen_roots:
+            continue
+        seen_roots.add(root_key)
         if not root.exists():
             continue
         for pred_file in sorted(root.glob("*/predictions.npz")):
@@ -205,7 +218,7 @@ def _train_score_methods(path: Path) -> dict[str, Path | None] | None:
 
 
 def _collect_methods(args: argparse.Namespace) -> dict[str, Path]:
-    methods = _discover_output_dirs()
+    methods = _discover_output_dirs(args.roots)
     for name, path in {
         "plain": args.plain,
         "random": args.random,
@@ -238,6 +251,12 @@ def _collect_methods(args: argparse.Namespace) -> dict[str, Path]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "roots",
+        nargs="*",
+        type=Path,
+        help="Optional output/checkpoint roots to scan for */predictions.npz directories.",
+    )
     parser.add_argument("--plain", type=Path, default=DEFAULT_METHODS["plain"])
     parser.add_argument("--random", type=Path, default=DEFAULT_METHODS["random"])
     parser.add_argument("--idface", type=Path, default=DEFAULT_METHODS["idface_341_341"])
