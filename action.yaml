@@ -6,4 +6,4 @@ action: done
 gpus: 0
 test: false
 milestone: none
-notes: "Train/test evaluation design improved and committed in be6d06a; no GPU work requested."
+notes: "Validation fixes applied; python validate.py passes; no GPU work requested."
