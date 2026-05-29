@@ -1,4 +1,5 @@
-action: done
+action: submit
 gpus: 0
+milestone: core_claim_plus
 test: false
-notes: "Even/odd row split over saved prediction artifacts; 48 train metrics, 48 test metrics; proposed TPIR@0.01 gaps are +0.003 for idface_341_341 and +0.008 for idface_341_63; plaintext/random baselines saturate as expected but proposed methods retain non-saturated rank, margin, AUC, and strict-TPIR signal."
+notes: "Run full deterministic reproduction, then regenerate train/test split scores; verifies actual IDFace method path for core_claim_plus."

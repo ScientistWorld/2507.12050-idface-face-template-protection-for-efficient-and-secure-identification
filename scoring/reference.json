@@ -2,7 +2,7 @@
   "experiments": {
     "face_benchmark_accuracy": {
       "description": "Paper Table 3: AdaFace-IResNet101 face verification/identification accuracy with and without IDFace.",
-      "weight": 0.0,
+      "weight": 0.001,
       "primary_metric": "ijbc_verification_tar_fpr_1e-3",
       "metrics": {
         "lfw_accuracy": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper verification accuracy on LFW; not scored by the portable local gym."},
@@ -48,7 +48,7 @@
     },
     "efficiency_1m": {
       "description": "Paper Table 2 and Table 1: 1M-identity identification efficiency and operation counts.",
-      "weight": 0.0,
+      "weight": 0.001,
       "primary_metric": "storage_gb",
       "metrics": {
         "identify_seconds": {"higher_is_better": false, "coefficient": 0.0, "description": "Context-only paper wall-clock identification time retained only so reported paper rows validate; it is not scored by the portable local gym."},
@@ -65,7 +65,7 @@
     },
     "synthetic_identification": {
       "description": "Portable reproduction benchmark: unit-vector biometric identification on generated embeddings.",
-      "weight": 1.0,
+      "weight": 0.998,
       "primary_metric": "tpir_at_fpir_0.01",
       "metrics": {
         "top1_identification": {"higher_is_better": true, "coefficient": 0.45, "description": "Closed-set fraction of genuine queries whose highest-scoring gallery entry has the true identity."},
