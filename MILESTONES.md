@@ -24,3 +24,8 @@
 - Confirmed the implementation is the IDFace algorithmic computation rather than a surrogate: top-alpha ternary transform, positive/negative splitting, base-`p` packing, additive packed inner products, and decoding are all present.
 - Verified the evaluator reads prediction artifacts independently from `method/`; `uv run --with numpy bash scripts/evaluate.sh`, `python validate.py --compare`, `python validate.py --post-reproducer`, and `uv run --with numpy python method/self_check.py` all passed.
 - Restored the reset milestone to `core_claim_plus`.
+
+### [2026-05-29 00:30] - core_claim_plus
+- Added a pure-Python Paillier-backed IDFace smoke test to exercise actual randomized encrypted template storage and additive homomorphic matching on a small subset.
+- Updated the main evaluator to emit every declared synthetic metric and score the Paillier artifact.
+- Local `uv run --with numpy bash scripts/reproduce.sh` regenerated `scoring/scores.json`; `python validate.py --compare` and `python validate.py --post-reproducer` passed.

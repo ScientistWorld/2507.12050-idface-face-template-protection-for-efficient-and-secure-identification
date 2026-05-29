@@ -20,10 +20,13 @@
 - Continuing audit found that the compressed packing implementation used `max(alpha,beta)+1` as the packing base. The paper's decoded digit bound is `min(alpha,beta)`, so this has been fixed to `min(alpha,beta)+1` and a deterministic method self-check was added. The old `scores.json` still reflects the pre-fix run until the queued CPU test completes.
 - A follow-up check at 2026-05-28 23:39 UTC found no new post-fix job directory, so `action.yaml` was refreshed to submit the packaged CPU reproduction again.
 - Because no new job directory appeared after repeated valid submissions and the local shell does not provide `apptainer`, a targeted refresh was run with `uv run --with numpy`: `method/self_check.py`, the corrected compressed IDFace method, `eval/evaluate.py`, and both validation modes. This updated `scoring/scores.json` to the corrected `idface_341_63` packing factor of `8`.
+- Added a pure-Python Paillier encrypted IDFace smoke test. The current local run encrypts 8,192 packed template components, performs randomized additive homomorphic matching on a 64-identity subset, and verifies `max_plain_encrypted_score_error = 0.0`.
+- Updated the main evaluator to compute all declared synthetic metrics (`mean_reciprocal_rank`, `tpir_at_fpir_0.001`, rank margin, and open-set AUC) and to include conservative operation defaults for arbitrary method outputs.
 
 ## What Remains
 
-- The portable reproduction is complete at `core_claim_plus`.
+- A CPU container job is being submitted to verify the Paillier-backed encrypted smoke run in the packaged environment.
+- The portable reproduction is otherwise complete at `core_claim_plus`.
 - Higher milestones would require acquiring the original AdaFace/WebFace12M embedding pipeline and restricted/discontinued face benchmarks, which is beyond the reusable synthetic gym packaged here.
 
 ## Issues Encountered
@@ -33,8 +36,9 @@
 - First container build failed because `ghcr.io/astral-sh/uv:python3.11-bookworm-slim` is not an accepted portable Docker Hub base. The container now uses `python:3.11-slim-bookworm`, and `setup.sh` falls back to `python -m pip install numpy` if `uv` is unavailable.
 - Fixed the synthetic generator to scale Gaussian noise by `sqrt(dim)`, and aligned emitted evaluation metrics with `scoring/reference.json`.
 - Corrected the compressed IDFace packing base from `max(alpha,beta)+1` to `min(alpha,beta)+1`; this affects the reported packing factor for the `alpha=341,beta=63` setting but not the transformed score arithmetic.
+- Added real randomized Paillier encryption for the small encrypted smoke test after a method audit found that the prior implementation only exercised plaintext packed arithmetic.
 
 ## Deviations from Paper
 
 - Exact face datasets are not used in the portable benchmark: IJB-C distribution is discontinued, AgeDB requires an email/password flow, and the full AdaFace/WebFace12M pipeline is heavyweight for this gym.
-- The implementation uses a deterministic additive HE mock instead of IPCL/HEAAN ciphertext objects. It preserves IDFace's transform/packing/additive-inner-product/decode computation and records machine-independent operation counts.
+- Uses a pure-Python Paillier implementation for a small encrypted smoke test instead of optimized IPCL/HEAAN ciphertext libraries. The main benchmark still uses packed integer arithmetic to keep the reusable synthetic accuracy surface lightweight.
