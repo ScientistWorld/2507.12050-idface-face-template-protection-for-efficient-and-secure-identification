@@ -1,4 +1,4 @@
-action: submit
+action: done
 gpus: 0
 test: false
-notes: "Run split post-hoc scoring over saved prediction artifacts; populate scores_train.json and scores_test.json."
+notes: "Even/odd row split over saved prediction artifacts; 48 train metrics, 48 test metrics; proposed TPIR@0.01 gaps are +0.003 for idface_341_341 and +0.008 for idface_341_63; plaintext/random baselines saturate as expected but proposed methods retain non-saturated rank, margin, AUC, and strict-TPIR signal."
