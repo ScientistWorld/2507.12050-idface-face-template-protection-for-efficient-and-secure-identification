@@ -2,8 +2,8 @@
 # Once you set action to 'done', STOP immediately.
 # Do NOT sleep, poll, or wait. The system reads this file
 # only after your turn ends.
-action: pending
+action: done
 gpus: 0
 test: false
-milestone: core_claim_plus
-notes: ""
+milestone: none
+notes: "Train/test evaluation design improved and committed in be6d06a; no GPU work requested."
