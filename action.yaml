@@ -1,2 +1,5 @@
-action: done
-notes: "Made run.sh use repo-relative checkpoints and verified download/shared path packaging checks pass."
+action: submit
+gpus: 0
+test: true
+milestone: core_claim_plus
+notes: "CPU container verification for the updated reproduction, including the Paillier encrypted IDFace smoke test and full validation."
