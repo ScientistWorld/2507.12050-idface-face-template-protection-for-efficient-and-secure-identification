@@ -10,4 +10,4 @@ On the portable synthetic identification benchmark:
 - IDFace `alpha=341,beta=63`: top-1 `0.936`, `tpir_at_fpir_0.01 = 0.714`, zero ciphertext multiplications and rotations, with additive operations reduced from `680` to `124`.
 - Paillier encrypted IDFace small subset: top-1 `1.0`, `tpir_at_fpir_0.01 = 0.9375`, zero score error versus plaintext packed IDFace arithmetic, and randomized encrypted storage for 8,192 packed template components.
 
-This supports the core paper claim that IDFace can preserve identification utility using an additive-only encrypted matching computation, and the additional compressed setting shows the expected accuracy/efficiency trade-off.
+The scored synthetic benchmark now includes `protected_template_storage`, so unprotected raw-vector nearest-neighbor artifacts do not receive full credit solely by matching retrieval accuracy. This supports the core paper claim that IDFace can preserve identification utility using an additive-only encrypted matching computation, and the additional compressed setting shows the expected accuracy/efficiency trade-off.

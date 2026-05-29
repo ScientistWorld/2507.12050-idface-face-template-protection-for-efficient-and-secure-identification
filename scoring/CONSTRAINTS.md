@@ -4,5 +4,6 @@
 - Keep embedding dimension fixed at 512.
 - Do not train a classifier or surrogate model to map queries to identities.
 - Evaluation must consume prediction artifacts written by `method/` or `baseline/`.
-- IDFace-family methods must use top-magnitude ternary transformation, positive/negative splitting, base-`p` packing, additive database inner products, and decoding.
-- Encrypted IDFace variants must store packed enrolled templates as randomized ciphertexts and recover scores only after homomorphic accumulation and decryption.
+- Submitted protected methods must not store enrolled gallery templates as raw reusable unit vectors.
+- Protected methods must report machine-independent operation metadata used by the evaluator.
+- Encrypted variants must recover scores only after computation over protected stored templates followed by the appropriate reveal/decode step.

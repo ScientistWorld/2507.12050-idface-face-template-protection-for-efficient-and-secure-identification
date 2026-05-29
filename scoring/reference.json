@@ -65,6 +65,7 @@
     },
     "synthetic_identification": {
       "description": "Portable reproduction benchmark: unit-vector biometric identification on generated embeddings.",
+      "notes": "This experiment is the local reusable gym benchmark because the original face datasets and full embedding pipeline are not bundled. Reference rows are target/anchor values for the generated benchmark, not paper-published results; the paper-published context values are retained in the zero-weight face_benchmark_accuracy and efficiency_1m experiments.",
       "weight": 0.998,
       "primary_metric": "tpir_at_fpir_0.01",
       "metrics": {
@@ -79,7 +80,8 @@
         "ciphertext_multiplications_per_query": {"higher_is_better": false, "coefficient": -0.35, "description": "Machine-independent encrypted multiplications required per query, penalizing methods that lose the paper's addition-only advantage."},
         "ciphertext_rotations_per_query": {"higher_is_better": false, "coefficient": -0.30, "description": "Machine-independent encrypted rotations required per query."},
         "decryptions_per_query": {"higher_is_better": false, "coefficient": -0.08, "description": "Number of decryptions required per query."},
-        "pack": {"higher_is_better": true, "coefficient": 0.08, "description": "Number of protected templates packed per plaintext slot, rewarding space-efficient encoding."}
+        "pack": {"higher_is_better": true, "coefficient": 0.08, "description": "Number of protected templates packed per plaintext slot, rewarding space-efficient encoding."},
+        "protected_template_storage": {"higher_is_better": true, "coefficient": 1.2, "description": "Whether enrolled templates are stored in a protected representation rather than as reusable raw unit vectors."}
       },
       "results": {
         "plain": {
@@ -95,7 +97,8 @@
           "ciphertext_multiplications_per_query": 0,
           "ciphertext_rotations_per_query": 0,
           "decryptions_per_query": 0,
-          "pack": 1
+          "pack": 1,
+          "protected_template_storage": 0
         },
         "random": {
           "type": "baseline",
@@ -110,7 +113,8 @@
           "ciphertext_multiplications_per_query": 0,
           "ciphertext_rotations_per_query": 0,
           "decryptions_per_query": 0,
-          "pack": 0
+          "pack": 0,
+          "protected_template_storage": 0
         },
         "idface_341_341": {
           "type": "proposed",
@@ -125,7 +129,8 @@
           "ciphertext_multiplications_per_query": 0,
           "ciphertext_rotations_per_query": 0,
           "decryptions_per_query": 2,
-          "pack": 5
+          "pack": 5,
+          "protected_template_storage": 1
         },
         "idface_341_63": {
           "type": "proposed",
@@ -140,7 +145,8 @@
           "ciphertext_multiplications_per_query": 0,
           "ciphertext_rotations_per_query": 0,
           "decryptions_per_query": 2,
-          "pack": 8
+          "pack": 8,
+          "protected_template_storage": 1
         },
         "idface_paillier_small": {
           "type": "proposed",
@@ -155,7 +161,8 @@
           "ciphertext_multiplications_per_query": 0,
           "ciphertext_rotations_per_query": 0,
           "decryptions_per_query": 2,
-          "pack": 8
+          "pack": 8,
+          "protected_template_storage": 1
         }
       }
     }

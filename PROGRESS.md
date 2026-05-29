@@ -22,6 +22,7 @@
 - Because no new job directory appeared after repeated valid submissions and the local shell does not provide `apptainer`, a targeted refresh was run with `uv run --with numpy`: `method/self_check.py`, the corrected compressed IDFace method, `eval/evaluate.py`, and both validation modes. This updated `scoring/scores.json` to the corrected `idface_341_63` packing factor of `8`.
 - Added a pure-Python Paillier encrypted IDFace smoke test. The current local run encrypts 8,192 packed template components, performs randomized additive homomorphic matching on a 64-identity subset, and verifies `max_plain_encrypted_score_error = 0.0`.
 - Updated the main evaluator to compute all declared synthetic metrics (`mean_reciprocal_rank`, `tpir_at_fpir_0.001`, rank margin, and open-set AUC) and to include conservative operation defaults for arbitrary method outputs.
+- Final verification tightened the gym scoring by adding a `protected_template_storage` metric to the synthetic benchmark, so future methods must preserve protected enrolled-template storage instead of winning with unprotected raw-vector search.
 
 ## What Remains
 
@@ -37,6 +38,7 @@
 - Fixed the synthetic generator to scale Gaussian noise by `sqrt(dim)`, and aligned emitted evaluation metrics with `scoring/reference.json`.
 - Corrected the compressed IDFace packing base from `max(alpha,beta)+1` to `min(alpha,beta)+1`; this affects the reported packing factor for the `alpha=341,beta=63` setting but not the transformed score arithmetic.
 - Added real randomized Paillier encryption for the small encrypted smoke test after a method audit found that the prior implementation only exercised plaintext packed arithmetic.
+- Final verification found method-specific leakage in high-level scoring guidance and rewrote the strict method-agnostic docs to describe the protected-identification problem rather than the paper's implementation details.
 
 ## Deviations from Paper
 

@@ -1,12 +1,11 @@
 # Targets
 
-Primary target: maximize `tpir_at_fpir_0.01` in `synthetic_identification` while preserving IDFace's additive-only encrypted database matching.
+Primary target: maximize `tpir_at_fpir_0.01` in `synthetic_identification` while preserving protected enrolled-template storage.
 
 Secondary targets:
 
-- Keep `ciphertext_multiplications_per_query = 0`.
-- Keep `ciphertext_rotations_per_query = 0`.
-- Report additive count, decryptions, and packing factor for IDFace-style methods.
-- Cover both `idface_341_341` and the compressed `idface_341_63` setting.
-- Keep `idface_paillier_small` passing with zero encrypted/plain packed-score error.
+- Keep expensive encrypted-operation counts low.
+- Report additive count, decryptions, compactness/packing factor, and protected-storage status for protected methods.
+- Preserve ranking quality beyond top-1 through MRR, margin, and open-set AUC.
+- Keep the small encrypted-computation check passing with no score drift from the submitted protected representation.
 - Improve identification accuracy without increasing embedding dimension or using additional training data.

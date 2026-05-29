@@ -29,3 +29,8 @@
 - Added a pure-Python Paillier-backed IDFace smoke test to exercise actual randomized encrypted template storage and additive homomorphic matching on a small subset.
 - Updated the main evaluator to emit every declared synthetic metric and score the Paillier artifact.
 - Local `uv run --with numpy bash scripts/reproduce.sh` regenerated `scoring/scores.json`; `python validate.py --compare` and `python validate.py --post-reproducer` passed.
+
+### [2026-05-29 01:05] - core_claim_plus
+- Final verification preserved `core_claim_plus` after auditing folder structure, method/problem separation, reusable evaluation, scoring coefficients, and train/test evaluation artifacts.
+- Rewrote method-agnostic scoring guidance to remove implementation details and added `protected_template_storage` as a scored constraint so unprotected raw-template search cannot dominate the gym.
+- Re-ran `scripts/reproduce.sh`, `scripts/evaluate_train.sh`, `scripts/evaluate_test.sh`, `python validate.py --compare`, and `python validate.py --post-reproducer`; all passed.

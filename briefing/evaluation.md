@@ -14,6 +14,7 @@ Metrics:
 - `top1_identification`: fraction of genuine queries whose highest-scoring gallery identity is correct.
 - `tpir_at_fpir_0.1`: true-positive identification rate when the threshold is set from impostor queries at FPIR 0.1.
 - `tpir_at_fpir_0.01`: true-positive identification rate at FPIR 0.01.
-- Operation-count metrics report whether a protected method keeps encrypted matching addition-only.
+- `mean_reciprocal_rank`, `mean_genuine_rank_margin`, and `open_set_score_auc`: ranking, margin, and threshold-independent separation checks.
+- Resource and protection metrics are read from method metadata. They report machine-independent operation counts, packing/compactness, and whether enrolled templates are stored in a protected representation instead of raw reusable unit vectors.
 
 `scripts/evaluate.sh` writes `scoring/scores.json`.

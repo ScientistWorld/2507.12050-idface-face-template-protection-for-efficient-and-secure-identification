@@ -44,6 +44,7 @@ def main() -> None:
         "plaintext_bits": args.plaintext_bits,
         "operation_counts": db.operation_counts(),
     }
+    metadata["operation_counts"]["protected_template_storage"] = 1.0
     (args.out / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n")
 
 

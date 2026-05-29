@@ -112,6 +112,7 @@ def _baseline_operation_metrics(name: str) -> dict[str, float] | None:
             "ciphertext_rotations_per_query": 0.0,
             "decryptions_per_query": 0.0,
             "pack": 1.0,
+            "protected_template_storage": 0.0,
         }
     if name == "random":
         return {
@@ -120,6 +121,7 @@ def _baseline_operation_metrics(name: str) -> dict[str, float] | None:
             "ciphertext_rotations_per_query": 0.0,
             "decryptions_per_query": 0.0,
             "pack": 0.0,
+            "protected_template_storage": 0.0,
         }
     return None
 
@@ -131,6 +133,7 @@ def _missing_operation_metrics() -> dict[str, float]:
         "ciphertext_rotations_per_query": 1_000_000_000.0,
         "decryptions_per_query": 1_000_000_000.0,
         "pack": 0.0,
+        "protected_template_storage": 0.0,
     }
 
 
@@ -151,6 +154,7 @@ def evaluate_method(name: str, path: Path) -> dict[str, float]:
             "ciphertext_rotations_per_query",
             "decryptions_per_query",
             "pack",
+            "protected_template_storage",
         ):
             if key in counts:
                 metrics[key] = float(counts[key])

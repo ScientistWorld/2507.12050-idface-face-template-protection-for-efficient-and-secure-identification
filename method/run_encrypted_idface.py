@@ -118,6 +118,7 @@ def main() -> None:
             "actual_plaintext_scalar_multiplications": genuine_meta["actual_plaintext_scalar_multiplications"] + impostor_meta["actual_plaintext_scalar_multiplications"],
             "actual_decryptions": genuine_meta["actual_decryptions"] + impostor_meta["actual_decryptions"],
             "max_plain_encrypted_score_error": max_error,
+            "protected_template_storage": 1.0,
         }
     )
     metadata = {
