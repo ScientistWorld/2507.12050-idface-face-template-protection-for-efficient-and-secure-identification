@@ -66,7 +66,7 @@ def encrypted_scores(db: IDFaceDatabase, queries: np.ndarray, key_bits: int) -> 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", type=Path, default=Path("data/synthetic_embeddings.npz"))
-    parser.add_argument("--out", type=Path, default=Path("method/outputs/idface_paillier_small"))
+    parser.add_argument("--out", type=Path, default=Path("method/smoke/paillier_small"))
     parser.add_argument("--identities", type=int, default=64)
     parser.add_argument("--genuine-queries", type=int, default=32)
     parser.add_argument("--impostor-queries", type=int, default=32)
@@ -109,27 +109,33 @@ def main() -> None:
         genuine_labels=genuine_labels,
         gallery_labels=gallery_labels,
     )
-    operation_counts = db.operation_counts()
-    operation_counts.update(
-        {
-            "encrypted_ciphertexts": genuine_meta["encrypted_ciphertexts"],
-            "paillier_key_bits": genuine_meta["paillier_key_bits"],
-            "actual_homomorphic_additions": genuine_meta["actual_homomorphic_additions"] + impostor_meta["actual_homomorphic_additions"],
-            "actual_plaintext_scalar_multiplications": genuine_meta["actual_plaintext_scalar_multiplications"] + impostor_meta["actual_plaintext_scalar_multiplications"],
-            "actual_decryptions": genuine_meta["actual_decryptions"] + impostor_meta["actual_decryptions"],
-            "max_plain_encrypted_score_error": max_error,
-            "protected_template_storage": 1.0,
-        }
-    )
+    n_queries = len(genuine) + len(impostor)
+    total_additions = genuine_meta["actual_homomorphic_additions"] + impostor_meta["actual_homomorphic_additions"]
+    total_mults = genuine_meta["actual_plaintext_scalar_multiplications"] + impostor_meta["actual_plaintext_scalar_multiplications"]
+    total_decryptions = genuine_meta["actual_decryptions"] + impostor_meta["actual_decryptions"]
     metadata = {
-        "method": "idface_paillier",
+        "method": "idface_paillier_smoke_check",
+        "note": (
+            "Correctness check only (not scored): decrypted Paillier scores equal the packed plaintext "
+            "IDFace arithmetic. This pure-Python Paillier run adds one encrypted column per active probe "
+            "coordinate and per packed block, so its measured counts scale with the number of blocks; "
+            "the paper's 2(beta-1) additions / 2 decryptions are per packed SIMD block."
+        ),
         "alpha": args.alpha,
         "beta": args.beta,
         "plaintext_bits": args.plaintext_bits,
+        "paillier_key_bits": args.key_bits,
         "identities": args.identities,
         "genuine_queries": len(genuine),
         "impostor_queries": len(impostor),
-        "operation_counts": operation_counts,
+        "packed_blocks": int(db.enc_pos.shape[0]),
+        "templates_per_block": int(db.pack),
+        "encrypted_ciphertexts": genuine_meta["encrypted_ciphertexts"],
+        "measured_homomorphic_additions_per_query": total_additions / n_queries,
+        "measured_plaintext_scalar_multiplications_per_query": total_mults / n_queries,
+        "measured_decryptions_per_query": total_decryptions / n_queries,
+        "algorithmic_counts_per_block": {k: v for k, v in db.operation_counts().items() if k != "local_blocks"},
+        "max_plain_encrypted_score_error": max_error,
     }
     (args.out / "metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
 

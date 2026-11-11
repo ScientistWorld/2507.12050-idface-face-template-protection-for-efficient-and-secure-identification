@@ -1,85 +1,164 @@
 {
   "experiments": {
     "synthetic_identification": {
-      "results": {
-        "idface_341_341": {
+      "_context": {
+        "unprotected_float_cosine": {
+          "mean_reciprocal_rank": 0.9829590933236082,
+          "open_set_score_auc": 0.981656795,
+          "top1_identification": 0.9813,
+          "tpir_at_fpir_0.001": 0.9734,
+          "tpir_at_fpir_0.01": 0.9764,
+          "tpir_at_fpir_0.1": 0.979
+        }
+      },
+      "_diagnostics": {
+        "idface": {
+          "bits_per_template": 8.417852514885897,
           "ciphertext_additions_per_query": 680.0,
           "ciphertext_multiplications_per_query": 0.0,
-          "ciphertext_rotations_per_query": 0.0,
-          "decryptions_per_query": 2.0,
-          "mean_genuine_rank_margin": 0.12463343143463135,
-          "mean_reciprocal_rank": 1.0,
-          "open_set_score_auc": 0.9988885,
-          "pack": 5.0,
-          "protected_template_storage": 1.0,
-          "top1_identification": 1.0,
-          "tpir_at_fpir_0.001": 0.949,
-          "tpir_at_fpir_0.01": 0.989,
-          "tpir_at_fpir_0.1": 0.997
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 341.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
         },
-        "idface_341_63": {
+        "random_codes": {
+          "bits_per_template": 8.417852514885897,
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 341.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
+        },
+        "sign_random_subset": {
+          "bits_per_template": 8.417852514885897,
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 341.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
+        }
+      },
+      "budget": {
+        "max_code_dim": 512,
+        "max_mean_additions": 680.0,
+        "min_pack": 5,
+        "plaintext_bits": 50
+      },
+      "results": {
+        "idface": {
+          "mean_reciprocal_rank": 0.9773902427359346,
+          "open_set_score_auc": 0.9757013575,
+          "top1_identification": 0.9755,
+          "tpir_at_fpir_0.001": 0.9665,
+          "tpir_at_fpir_0.01": 0.9694,
+          "tpir_at_fpir_0.1": 0.9727
+        },
+        "random_codes": {
+          "mean_reciprocal_rank": 0.0010729639062006745,
+          "open_set_score_auc": 0.0002747525,
+          "top1_identification": 0.0002,
+          "tpir_at_fpir_0.001": 0.0,
+          "tpir_at_fpir_0.01": 0.0,
+          "tpir_at_fpir_0.1": 0.0
+        },
+        "sign_random_subset": {
+          "mean_reciprocal_rank": 0.9556145242760434,
+          "open_set_score_auc": 0.9516046325,
+          "top1_identification": 0.9486,
+          "tpir_at_fpir_0.001": 0.868,
+          "tpir_at_fpir_0.01": 0.9084,
+          "tpir_at_fpir_0.1": 0.9351
+        }
+      },
+      "slice": "test"
+    },
+    "synthetic_identification_compressed": {
+      "_context": {
+        "unprotected_float_cosine": {
+          "mean_reciprocal_rank": 0.9829590933236082,
+          "open_set_score_auc": 0.981656795,
+          "top1_identification": 0.9813,
+          "tpir_at_fpir_0.001": 0.9734,
+          "tpir_at_fpir_0.01": 0.9764,
+          "tpir_at_fpir_0.1": 0.979
+        }
+      },
+      "_diagnostics": {
+        "idface": {
+          "bits_per_template": 6.0,
           "ciphertext_additions_per_query": 124.0,
           "ciphertext_multiplications_per_query": 0.0,
-          "ciphertext_rotations_per_query": 0.0,
-          "decryptions_per_query": 2.0,
-          "mean_genuine_rank_margin": 0.060011956840753555,
-          "mean_reciprocal_rank": 0.9649115884115883,
-          "open_set_score_auc": 0.9300195,
-          "pack": 8.0,
-          "protected_template_storage": 1.0,
-          "top1_identification": 0.944,
-          "tpir_at_fpir_0.001": 0.451,
-          "tpir_at_fpir_0.01": 0.718,
-          "tpir_at_fpir_0.1": 0.862
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
-        "idface_paillier_small": {
+        "random_codes": {
+          "bits_per_template": 6.0,
           "ciphertext_additions_per_query": 124.0,
           "ciphertext_multiplications_per_query": 0.0,
-          "ciphertext_rotations_per_query": 0.0,
-          "decryptions_per_query": 2.0,
-          "mean_genuine_rank_margin": 0.09636981040239334,
-          "mean_reciprocal_rank": 1.0,
-          "open_set_score_auc": 0.994140625,
-          "pack": 8.0,
-          "protected_template_storage": 1.0,
-          "top1_identification": 1.0,
-          "tpir_at_fpir_0.001": 0.9375,
-          "tpir_at_fpir_0.01": 0.9375,
-          "tpir_at_fpir_0.1": 1.0
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
-        "plain": {
-          "ciphertext_additions_per_query": 0.0,
+        "sign_random_subset": {
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
           "ciphertext_multiplications_per_query": 0.0,
-          "ciphertext_rotations_per_query": 0.0,
-          "decryptions_per_query": 0.0,
-          "mean_genuine_rank_margin": 0.19272051751613617,
-          "mean_reciprocal_rank": 1.0,
-          "open_set_score_auc": 0.999999,
-          "pack": 1.0,
-          "protected_template_storage": 0.0,
-          "top1_identification": 1.0,
-          "tpir_at_fpir_0.001": 0.999,
-          "tpir_at_fpir_0.01": 1.0,
-          "tpir_at_fpir_0.1": 1.0
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
+        }
+      },
+      "budget": {
+        "max_code_dim": 512,
+        "max_mean_additions": 124.0,
+        "min_pack": 8,
+        "plaintext_bits": 50
+      },
+      "results": {
+        "idface": {
+          "mean_reciprocal_rank": 0.9703507507364766,
+          "open_set_score_auc": 0.96829163,
+          "top1_identification": 0.9677,
+          "tpir_at_fpir_0.001": 0.9393,
+          "tpir_at_fpir_0.01": 0.951,
+          "tpir_at_fpir_0.1": 0.9622
         },
-        "random": {
-          "ciphertext_additions_per_query": 0.0,
-          "ciphertext_multiplications_per_query": 0.0,
-          "ciphertext_rotations_per_query": 0.0,
-          "decryptions_per_query": 0.0,
-          "mean_genuine_rank_margin": -3.4528632164001465,
-          "mean_reciprocal_rank": 0.003445731038049181,
-          "open_set_score_auc": 9.3e-05,
-          "pack": 0.0,
-          "protected_template_storage": 0.0,
+        "random_codes": {
+          "mean_reciprocal_rank": 0.0007044417029824115,
+          "open_set_score_auc": 2.85e-05,
           "top1_identification": 0.0,
           "tpir_at_fpir_0.001": 0.0,
           "tpir_at_fpir_0.01": 0.0,
           "tpir_at_fpir_0.1": 0.0
+        },
+        "sign_random_subset": {
+          "mean_reciprocal_rank": 0.35700587307574305,
+          "open_set_score_auc": 0.319083145,
+          "top1_identification": 0.2812,
+          "tpir_at_fpir_0.001": 0.0321,
+          "tpir_at_fpir_0.01": 0.0868,
+          "tpir_at_fpir_0.1": 0.1731
         }
       },
-      "slice": "test",
-      "split": "odd query rows from predictions.npz; impostor threshold rows split the same way"
+      "slice": "test"
     }
   }
 }

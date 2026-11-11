@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
+# Reference method (IDFace). The evaluator runs the encoder named in
+# method/outputs/idface/encoder.json on the benchmark's templates; this script
+# only runs the method's own correctness checks.
 set -euo pipefail
 
-python data/generate_synthetic.py --out data/synthetic_embeddings.npz
-python method/run_idface.py --data data/synthetic_embeddings.npz --out method/outputs/idface_synthetic --alpha 341 --beta 341
-python method/run_idface.py --data data/synthetic_embeddings.npz --out method/outputs/idface_synthetic_beta63 --alpha 341 --beta 63
-python method/run_encrypted_idface.py --data data/synthetic_embeddings.npz --out method/outputs/idface_paillier_small
-scripts/evaluate.sh
+test -f method/outputs/idface/encoder.json
+python method/self_check.py
+[ -f data/synthetic_embeddings.npz ] || python data/generate_synthetic.py --out data/synthetic_embeddings.npz
+# Small real-Paillier run: decrypted packed scores must equal the plaintext packed arithmetic.
+python method/run_encrypted_idface.py --data data/synthetic_embeddings.npz --out method/smoke/paillier_small

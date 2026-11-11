@@ -1,0 +1,8 @@
+{
+  "description": "Signs of fixed random coordinates (no magnitude selection), same sparsity and cost as the reference.",
+  "command": ["python", "baseline/encode_sign_subset.py"],
+  "experiments": {
+    "synthetic_identification": {"args": ["--alpha", "341", "--beta", "341"]},
+    "synthetic_identification_compressed": {"args": ["--alpha", "341", "--beta", "63"]}
+  }
+}

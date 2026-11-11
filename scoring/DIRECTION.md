@@ -1,5 +1,7 @@
 # Direction
 
-Work within biometric template protection for large-scale identification using protected template representations compatible with privacy-preserving database search.
+Work within biometric template protection for large-scale identification under additively homomorphic encryption: find template representations whose encrypted inner products preserve identification accuracy at a fixed encrypted cost.
 
-Valid improvements include better protected representations, compact encodings, thresholding/calibration, and implementations of stronger secure-computation backends. Invalid improvements include switching to an unprotected nearest-neighbor system as the proposed method, training a separate identity classifier, changing the benchmark data, or increasing the embedding dimension.
+Valid improvements include better per-template integer encodings for the gallery or the probes, better use of the plaintext digit capacity (packing), learned or data-independent transforms applied before encoding, and representations that move the accuracy/cost frontier at either budget, especially the compressed one.
+
+Invalid improvements include matching with unprotected full-precision templates, encoders that look at other templates, labels or evaluation files, encoders that keep state between calls, training an identity classifier on the benchmark identities, and changing the benchmark, the evaluators or the budgets.

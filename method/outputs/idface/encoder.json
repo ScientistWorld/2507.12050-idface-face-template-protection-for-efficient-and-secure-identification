@@ -1,0 +1,8 @@
+{
+  "description": "IDFace: gallery T_alpha, probe T_beta ternary codes (paper operating points).",
+  "command": ["python", "method/encode_idface.py"],
+  "experiments": {
+    "synthetic_identification": {"args": ["--alpha", "341", "--beta", "341"]},
+    "synthetic_identification_compressed": {"args": ["--alpha", "341", "--beta", "63"]}
+  }
+}

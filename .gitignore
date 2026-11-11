@@ -8,8 +8,14 @@ __pycache__/
 .codex/
 .git-shims/
 shared/
-method/outputs/
-baseline/outputs/
+# Method/baseline output directories: only the encoder specs are tracked.
+method/outputs/**
+!method/outputs/*/
+!method/outputs/*/encoder.json
+baseline/outputs/**
+!baseline/outputs/*/
+!baseline/outputs/*/encoder.json
+method/smoke/
 
 # Auto-added by swarm
 environment/container.sif
@@ -101,3 +107,7 @@ python_wheels/
 core.[0-9]*
 core.*
 .git-credentials
+
+# Hardening audit scratch state and per-probe dumps
+redteam/hardening/state/
+redteam/hardening/results/dump_*/

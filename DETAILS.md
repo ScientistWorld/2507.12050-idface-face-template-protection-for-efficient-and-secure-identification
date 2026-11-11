@@ -2,78 +2,114 @@
 
 IDFace is a biometric template protection method for face identification. It transforms unit face embeddings into sparse ternary templates and packs multiple protected templates so encrypted database matching can be performed with additions instead of expensive encrypted multiplications.
 
-This reproduction implements the core IDFace computation and evaluates whether transformed protected templates preserve identification accuracy on a portable synthetic embedding benchmark. It also includes a small Paillier-backed encrypted run that verifies packed templates can be searched through additive homomorphic operations and decode to the same scores.
+This gym scores a template representation for additively homomorphic identification: the evaluator runs a method's per-template encoder on enrolled and probe templates of a synthetic face-embedding benchmark (a hidden fresh draw at test time), computes the decrypted match scores and the encrypted cost (ciphertext additions per probe, templates packed per plaintext slot) from the integer codes, and measures open-set identification accuracy within two fixed cost budgets taken from the paper's operating points, (341, 341) and the compressed (341, 63).
 
 ---
 
 # Problem Definition
 
-The task is privacy-preserving biometric identification over unit-norm templates.
+The task is privacy-preserving biometric identification with an encrypted enrolled database.
 
-Given an enrolled gallery of identity templates and a query template, the system must identify the matching enrolled subject when the query is genuine and reject non-enrolled impostor queries. Templates are fixed 512-dimensional real-valued unit vectors, matching quality is judged from gallery-query scores, and the benchmark fixes:
+A server holds one enrolled template per identity and must, for each incoming probe template, either name the enrolled identity it belongs to or reject it as not enrolled. Templates are fixed 512-dimensional real unit vectors (face-recognition embeddings). Enrolled templates must stay protected: the database is stored under an additively homomorphic encryption scheme, so the server can add encrypted values and combine them with plaintext probe data, then a key holder decrypts the resulting match scores.
 
-- one enrolled gallery template per identity,
-- genuine query templates with identity labels,
-- impostor query templates that should be rejected at calibrated thresholds.
+What a method controls is the **template representation**. A method maps each template, independently of every other template, to an integer code vector: enrolled templates to gallery codes, probes to probe codes. The encrypted database stores the gallery codes; for a probe, the server forms the inner products between the probe code and every encrypted gallery code using only ciphertext additions (a probe coordinate of magnitude k adds the corresponding encrypted column k times), and the decrypted inner products, normalized by the code norms, are the match scores. Signed codes are handled with two non-negative accumulators (contributions of matching and of opposite signs), and several gallery codes are packed into each plaintext slot as base-p digits, which is possible only when every decoded accumulator digit is small.
 
-The problem is method-agnostic. Any submitted method may use any protected representation or matching procedure, provided it writes gallery-query score matrices in the required artifact format and does not store enrolled gallery templates as raw reusable unit vectors when claiming protected-template performance.
+The representation therefore trades identification accuracy against encrypted cost:
 
-## Portable Dataset
+- **ciphertext additions per probe**: 2 × (L1 norm of the probe code − 1);
+- **templates per 50-bit plaintext slot**: the largest m with (B + 1)^m ≤ 2^50, where B = min(max ‖g‖₁ · max |q|, max ‖q‖₁ · max |g|) bounds every decoded digit.
 
-The gym uses a reproducible synthetic unit-vector benchmark in `data/generate_synthetic.py`. The generated data preserves the relevant identification structure: high-dimensional normalized templates, same-identity query variation, many enrolled identities, and impostor queries used to set false-positive identification thresholds.
+The benchmark fixes two encrypted-cost budgets, and the goal is the best open-set identification accuracy within each:
+
+| Experiment | Mean additions per probe | Templates per slot | Code dimension |
+|---|---|---|---|
+| `synthetic_identification` | ≤ 680 | ≥ 5 | ≤ 512 |
+| `synthetic_identification_compressed` | ≤ 124 | ≥ 8 | ≤ 512 |
+
+A method may use any per-template integer encoding (and may learn it from the development data), but it never sees identity labels at evaluation, never sees gallery and probe templates in the same call, and its codes must not depend on which other templates were encoded before or alongside.
+
+## Benchmark data
+
+Templates are synthetic 512-D unit vectors with the coordinate statistics of face embeddings (isotropic, Gaussian-like coordinates). Each identity has a center on the sphere; each sample has a per-sample quality ρ, its cosine to the center. Enrolled templates are good captures (ρ ∈ [0.75, 0.95]); probes have mixed quality: most are usable (ρ ∈ [0.5, 0.9]) and 5% are degraded (ρ ∈ [0.05, 0.5]). Genuine probes come from enrolled identities, impostor probes from never-enrolled identities, and the two are presented unlabeled and mixed. Each split has 10,000 enrolled identities, 10,000 genuine probes and 20,000 impostor probes.
+
+`data/generate_synthetic.py` writes the visible development split `data/synthetic_embeddings.npz` (with labels). The hidden test split is a fresh draw of the same distribution, generated by the test evaluator; its templates, identities and labels are never on disk.
 
 ---
 
 # Method
 
-IDFace protects biometric templates for large-scale identification by adapting the template representation to additive homomorphic encrypted database search.
+IDFace protects biometric templates for large-scale identification by adapting the template representation to additively homomorphic encrypted database search.
 
-The implementation follows the paper's algorithmic steps:
+The paper's algorithmic steps:
 
 1. Apply `T_alpha` to every enrolled unit vector: keep the `alpha` largest absolute components, replace them by their signs, and set all other components to zero.
 2. Split each ternary vector into positive and negative binary parts.
-3. Pack `m` transformed templates into one vector using base-`p` encoding.
+3. Pack `m` transformed templates into one vector using base-`p` encoding, `p = min(alpha, beta) + 1`, `m = floor(n / log2 p)` for an `n`-bit plaintext slot (50 bits for CKKS).
 4. For a query, apply `T_beta`, split signs, and compute four binary inner products between enrolled/query sign parts.
-5. Homomorphically add those four products into two packed accumulators: same-sign counts and opposite-sign counts.
-6. Decode packed accumulators and subtract opposite-sign counts from same-sign counts to recover transformed-template scores.
+5. Homomorphically add those four products into two packed accumulators (same-sign and opposite-sign counts): `2(beta - 1)` ciphertext additions, no multiplications or rotations, 2 decryptions.
+6. Decode the packed accumulators and subtract opposite-sign from same-sign counts to recover the transformed-template scores.
 
-The paper instantiates the additive database with Paillier or CKKS. This gym uses two execution modes:
+In this gym the reference method is the encoder `method/encode_idface.py` (steps 1 and 4), registered in `method/outputs/idface/encoder.json`. The evaluator computes exactly the decoded result of steps 2–6 (the integer inner products of the codes) and the cost of steps 3 and 5 from the codes. The reference runs the paper's operating points: `alpha=beta=341` (680 additions, 5 templates per slot) for `synthetic_identification` and `alpha=341, beta=63` (124 additions, 8 templates per slot) for `synthetic_identification_compressed`.
 
-- The main benchmark uses deterministic packed integer arrays to reproduce the IDFace arithmetic at useful synthetic-benchmark scale and records the corresponding encrypted operation counts.
-- A smaller `idface_paillier_small` smoke test uses a pure-Python randomized Paillier implementation for actual encrypted template storage, homomorphic additions/scalar multiplications, decryption, and decode. It checks that decrypted encrypted scores exactly match the packed IDFace arithmetic.
-
-The default reproduction runs the paper's high-accuracy setting `alpha=341,beta=341` and the compressed setting `alpha=341,beta=63`. The compressed setting uses the paper's smaller packing base `p=min(alpha,beta)+1`, so a 50-bit CKKS-style slot packs 8 templates at `beta=63` instead of 5 templates at `beta=341`.
+`method/idface.py` also implements the packed encode/decode database; `method/self_check.py` verifies that its packed computation equals the code inner products the evaluator scores, and `method/run_encrypted_idface.py` runs a small real-Paillier database (64 identities, 256-bit key) whose decrypted scores must equal the plaintext packed arithmetic.
 
 ## Deviations
 
-- Uses synthetic 512-D unit embeddings instead of AdaFace embeddings on gated/discontinued face benchmarks.
-- Uses a small pure-Python Paillier smoke test rather than optimized IPCL/HEAAN ciphertext libraries for the portable encrypted check.
-- Does not reproduce wall-clock speed; the evaluator uses machine-independent operation counts.
+- Synthetic 512-D templates with face-embedding-like coordinate statistics replace AdaFace embeddings of IJB-C and the verification benchmarks.
+- Encrypted search is evaluated through its exact decrypted result and machine-independent operation counts; no wall-clock HE timing (IPCL/HEaaN) is reproduced.
+- The gallery is 10,000 identities, not the paper's 1M-identity efficiency setting (the per-probe cost is per packed block and does not depend on gallery size).
 
 ---
 
 # Evaluation
 
-The evaluator reads prediction artifacts from submitted method or baseline output directories. It does not rerun the method or import method code.
+The evaluator runs each method's encoder itself and computes every scored number from the codes it returns. Nothing a method writes besides its codes (scores, labels, costs, flags, metadata) is read.
 
-Each artifact directory must contain `predictions.npz` with:
+## Method interface
 
-- `genuine_scores`: score matrix shaped `[num_genuine_queries, num_gallery]`
-- `impostor_scores`: score matrix shaped `[num_impostor_queries, num_gallery]`
-- `genuine_labels`: identity label for each genuine query
-- `gallery_labels`: identity label for each gallery template
+A method is a directory under `method/outputs/`, `baseline/outputs/` or `checkpoints/` containing `encoder.json`:
 
-Primary retrieval metrics:
+```json
+{
+  "command": ["python", "method/my_encoder.py"],
+  "experiments": {
+    "synthetic_identification": {"args": ["--my-option", "1"]},
+    "synthetic_identification_compressed": {"args": ["--my-option", "2"]}
+  }
+}
+```
 
-- `top1_identification`: fraction of genuine queries whose highest-scoring gallery identity is correct.
-- `tpir_at_fpir_0.1`: true-positive identification rate when the threshold is set from impostor queries at FPIR 0.1.
-- `tpir_at_fpir_0.01`: true-positive identification rate at FPIR 0.01.
-- `mean_reciprocal_rank`, `mean_genuine_rank_margin`, and `open_set_score_auc`: ranking, margin, and threshold-independent separation checks.
-- `tpir_at_fpir_0.001`: stricter tail operating point.
+For each experiment the evaluator runs, from the workspace root,
+`command + args + ["--role", "gallery"|"query", "--input", IN.npz, "--output", OUT.npz]`.
+`IN.npz` holds `templates`, a float32 array `[n, 512]` of unit vectors; the encoder must write `OUT.npz` with `codes`, an integer array `[n, D]`, `1 ≤ D ≤ 512`, the same `D` for both roles, `|code| ≤ 2^20`. Probe batches mix genuine and impostor probes in random order without labels.
 
-Resource and protection metrics are read from artifact metadata. They report machine-independent operation counts, compactness, and whether enrolled templates are stored in a protected representation instead of raw reusable unit vectors. Wall-clock runtime is not scored.
+Each experiment calls the encoder four times: a random 10% of the gallery; all probes (shuffled); the whole gallery (shuffled); a random 10% of the probes. Codes of the same template must be identical across calls, so an encoder must be a per-template function that keeps no state between calls and does not use other templates in the batch.
 
-`scripts/evaluate.sh` writes `scoring/scores.json`.
+A directory without a usable `encoder.json` entry for an experiment, an encoder that crashes, times out (10 min per call), or writes malformed, non-integer or wrongly shaped codes, codes that change between calls, or codes over the experiment's budget is a **failed run** for that experiment and receives the worst value (0) of every scored metric.
+
+## Scores and costs
+
+- Match score = cosine of the integer codes (0 for an all-zero code), i.e. the decrypted additive-HE inner product normalized by code norms.
+- Ciphertext additions per probe = 2 × (‖q‖₁ − 1), averaged over all probes.
+- Templates per 50-bit slot = largest m with (B + 1)^m ≤ 2^50, B = min(max‖g‖₁·max|q|, max‖q‖₁·max|g|) over all codes of the run.
+
+Budgets: `synthetic_identification` ≤ 680 additions and ≥ 5 templates per slot; `synthetic_identification_compressed` ≤ 124 additions and ≥ 8 templates per slot.
+
+## Metrics (per experiment, all higher is better)
+
+- `tpir_at_fpir_0.01` (primary): fraction of genuine probes whose true identity is the strict unique top match and whose score exceeds the threshold at which 1% of impostor probes are accepted (threshold from the benchmark's own impostor probes, accept on `>`).
+- `tpir_at_fpir_0.001`, `tpir_at_fpir_0.1`: the same at 0.1% and 10% FPIR.
+- `top1_identification`: closed-set rank-1 rate; a tie with a wrong identity is an error.
+- `mean_reciprocal_rank`: tied wrong identities rank ahead of the true one.
+- `open_set_score_auc`: probability that a genuine probe's true-identity score exceeds an impostor probe's highest score (ties ½).
+
+Each experiment's output also records `_diagnostics` (status, failure reason, additions, packing, code dimension per method) and `_context` (accuracy of unprotected float cosine matching on the same split, an unreachable upper reference). These are not scored.
+
+## Scripts
+
+- `scripts/evaluate_train.sh` scores every method directory on the visible development split and writes `scoring/scores_train.json`.
+- `scripts/evaluate_test.sh` (no arguments) scores every method directory on the hidden test split and writes `scoring/scores_test.json`.
+- `scripts/evaluate.sh` writes the development scores to `scoring/scores.json`.
 
 ---
 

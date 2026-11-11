@@ -1,28 +1,56 @@
 {
-  "experiments": {
+  "_paper_reported": {
+    "note": "Numbers reported in the paper (arXiv 2507.12050), kept unchanged for context. Table 3: AdaFace-IResNet101 (WebFace12M) face verification/identification accuracy in percent; Tables 1-2: 1M-identity identification time/storage on the authors' i7-11700K with IPCL/HEaaN. The gym does not reproduce face images, the AdaFace backbone, IJB-C, or wall-clock HE timings, so none of these values are on the gym's scale or targets it must match.",
     "face_benchmark_accuracy": {
       "description": "Paper Table 3: AdaFace-IResNet101 face verification/identification accuracy with and without IDFace.",
-      "weight": 0.001,
       "primary_metric": "ijbc_verification_tar_fpr_1e-3",
       "metrics": {
-        "lfw_accuracy": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper verification accuracy on LFW; not scored by the portable local gym."},
-        "cfp_fp_accuracy": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper verification accuracy on CFP-FP; not scored by the portable local gym."},
-        "agedb_accuracy": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper verification accuracy on AgeDB; not scored by the portable local gym."},
-        "ijbc_verification_tar_fpr_1e-3": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper IJB-C verification TAR at FPR 1e-3; not scored by the portable local gym."},
-        "ijbc_identification_tpir_fpir_1e-2": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper IJB-C identification TPIR at FPIR 1e-2; not scored by the portable local gym."},
-        "ijbc_identification_tpir_fpir_1e-3": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper IJB-C identification TPIR at FPIR 1e-3; not scored by the portable local gym."},
-        "ijbc_identification_tpir_fpir_1e-4": {"higher_is_better": true, "coefficient": 0.0, "description": "Context-only paper IJB-C identification TPIR at FPIR 1e-4; not scored by the portable local gym."}
+        "lfw_accuracy": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Context-only paper verification accuracy on LFW; not scored by the portable local gym."
+        },
+        "cfp_fp_accuracy": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Context-only paper verification accuracy on CFP-FP; not scored by the portable local gym."
+        },
+        "agedb_accuracy": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Context-only paper verification accuracy on AgeDB; not scored by the portable local gym."
+        },
+        "ijbc_verification_tar_fpr_1e-3": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Context-only paper IJB-C verification TAR at FPR 1e-3; not scored by the portable local gym."
+        },
+        "ijbc_identification_tpir_fpir_1e-2": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Context-only paper IJB-C identification TPIR at FPIR 1e-2; not scored by the portable local gym."
+        },
+        "ijbc_identification_tpir_fpir_1e-3": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Context-only paper IJB-C identification TPIR at FPIR 1e-3; not scored by the portable local gym."
+        },
+        "ijbc_identification_tpir_fpir_1e-4": {
+          "higher_is_better": true,
+          "coefficient": 0.0,
+          "description": "Context-only paper IJB-C identification TPIR at FPIR 1e-4; not scored by the portable local gym."
+        }
       },
       "results": {
         "plain": {
           "type": "baseline",
           "lfw_accuracy": 99.82,
           "cfp_fp_accuracy": 99.24,
-          "agedb_accuracy": 98.00,
+          "agedb_accuracy": 98.0,
           "ijbc_verification_tar_fpr_1e-3": 98.39,
           "ijbc_identification_tpir_fpir_1e-2": 96.42,
           "ijbc_identification_tpir_fpir_1e-3": 85.81,
-          "ijbc_identification_tpir_fpir_1e-4": 65.60
+          "ijbc_identification_tpir_fpir_1e-4": 65.6
         },
         "idface_341_341": {
           "type": "proposed",
@@ -48,121 +76,183 @@
     },
     "efficiency_1m": {
       "description": "Paper Table 2 and Table 1: 1M-identity identification efficiency and operation counts.",
-      "weight": 0.001,
       "primary_metric": "storage_gb",
       "metrics": {
-        "identify_seconds": {"higher_is_better": false, "coefficient": 0.0, "description": "Context-only paper wall-clock identification time retained only so reported paper rows validate; it is not scored by the portable local gym."},
-        "storage_gb": {"higher_is_better": false, "coefficient": 0.0, "description": "Context-only paper storage footprint for 1M identities; not scored by the portable local gym."},
-        "ciphertext_multiplications_per_query": {"higher_is_better": false, "coefficient": 0.0, "description": "Context-only paper count of encrypted multiplications per query; the portable gym scores its own artifact metadata instead."},
-        "ciphertext_rotations_per_query": {"higher_is_better": false, "coefficient": 0.0, "description": "Context-only paper count of encrypted rotations per query; the portable gym scores its own artifact metadata instead."}
-      },
-      "results": {
-        "plain": {"type": "baseline", "identify_seconds": 0.063, "storage_gb": 2.0, "ciphertext_multiplications_per_query": 0, "ciphertext_rotations_per_query": 0},
-        "hers_512": {"type": "baseline", "identify_seconds": 48.9, "storage_gb": 16.5, "ciphertext_multiplications_per_query": 512, "ciphertext_rotations_per_query": 0},
-        "mfbr_id": {"type": "baseline", "identify_seconds": 0.545, "storage_gb": 132.1, "ciphertext_multiplications_per_query": 0, "ciphertext_rotations_per_query": 0},
-        "idface_ckks_341_63": {"type": "proposed", "identify_seconds": 0.126, "storage_gb": 4.125, "ciphertext_multiplications_per_query": 0, "ciphertext_rotations_per_query": 0}
-      }
-    },
-    "synthetic_identification": {
-      "description": "Portable reproduction benchmark: unit-vector biometric identification on generated embeddings.",
-      "notes": "This experiment is the local reusable gym benchmark because the original face datasets and full embedding pipeline are not bundled. Reference rows are target/anchor values for the generated benchmark, not paper-published results; the paper-published context values are retained in the zero-weight face_benchmark_accuracy and efficiency_1m experiments.",
-      "weight": 0.998,
-      "primary_metric": "tpir_at_fpir_0.01",
-      "metrics": {
-        "top1_identification": {"higher_is_better": true, "coefficient": 0.45, "description": "Closed-set fraction of genuine queries whose highest-scoring gallery entry has the true identity."},
-        "mean_reciprocal_rank": {"higher_is_better": true, "coefficient": 0.35, "description": "Average reciprocal rank of the true identity, rewarding methods that preserve ranking quality beyond exact top-1 wins."},
-        "tpir_at_fpir_0.1": {"higher_is_better": true, "coefficient": 0.55, "description": "Open-set true positive identification rate after setting the accept threshold to 10% false-positive identification rate on impostor queries."},
-        "tpir_at_fpir_0.01": {"higher_is_better": true, "coefficient": 1.0, "description": "Primary open-set identification metric at 1% false-positive identification rate."},
-        "tpir_at_fpir_0.001": {"higher_is_better": true, "coefficient": 0.45, "description": "Stricter tail open-set identification metric that catches methods tuned only to the visible 1% threshold."},
-        "mean_genuine_rank_margin": {"higher_is_better": true, "coefficient": 0.25, "description": "Average score gap between the true enrolled identity and the best wrong identity on genuine queries; larger margins catch fragile rank-only shortcuts."},
-        "open_set_score_auc": {"higher_is_better": true, "coefficient": 0.45, "description": "Threshold-independent probability that a genuine true-identity score exceeds an impostor query's strongest gallery score."},
-        "ciphertext_additions_per_query": {"higher_is_better": false, "coefficient": -0.08, "description": "Machine-independent encrypted additions required per query; missing non-baseline metadata is scored conservatively."},
-        "ciphertext_multiplications_per_query": {"higher_is_better": false, "coefficient": -0.35, "description": "Machine-independent protected-domain multiplications required per query; lower is better because these operations are substantially more expensive than additions."},
-        "ciphertext_rotations_per_query": {"higher_is_better": false, "coefficient": -0.30, "description": "Machine-independent encrypted rotations required per query."},
-        "decryptions_per_query": {"higher_is_better": false, "coefficient": -0.08, "description": "Number of decryptions required per query."},
-        "pack": {"higher_is_better": true, "coefficient": 0.08, "description": "Number of protected templates packed per plaintext slot, rewarding space-efficient encoding."},
-        "protected_template_storage": {"higher_is_better": true, "coefficient": 1.2, "description": "Whether enrolled templates are stored in a protected representation rather than as reusable raw unit vectors."}
+        "identify_seconds": {
+          "higher_is_better": false,
+          "coefficient": 0.0,
+          "description": "Context-only paper wall-clock identification time retained only so reported paper rows validate; it is not scored by the portable local gym."
+        },
+        "storage_gb": {
+          "higher_is_better": false,
+          "coefficient": 0.0,
+          "description": "Context-only paper storage footprint for 1M identities; not scored by the portable local gym."
+        },
+        "ciphertext_multiplications_per_query": {
+          "higher_is_better": false,
+          "coefficient": 0.0,
+          "description": "Context-only paper count of encrypted multiplications per query; the portable gym scores its own artifact metadata instead."
+        },
+        "ciphertext_rotations_per_query": {
+          "higher_is_better": false,
+          "coefficient": 0.0,
+          "description": "Context-only paper count of encrypted rotations per query; the portable gym scores its own artifact metadata instead."
+        }
       },
       "results": {
         "plain": {
           "type": "baseline",
-          "top1_identification": 1.0,
-          "mean_reciprocal_rank": 1.0,
-          "tpir_at_fpir_0.1": 1.0,
-          "tpir_at_fpir_0.01": 1.0,
-          "tpir_at_fpir_0.001": 0.99,
-          "mean_genuine_rank_margin": 0.15,
-          "open_set_score_auc": 0.99,
-          "ciphertext_additions_per_query": 0,
+          "identify_seconds": 0.063,
+          "storage_gb": 2.0,
           "ciphertext_multiplications_per_query": 0,
-          "ciphertext_rotations_per_query": 0,
-          "decryptions_per_query": 0,
-          "pack": 1,
-          "protected_template_storage": 0
+          "ciphertext_rotations_per_query": 0
         },
-        "random": {
+        "hers_512": {
           "type": "baseline",
-          "top1_identification": 0.0005,
-          "mean_reciprocal_rank": 0.004,
-          "tpir_at_fpir_0.1": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "mean_genuine_rank_margin": -3.0,
-          "open_set_score_auc": 0.0,
-          "ciphertext_additions_per_query": 0,
-          "ciphertext_multiplications_per_query": 0,
-          "ciphertext_rotations_per_query": 0,
-          "decryptions_per_query": 0,
-          "pack": 0,
-          "protected_template_storage": 0
+          "identify_seconds": 48.9,
+          "storage_gb": 16.5,
+          "ciphertext_multiplications_per_query": 512,
+          "ciphertext_rotations_per_query": 0
         },
-        "idface_341_341": {
-          "type": "proposed",
-          "top1_identification": 0.95,
-          "mean_reciprocal_rank": 0.95,
-          "tpir_at_fpir_0.1": 0.90,
-          "tpir_at_fpir_0.01": 0.80,
-          "tpir_at_fpir_0.001": 0.60,
-          "mean_genuine_rank_margin": 0.08,
-          "open_set_score_auc": 0.90,
-          "ciphertext_additions_per_query": 680,
+        "mfbr_id": {
+          "type": "baseline",
+          "identify_seconds": 0.545,
+          "storage_gb": 132.1,
           "ciphertext_multiplications_per_query": 0,
-          "ciphertext_rotations_per_query": 0,
-          "decryptions_per_query": 2,
-          "pack": 5,
-          "protected_template_storage": 1
+          "ciphertext_rotations_per_query": 0
         },
-        "idface_341_63": {
+        "idface_ckks_341_63": {
           "type": "proposed",
-          "top1_identification": 0.90,
-          "mean_reciprocal_rank": 0.90,
-          "tpir_at_fpir_0.1": 0.80,
-          "tpir_at_fpir_0.01": 0.65,
-          "tpir_at_fpir_0.001": 0.45,
-          "mean_genuine_rank_margin": 0.04,
-          "open_set_score_auc": 0.85,
-          "ciphertext_additions_per_query": 124,
+          "identify_seconds": 0.126,
+          "storage_gb": 4.125,
           "ciphertext_multiplications_per_query": 0,
-          "ciphertext_rotations_per_query": 0,
-          "decryptions_per_query": 2,
-          "pack": 8,
-          "protected_template_storage": 1
+          "ciphertext_rotations_per_query": 0
+        }
+      }
+    }
+  },
+  "experiments": {
+    "synthetic_identification": {
+      "description": "Protected identification at the paper's (alpha, beta) = (341, 341) encrypted-cost operating point: at most 680 ciphertext additions per probe on average and at least 5 templates packed per 50-bit plaintext slot (codes of dimension <= 512). A run over budget fails.",
+      "notes": "Scored synthetic benchmark (10,000 enrolled identities; 10,000 genuine and 20,000 impostor probes; 512-D unit templates with mixed probe quality). The hidden test draws a fresh benchmark of the same distribution from a seed held only by eval/test. Every method is run through its encoder on templates only; the evaluator computes scores, costs and metrics. Rows 'idface' and 'plain' hold the paper's Table 3 IJB-C identification TPIR (AdaFace-IResNet101) at the matching operating point, as fractions, for orientation only: the synthetic benchmark is not IJB-C. Its difficulty was set so the unprotected float-cosine context lies in the same high-accuracy regime as the paper's plain model; the protected rows were not tuned. Baseline rows without values have no paper counterpart.",
+      "weight": 0.5,
+      "primary_metric": "tpir_at_fpir_0.01",
+      "budget": {
+        "max_mean_ciphertext_additions_per_query": 680,
+        "min_templates_per_slot": 5,
+        "plaintext_bits": 50,
+        "max_code_dim": 512
+      },
+      "metrics": {
+        "tpir_at_fpir_0.01": {
+          "higher_is_better": true,
+          "coefficient": 1.0,
+          "description": "Primary. Open-set true positive identification rate: fraction of genuine probes whose true identity is the strict unique top match and scores above the threshold at which 1% of impostor probes are falsely accepted (threshold set from the benchmark's own impostor probes)."
         },
-        "idface_paillier_small": {
+        "tpir_at_fpir_0.001": {
+          "higher_is_better": true,
+          "coefficient": 0.6,
+          "description": "Open-set TPIR at the stricter 0.1% false-positive identification rate."
+        },
+        "tpir_at_fpir_0.1": {
+          "higher_is_better": true,
+          "coefficient": 0.3,
+          "description": "Open-set TPIR at the looser 10% false-positive identification rate."
+        },
+        "top1_identification": {
+          "higher_is_better": true,
+          "coefficient": 0.3,
+          "description": "Closed-set rank-1 identification rate; ties with any wrong identity count as errors."
+        },
+        "mean_reciprocal_rank": {
+          "higher_is_better": true,
+          "coefficient": 0.15,
+          "description": "Mean reciprocal rank of the true identity; tied wrong identities rank ahead of it."
+        },
+        "open_set_score_auc": {
+          "higher_is_better": true,
+          "coefficient": 0.25,
+          "description": "Probability that a genuine probe's true-identity score exceeds an impostor probe's highest gallery score (ties count one half)."
+        }
+      },
+      "results": {
+        "idface": {
           "type": "proposed",
-          "top1_identification": 1.0,
-          "mean_reciprocal_rank": 1.0,
-          "tpir_at_fpir_0.1": 0.95,
-          "tpir_at_fpir_0.01": 0.94,
-          "tpir_at_fpir_0.001": 0.90,
-          "mean_genuine_rank_margin": 0.10,
-          "open_set_score_auc": 0.98,
-          "ciphertext_additions_per_query": 124,
-          "ciphertext_multiplications_per_query": 0,
-          "ciphertext_rotations_per_query": 0,
-          "decryptions_per_query": 2,
-          "pack": 8,
-          "protected_template_storage": 1
+          "tpir_at_fpir_0.01": 0.9595,
+          "tpir_at_fpir_0.001": 0.8511
+        },
+        "plain": {
+          "type": "baseline",
+          "tpir_at_fpir_0.01": 0.9642,
+          "tpir_at_fpir_0.001": 0.8581
+        },
+        "sign_random_subset": {
+          "type": "baseline"
+        },
+        "random_codes": {
+          "type": "baseline"
+        }
+      }
+    },
+    "synthetic_identification_compressed": {
+      "description": "Protected identification at the paper's compressed (alpha, beta) = (341, 63) operating point: at most 124 ciphertext additions per probe on average and at least 8 templates packed per 50-bit plaintext slot (codes of dimension <= 512). A run over budget fails.",
+      "notes": "Scored synthetic benchmark (10,000 enrolled identities; 10,000 genuine and 20,000 impostor probes; 512-D unit templates with mixed probe quality). The hidden test draws a fresh benchmark of the same distribution from a seed held only by eval/test. Every method is run through its encoder on templates only; the evaluator computes scores, costs and metrics. Rows 'idface' and 'plain' hold the paper's Table 3 IJB-C identification TPIR (AdaFace-IResNet101) at the matching operating point, as fractions, for orientation only: the synthetic benchmark is not IJB-C. Its difficulty was set so the unprotected float-cosine context lies in the same high-accuracy regime as the paper's plain model; the protected rows were not tuned. Baseline rows without values have no paper counterpart.",
+      "weight": 0.5,
+      "primary_metric": "tpir_at_fpir_0.01",
+      "budget": {
+        "max_mean_ciphertext_additions_per_query": 124,
+        "min_templates_per_slot": 8,
+        "plaintext_bits": 50,
+        "max_code_dim": 512
+      },
+      "metrics": {
+        "tpir_at_fpir_0.01": {
+          "higher_is_better": true,
+          "coefficient": 1.0,
+          "description": "Primary. Open-set true positive identification rate: fraction of genuine probes whose true identity is the strict unique top match and scores above the threshold at which 1% of impostor probes are falsely accepted (threshold set from the benchmark's own impostor probes)."
+        },
+        "tpir_at_fpir_0.001": {
+          "higher_is_better": true,
+          "coefficient": 0.6,
+          "description": "Open-set TPIR at the stricter 0.1% false-positive identification rate."
+        },
+        "tpir_at_fpir_0.1": {
+          "higher_is_better": true,
+          "coefficient": 0.3,
+          "description": "Open-set TPIR at the looser 10% false-positive identification rate."
+        },
+        "top1_identification": {
+          "higher_is_better": true,
+          "coefficient": 0.3,
+          "description": "Closed-set rank-1 identification rate; ties with any wrong identity count as errors."
+        },
+        "mean_reciprocal_rank": {
+          "higher_is_better": true,
+          "coefficient": 0.15,
+          "description": "Mean reciprocal rank of the true identity; tied wrong identities rank ahead of it."
+        },
+        "open_set_score_auc": {
+          "higher_is_better": true,
+          "coefficient": 0.25,
+          "description": "Probability that a genuine probe's true-identity score exceeds an impostor probe's highest gallery score (ties count one half)."
+        }
+      },
+      "results": {
+        "idface": {
+          "type": "proposed",
+          "tpir_at_fpir_0.01": 0.9519,
+          "tpir_at_fpir_0.001": 0.8596
+        },
+        "plain": {
+          "type": "baseline",
+          "tpir_at_fpir_0.01": 0.9642,
+          "tpir_at_fpir_0.001": 0.8581
+        },
+        "sign_random_subset": {
+          "type": "baseline"
+        },
+        "random_codes": {
+          "type": "baseline"
         }
       }
     }

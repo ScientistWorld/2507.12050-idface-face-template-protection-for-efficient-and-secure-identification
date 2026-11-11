@@ -31,7 +31,7 @@ def main() -> None:
     queries = rng.normal(size=(3, 32))
     labels = np.arange(len(gallery))
     db = IDFaceDatabase.enroll(gallery, labels, alpha=9, beta=4, plaintext_bits=18)
-    expected_pack = int(18 // np.ceil(np.log2(5)))
+    expected_pack = int(np.floor(18 / np.log2(5)))
     if db.p != 5 or db.pack != expected_pack:
         raise AssertionError(f"unexpected compressed packing: p={db.p}, pack={db.pack}")
     actual = db.batch_scores(queries)
@@ -39,6 +39,21 @@ def main() -> None:
     direct_scores = direct_scores.astype(np.float64) / np.sqrt(9 * 4)
     if not np.allclose(actual, direct_scores):
         raise AssertionError("IDFaceDatabase scores differ from direct transformed scores")
+
+    # The evaluator scores integer inner products of the encoder's codes. Check
+    # that the packed, sign-split homomorphic computation decodes to exactly
+    # those inner products for the paper's operating points.
+    gallery = rng.normal(size=(40, 512))
+    queries = rng.normal(size=(6, 512))
+    for alpha, beta in ((341, 341), (341, 63)):
+        db = IDFaceDatabase.enroll(gallery, np.arange(len(gallery)), alpha=alpha, beta=beta, plaintext_bits=50)
+        packed = db.batch_scores(queries) * np.sqrt(alpha * beta)
+        codes_ip = transform(queries, beta).astype(np.int64) @ transform(gallery, alpha).astype(np.int64).T
+        if not np.allclose(packed, codes_ip):
+            raise AssertionError(f"packed computation differs from code inner products at ({alpha},{beta})")
+        expected = {341: 5, 63: 8}[beta]
+        if db.pack != expected:
+            raise AssertionError(f"unexpected pack {db.pack} at ({alpha},{beta}), expected {expected}")
 
     print("IDFace self-check passed")
 

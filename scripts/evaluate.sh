@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
+# Convenience view: development-benchmark scores of every method, written to scoring/scores.json.
 set -euo pipefail
 
-python eval/evaluate.py \
-  --plain baseline/outputs/plain_synthetic \
-  --random baseline/outputs/random_synthetic \
-  --idface method/outputs/idface_synthetic \
-  --idface-compressed method/outputs/idface_synthetic_beta63 \
-  --method idface_paillier_small=method/outputs/idface_paillier_small \
-  --out scoring/scores.json \
-  "$@"
+[ -f data/synthetic_embeddings.npz ] || python data/generate_synthetic.py --out data/synthetic_embeddings.npz
+python eval/train/evaluate.py "$@" --out scoring/scores.json

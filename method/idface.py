@@ -78,7 +78,11 @@ class IDFaceDatabase:
         # by min(alpha, beta). This is the paper's space-efficiency gain when
         # beta is reduced while alpha is fixed.
         p = min(alpha, beta) + 1
-        pack = max(1, int(plaintext_bits // np.ceil(np.log2(p))))
+        # Base-p packing holds m templates when p^m fits in the plaintext slot,
+        # i.e. m = floor(plaintext_bits / log2 p) as stated in the paper.
+        pack = 1
+        while p ** (pack + 1) <= 2**plaintext_bits:
+            pack += 1
         pad = (-len(gallery)) % pack
         if pad:
             gallery = np.concatenate([gallery, np.zeros((pad, gallery.shape[1]), dtype=gallery.dtype)], axis=0)

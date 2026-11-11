@@ -1,0 +1,8 @@
+{
+  "description": "Random ternary codes carrying no template information (chance-level sanity check).",
+  "command": ["python", "baseline/encode_random.py"],
+  "experiments": {
+    "synthetic_identification": {"args": ["--alpha", "341", "--beta", "341"]},
+    "synthetic_identification_compressed": {"args": ["--alpha", "341", "--beta", "63"]}
+  }
+}

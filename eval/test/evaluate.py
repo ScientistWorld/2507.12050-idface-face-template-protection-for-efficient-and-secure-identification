@@ -1,166 +1,180 @@
 #!/usr/bin/env python3
+"""Hidden-test evaluator for protected biometric identification.
+
+The test benchmark (gallery templates, genuine probes, impostor probes and all
+identity labels) is generated here, in memory, from a seed that exists only in
+this directory. Methods never see labels or the other side of a comparison:
+
+* every method is a directory holding ``encoder.json``; the evaluator runs the
+  method's encoder separately on gallery templates and on probe templates
+  (genuine and impostor probes shuffled together, unlabeled) and receives one
+  integer code vector per template;
+* the evaluator computes every match score itself as the cosine of the
+  integer codes, i.e. exactly what an additively homomorphic database returns
+  after decryption and decoding, and computes every metric from its own labels;
+* the encrypted-computation cost of the codes (ciphertext additions per probe,
+  templates packed per 50-bit plaintext slot) is computed from the codes and
+  must fit the experiment's fixed budget;
+* an encoder whose codes depend on call order or batch composition, a crash,
+  a timeout, malformed or non-integer codes, or a budget violation fails the
+  run, which then receives the worst value of every scored metric.
+"""
+
 from __future__ import annotations
 
 import argparse
 import json
+import math
+import os
 import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import zlib
 from pathlib import Path
 
 import numpy as np
 
-
 SLICE = "test"
-EXPERIMENT = "synthetic_identification"
-TEST_RESIDUE = 1
-SPLIT_MODULUS = 2
+WORKSPACE = Path(__file__).resolve().parents[2]
 
-DEFAULT_METHODS = {
-    "plain": Path("baseline/outputs/plain_synthetic"),
-    "random": Path("baseline/outputs/random_synthetic"),
-    "idface_341_341": Path("method/outputs/idface_synthetic"),
-    "idface_341_63": Path("method/outputs/idface_synthetic_beta63"),
+_TEST_SEED = 3897103168532842080
+IDENTITIES = 10_000
+GENUINE_PROBES = 10_000
+IMPOSTOR_PROBES = 20_000
+DIM = 512
+
+PLAINTEXT_BITS = 50
+MAX_CODE_DIM = 512
+MAX_ABS_CODE = 1 << 20
+ENCODER_TIMEOUT_SECONDS = 600
+CONSISTENCY_FRACTION = 0.1
+FPIRS = (0.1, 0.01, 0.001)
+
+EXPERIMENTS = {
+    "synthetic_identification": {"max_mean_additions": 680.0, "min_pack": 5},
+    "synthetic_identification_compressed": {"max_mean_additions": 124.0, "min_pack": 8},
 }
-KNOWN_PATH_NAMES = {path.as_posix(): name for name, path in DEFAULT_METHODS.items()}
+SCORED_METRICS = (
+    "top1_identification",
+    "mean_reciprocal_rank",
+    "tpir_at_fpir_0.1",
+    "tpir_at_fpir_0.01",
+    "tpir_at_fpir_0.001",
+    "open_set_score_auc",
+)
+WORST_VALUES = {name: 0.0 for name in SCORED_METRICS}
+DEFAULT_ROOTS = ("method/outputs", "baseline/outputs", "checkpoints")
 
 
-def _load_predictions(path: Path) -> dict[str, np.ndarray]:
-    pred_file = path / "predictions.npz"
-    if not pred_file.exists():
-        raise FileNotFoundError(f"missing predictions file: {pred_file}")
-    return dict(np.load(pred_file))
+# ── Benchmark generation (test split only) ───────────────────────────────────
 
 
-def _split_rows(array: np.ndarray, residue: int) -> np.ndarray:
-    mask = np.arange(array.shape[0]) % SPLIT_MODULUS == residue
-    return array[mask]
+def _unit(x: np.ndarray) -> np.ndarray:
+    return x / np.linalg.norm(x, axis=1, keepdims=True)
 
 
-def _slice_predictions(pred: dict[str, np.ndarray], residue: int) -> dict[str, np.ndarray]:
+def _around(centers: np.ndarray, rho: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    noise = rng.standard_normal(centers.shape)
+    noise -= np.sum(noise * centers, axis=1, keepdims=True) * centers
+    noise = _unit(noise)
+    rho = rho[:, None]
+    return _unit(rho * centers + np.sqrt(1.0 - rho**2) * noise)
+
+
+def _probe_quality(n: int, rng: np.random.Generator) -> np.ndarray:
+    degraded = rng.random(n) < 0.05
+    good = rng.uniform(0.5, 0.9, size=n)
+    bad = rng.uniform(0.05, 0.5, size=n)
+    return np.where(degraded, bad, good)
+
+
+def build_benchmark(seed: int) -> dict[str, np.ndarray]:
+    rng = np.random.default_rng(seed)
+    centers = _unit(rng.standard_normal((IDENTITIES, DIM)))
+    gallery = _around(centers, rng.uniform(0.75, 0.95, size=IDENTITIES), rng)
+    labels = rng.integers(0, IDENTITIES, size=GENUINE_PROBES)
+    genuine = _around(centers[labels], _probe_quality(GENUINE_PROBES, rng), rng)
+    impostor_centers = _unit(rng.standard_normal((IMPOSTOR_PROBES, DIM)))
+    impostor = _around(impostor_centers, _probe_quality(IMPOSTOR_PROBES, rng), rng)
     return {
-        "genuine_scores": _split_rows(pred["genuine_scores"], residue),
-        "impostor_scores": _split_rows(pred["impostor_scores"], residue),
-        "genuine_labels": _split_rows(pred["genuine_labels"], residue),
-        "gallery_labels": pred["gallery_labels"],
+        "gallery": gallery.astype(np.float32),
+        "genuine": genuine.astype(np.float32),
+        "genuine_labels": labels.astype(np.int64),
+        "impostor": impostor.astype(np.float32),
     }
 
 
-def _threshold_at_fpir(impostor_scores: np.ndarray, fpir: float) -> float:
-    max_impostor = np.max(impostor_scores, axis=1)
-    return float(np.quantile(max_impostor, 1.0 - fpir, method="higher"))
+# ── Metrics ──────────────────────────────────────────────────────────────────
 
 
-def _binary_auc(positive_scores: np.ndarray, negative_scores: np.ndarray) -> float:
-    scores = np.concatenate([positive_scores, negative_scores])
-    order = np.argsort(scores, kind="mergesort")
-    ranks = np.empty_like(order, dtype=np.float64)
-    ranks[order] = np.arange(1, len(scores) + 1, dtype=np.float64)
-
-    # Average ranks across ties so score quantization cannot inflate AUC.
-    sorted_scores = scores[order]
-    start = 0
-    while start < len(sorted_scores):
-        end = start + 1
-        while end < len(sorted_scores) and sorted_scores[end] == sorted_scores[start]:
-            end += 1
-        if end - start > 1:
-            ranks[order[start:end]] = (start + 1 + end) / 2.0
-        start = end
-
-    n_pos = len(positive_scores)
-    n_neg = len(negative_scores)
-    if n_pos == 0 or n_neg == 0:
-        raise ValueError("AUC requires at least one positive and one negative score")
-    rank_sum_pos = float(np.sum(ranks[:n_pos]))
-    return (rank_sum_pos - n_pos * (n_pos + 1) / 2.0) / (n_pos * n_neg)
+def _auc(positive: np.ndarray, negative: np.ndarray) -> float:
+    scores = np.concatenate([positive, negative])
+    _, inverse, counts = np.unique(scores, return_inverse=True, return_counts=True)
+    upper = np.cumsum(counts)
+    mid_rank = upper - (counts - 1) / 2.0
+    ranks = mid_rank[inverse]
+    n_pos, n_neg = len(positive), len(negative)
+    return float((ranks[:n_pos].sum() - n_pos * (n_pos + 1) / 2.0) / (n_pos * n_neg))
 
 
-def identification_metrics(pred: dict[str, np.ndarray]) -> dict[str, float]:
-    genuine_scores = pred["genuine_scores"]
-    impostor_scores = pred["impostor_scores"]
-    genuine_labels = pred["genuine_labels"]
-    gallery_labels = pred["gallery_labels"]
+def _match_statistics(gallery, genuine, labels, impostor, gallery_inv_norm=None, chunk: int = 2048):
+    """Return per-probe true score, strict top-1 correctness, pessimistic rank and impostor maxima.
 
-    top_idx = np.argmax(genuine_scores, axis=1)
-    top_scores = genuine_scores[np.arange(len(genuine_scores)), top_idx]
-    top_labels = gallery_labels[top_idx]
-    correct_top1 = top_labels == genuine_labels
+    ``gallery`` and probes are float32 matrices. Scores are cosine similarities;
+    rows with zero norm score 0 against everything. Ties never count as a
+    correct identification.
+    """
+    g32 = gallery.astype(np.float32)
+    if gallery_inv_norm is None:
+        norms = np.linalg.norm(gallery.astype(np.float64), axis=1)
+        gallery_inv_norm = np.where(norms > 0, 1.0 / np.where(norms > 0, norms, 1.0), 0.0)
 
-    true_gallery = gallery_labels[None, :] == genuine_labels[:, None]
-    true_scores = np.max(np.where(true_gallery, genuine_scores, -np.inf), axis=1)
-    best_wrong_scores = np.max(np.where(true_gallery, -np.inf, genuine_scores), axis=1)
-    genuine_ranks = 1 + np.sum(genuine_scores > true_scores[:, None], axis=1)
-    impostor_top_scores = np.max(impostor_scores, axis=1)
+    def cosine(block: np.ndarray) -> np.ndarray:
+        ip = (block.astype(np.float32) @ g32.T).astype(np.float64)
+        norms = np.linalg.norm(block.astype(np.float64), axis=1)
+        inv = np.where(norms > 0, 1.0 / np.where(norms > 0, norms, 1.0), 0.0)
+        return ip * inv[:, None] * gallery_inv_norm[None, :]
 
+    true_scores = np.empty(len(genuine))
+    correct = np.empty(len(genuine), dtype=bool)
+    ranks = np.empty(len(genuine))
+    for start in range(0, len(genuine), chunk):
+        stop = min(start + chunk, len(genuine))
+        scores = cosine(genuine[start:stop])
+        rows = np.arange(stop - start)
+        true = scores[rows, labels[start:stop]].copy()
+        scores[rows, labels[start:stop]] = -np.inf
+        true_scores[start:stop] = true
+        correct[start:stop] = true > scores.max(axis=1)
+        ranks[start:stop] = 1 + np.sum(scores >= true[:, None], axis=1)
+    impostor_max = np.empty(len(impostor))
+    for start in range(0, len(impostor), chunk):
+        stop = min(start + chunk, len(impostor))
+        impostor_max[start:stop] = cosine(impostor[start:stop]).max(axis=1)
+    return true_scores, correct, ranks, impostor_max
+
+
+def identification_metrics(true_scores, correct, ranks, impostor_max) -> dict[str, float]:
     metrics = {
-        "top1_identification": float(np.mean(correct_top1)),
-        "mean_reciprocal_rank": float(np.mean(1.0 / genuine_ranks)),
-        "mean_genuine_rank_margin": float(np.mean(true_scores - best_wrong_scores)),
-        "open_set_score_auc": float(_binary_auc(true_scores, impostor_top_scores)),
+        "top1_identification": float(np.mean(correct)),
+        "mean_reciprocal_rank": float(np.mean(1.0 / ranks)),
+        "open_set_score_auc": _auc(true_scores, impostor_max),
     }
-    for fpir in (1e-1, 1e-2, 1e-3):
-        threshold = _threshold_at_fpir(impostor_scores, fpir)
-        accepted_correct = correct_top1 & (top_scores >= threshold)
-        metrics[f"tpir_at_fpir_{fpir:g}"] = float(np.mean(accepted_correct))
-    return metrics
+    descending = np.sort(impostor_max)[::-1]
+    for fpir in FPIRS:
+        k = int(math.floor(fpir * len(descending) + 1e-9))
+        threshold = descending[k] if k < len(descending) else -np.inf
+        metrics[f"tpir_at_fpir_{fpir:g}"] = float(np.mean(correct & (true_scores > threshold)))
+    return {name: metrics[name] for name in SCORED_METRICS}
 
 
-def _baseline_operation_metrics(name: str) -> dict[str, float] | None:
-    if name == "plain":
-        return {
-            "ciphertext_additions_per_query": 0.0,
-            "ciphertext_multiplications_per_query": 0.0,
-            "ciphertext_rotations_per_query": 0.0,
-            "decryptions_per_query": 0.0,
-            "pack": 1.0,
-            "protected_template_storage": 0.0,
-        }
-    if name == "random":
-        return {
-            "ciphertext_additions_per_query": 0.0,
-            "ciphertext_multiplications_per_query": 0.0,
-            "ciphertext_rotations_per_query": 0.0,
-            "decryptions_per_query": 0.0,
-            "pack": 0.0,
-            "protected_template_storage": 0.0,
-        }
-    return None
+# ── Method discovery and encoder protocol ────────────────────────────────────
 
 
-def _missing_operation_metrics() -> dict[str, float]:
-    return {
-        "ciphertext_additions_per_query": 1_000_000_000.0,
-        "ciphertext_multiplications_per_query": 1_000_000_000.0,
-        "ciphertext_rotations_per_query": 1_000_000_000.0,
-        "decryptions_per_query": 1_000_000_000.0,
-        "pack": 0.0,
-        "protected_template_storage": 0.0,
-    }
-
-
-def evaluate_method(name: str, path: Path) -> dict[str, float]:
-    metrics = identification_metrics(_slice_predictions(_load_predictions(path), TEST_RESIDUE))
-    baseline_metrics = _baseline_operation_metrics(name)
-    if baseline_metrics is not None:
-        metrics.update(baseline_metrics)
-        return metrics
-
-    metadata_file = path / "metadata.json"
-    if metadata_file.exists():
-        metadata = json.loads(metadata_file.read_text())
-        counts = metadata.get("operation_counts", {})
-        for key in (
-            "ciphertext_additions_per_query",
-            "ciphertext_multiplications_per_query",
-            "ciphertext_rotations_per_query",
-            "decryptions_per_query",
-            "pack",
-            "protected_template_storage",
-        ):
-            if key in counts:
-                metrics[key] = float(counts[key])
-    for key, value in _missing_operation_metrics().items():
-        metrics.setdefault(key, value)
-    return metrics
+class RunFailure(Exception):
+    pass
 
 
 def _safe_name(name: str) -> str:
@@ -168,124 +182,230 @@ def _safe_name(name: str) -> str:
     return cleaned.strip("._-") or "method"
 
 
-def _method_name_for_path(path: Path) -> str:
-    normalized = path.as_posix().rstrip("/")
-    return KNOWN_PATH_NAMES.get(normalized, _safe_name(path.name))
-
-
-def _candidate_roots(extra_roots: list[Path]) -> list[Path]:
-    roots = [Path("baseline/outputs"), Path("method/outputs"), Path("checkpoints")]
-    for root in extra_roots:
-        roots.append(root)
-        roots.append(root / "outputs")
-    return roots
-
-
-def _discover_output_dirs(extra_roots: list[Path]) -> dict[str, Path]:
+def discover_methods(extra_roots: list[Path]) -> dict[str, Path]:
+    roots = [WORKSPACE / root for root in DEFAULT_ROOTS] + [Path(r).resolve() for r in extra_roots]
     methods: dict[str, Path] = {}
-    seen_roots: set[str] = set()
-    for root in _candidate_roots(extra_roots):
-        root_key = root.as_posix().rstrip("/")
-        if root_key in seen_roots:
+    seen: set[Path] = set()
+    for root in roots:
+        if not root.is_dir() or root in seen:
             continue
-        seen_roots.add(root_key)
-        if not root.exists():
-            continue
-        for pred_file in sorted(root.glob("*/predictions.npz")):
-            method_path = pred_file.parent
-            methods.setdefault(_method_name_for_path(method_path), method_path)
-    return methods
+        seen.add(root)
+        try:
+            tag = root.relative_to(WORKSPACE).parts[0]
+        except ValueError:
+            tag = root.name
+        for directory in sorted(p for p in root.iterdir() if p.is_dir()):
+            if not any((directory / marker).is_file() for marker in ("encoder.json", "predictions.npz", "metadata.json")):
+                continue
+            name = _safe_name(directory.name)
+            if name in methods and methods[name].resolve() != directory.resolve():
+                name = _safe_name(f"{tag}_{directory.name}")
+            methods.setdefault(name, directory)
+    return dict(sorted(methods.items()))
 
 
-def _parse_method_arg(value: str) -> tuple[str, Path]:
-    if "=" not in value:
-        raise argparse.ArgumentTypeError("--method values must be NAME=PATH")
-    name, raw_path = value.split("=", 1)
-    name = _safe_name(name)
-    if not name:
-        raise argparse.ArgumentTypeError("--method name must not be empty")
-    return name, Path(raw_path)
+def _encoder_command(method_dir: Path, experiment: str) -> list[str]:
+    spec_file = method_dir / "encoder.json"
+    if not spec_file.is_file():
+        raise RunFailure("no encoder.json: the method provides no encoder the evaluator can run")
+    try:
+        spec = json.loads(spec_file.read_text())
+        command = spec["command"]
+        entry = spec.get("experiments", {})[experiment]
+        args = entry.get("args", []) if isinstance(entry, dict) else []
+    except KeyError as exc:
+        raise RunFailure(f"encoder.json has no entry {exc} for experiment {experiment}") from None
+    except Exception as exc:  # malformed JSON or schema
+        raise RunFailure(f"unreadable encoder.json: {exc}") from None
+    if not (isinstance(command, list) and command and all(isinstance(c, str) for c in command)):
+        raise RunFailure("encoder.json 'command' must be a non-empty list of strings")
+    if not (isinstance(args, list) and all(isinstance(a, str) for a in args)):
+        raise RunFailure("encoder.json experiment 'args' must be a list of strings")
+    command = list(command)
+    if command[0] in ("python", "python3"):
+        command[0] = sys.executable
+    return command + args
 
 
-def _train_score_methods(path: Path) -> dict[str, Path | None] | None:
-    if not path.exists():
-        return None
-    data = json.loads(path.read_text())
-    exp = data.get("experiments", {}).get(EXPERIMENT, {})
-    results = exp.get("results", {}) if isinstance(exp, dict) else {}
-    method_paths = exp.get("_method_paths", {}) if isinstance(exp, dict) else {}
-    return {
-        name: Path(method_paths[name]) if name in method_paths else None
-        for name in sorted(results)
-        if not name.startswith("_")
-    }
-
-
-def _collect_methods(args: argparse.Namespace) -> dict[str, Path]:
-    methods = _discover_output_dirs(args.roots)
-    for name, path in {
-        "plain": args.plain,
-        "random": args.random,
-        "idface_341_341": args.idface,
-        "idface_341_63": args.idface_compressed,
-    }.items():
-        methods[name] = path
-    for name, path in args.method:
-        methods[name] = path
-
-    train_methods = _train_score_methods(args.train_scores)
-    if train_methods is not None:
-        for name, path in train_methods.items():
-            if path is not None:
-                methods[name] = path
-        missing = [name for name in train_methods if name not in methods or not (methods[name] / "predictions.npz").exists()]
-        if missing:
-            missing_list = ", ".join(missing)
-            raise FileNotFoundError(
-                f"methods present in {args.train_scores} but missing prediction directories for test scoring: {missing_list}"
+def _run_encoder(command: list[str], role: str, templates: np.ndarray, workdir: Path) -> np.ndarray:
+    call_dir = Path(tempfile.mkdtemp(prefix="call_", dir=workdir))
+    try:
+        in_file = call_dir / "templates.npz"
+        out_file = call_dir / "codes.npz"
+        np.savez(in_file, templates=templates.astype(np.float32))
+        scratch = call_dir / "tmp"
+        scratch.mkdir()
+        env = dict(os.environ, TMPDIR=str(scratch))
+        full = command + ["--role", role, "--input", str(in_file), "--output", str(out_file)]
+        try:
+            proc = subprocess.run(
+                full, cwd=WORKSPACE, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                timeout=ENCODER_TIMEOUT_SECONDS,
             )
-        return {name: methods[name] for name in train_methods}
+        except subprocess.TimeoutExpired:
+            raise RunFailure(f"{role} encoder exceeded {ENCODER_TIMEOUT_SECONDS}s") from None
+        except OSError as exc:
+            raise RunFailure(f"{role} encoder could not start: {exc}") from None
+        if proc.returncode != 0:
+            tail = proc.stderr.decode(errors="replace").strip().splitlines()[-3:]
+            raise RunFailure(f"{role} encoder exited {proc.returncode}: {' | '.join(tail)}")
+        if not out_file.is_file():
+            raise RunFailure(f"{role} encoder wrote no codes file")
+        try:
+            with np.load(out_file, allow_pickle=False) as payload:
+                codes = np.asarray(payload["codes"])
+        except Exception as exc:
+            raise RunFailure(f"{role} codes unreadable: {exc}") from None
+    finally:
+        shutil.rmtree(call_dir, ignore_errors=True)
 
+    if codes.ndim != 2 or codes.shape[0] != len(templates):
+        raise RunFailure(f"{role} codes have shape {codes.shape}, expected ({len(templates)}, D)")
+    if not 1 <= codes.shape[1] <= MAX_CODE_DIM:
+        raise RunFailure(f"{role} code dimension {codes.shape[1]} outside [1, {MAX_CODE_DIM}]")
+    if codes.dtype == np.bool_:
+        codes = codes.astype(np.int64)
+    if not np.issubdtype(codes.dtype, np.integer):
+        raise RunFailure(f"{role} codes must be integers, got dtype {codes.dtype}")
+    if codes.size and float(np.abs(codes.astype(np.float64)).max()) > MAX_ABS_CODE:
+        raise RunFailure(f"{role} code magnitude exceeds {MAX_ABS_CODE}")
+    return codes.astype(np.int64)
+
+
+def encode_with_protocol(command: list[str], gallery: np.ndarray, probes: np.ndarray, rng, workdir: Path):
+    """Run the encoder four times and require per-template, order-independent codes.
+
+    1. a random 10% gallery subset, before any probe has been seen;
+    2. all probes, shuffled (genuine and impostor mixed, unlabeled);
+    3. the full gallery, shuffled, after the probes have been seen;
+    4. a random 10% probe subset, after the full gallery has been seen.
+    Codes from (1) must equal the same rows of (3) and codes from (4) the same
+    rows of (2); otherwise the encoder used information beyond the template.
+    """
+    n_g, n_p = len(gallery), len(probes)
+    gallery_subset = rng.choice(n_g, size=max(1, int(CONSISTENCY_FRACTION * n_g)), replace=False)
+    probe_subset = rng.choice(n_p, size=max(1, int(CONSISTENCY_FRACTION * n_p)), replace=False)
+    probe_order = rng.permutation(n_p)
+    gallery_order = rng.permutation(n_g)
+
+    first_gallery = _run_encoder(command, "gallery", gallery[gallery_subset], workdir)
+    shuffled = _run_encoder(command, "query", probes[probe_order], workdir)
+    probe_codes = np.empty_like(shuffled)
+    probe_codes[probe_order] = shuffled
+    shuffled = _run_encoder(command, "gallery", gallery[gallery_order], workdir)
+    gallery_codes = np.empty_like(shuffled)
+    gallery_codes[gallery_order] = shuffled
+    last_probes = _run_encoder(command, "query", probes[probe_subset], workdir)
+
+    dims = {first_gallery.shape[1], probe_codes.shape[1], gallery_codes.shape[1], last_probes.shape[1]}
+    if len(dims) != 1:
+        raise RunFailure(f"gallery and query codes have different dimensions {sorted(dims)}")
+    if not np.array_equal(gallery_codes[gallery_subset], first_gallery):
+        raise RunFailure("gallery codes changed between calls (depend on batch or on previously seen probes)")
+    if not np.array_equal(probe_codes[probe_subset], last_probes):
+        raise RunFailure("query codes changed between calls (depend on batch or on previously seen gallery)")
+    return gallery_codes, probe_codes
+
+
+def encrypted_cost(gallery_codes: np.ndarray, probe_codes: np.ndarray) -> dict[str, float]:
+    """Cost of additive-HE matching with sign-split, base-p packed gallery codes.
+
+    Each probe coordinate of magnitude k adds the corresponding encrypted
+    gallery column k times into each of the two (same-sign / opposite-sign)
+    accumulators, so a probe costs 2 * (||q||_1 - 1) ciphertext additions.
+    Every decoded digit is bounded by
+    B = min(max ||g||_1 * max |q|, max ||q||_1 * max |g|), so the packing base
+    is p = B + 1 and a 50-bit slot holds the largest m with p^m <= 2^50
+    templates (the paper's floor(n / log2 p)).
+    """
+    l1_probe = np.abs(probe_codes).sum(axis=1)
+    l1_gallery = np.abs(gallery_codes).sum(axis=1)
+    max_probe = int(np.abs(probe_codes).max()) if probe_codes.size else 0
+    max_gallery = int(np.abs(gallery_codes).max()) if gallery_codes.size else 0
+    bound = min(int(l1_gallery.max()) * max_probe, int(l1_probe.max()) * max_gallery)
+    pack = 0
+    while pack < PLAINTEXT_BITS and (bound + 1) ** (pack + 1) <= 2**PLAINTEXT_BITS:
+        pack += 1
     return {
-        name: path
-        for name, path in sorted(methods.items())
-        if (path / "predictions.npz").exists()
+        "ciphertext_additions_per_query": float(np.mean(2 * np.maximum(l1_probe - 1, 0))),
+        "max_query_l1": float(l1_probe.max()),
+        "digit_bound": float(bound),
+        "bits_per_template": float(math.log2(bound + 1)),
+        "templates_per_slot": float(pack),
+        "code_dim": float(gallery_codes.shape[1]),
+        "ciphertext_multiplications_per_query": 0.0,
+        "decryptions_per_block": 2.0,
     }
+
+
+def evaluate_method(method_dir: Path, experiment: str, bench: dict, rng, workdir: Path, dump_dir: Path | None, name: str):
+    budget = EXPERIMENTS[experiment]
+    command = _encoder_command(method_dir, experiment)
+    probes = np.concatenate([bench["genuine"], bench["impostor"]], axis=0)
+    gallery_codes, probe_codes = encode_with_protocol(command, bench["gallery"], probes, rng, workdir)
+    cost = encrypted_cost(gallery_codes, probe_codes)
+    if cost["ciphertext_additions_per_query"] > budget["max_mean_additions"] + 1e-9:
+        raise RunFailure(
+            f"budget exceeded: {cost['ciphertext_additions_per_query']:.1f} ciphertext additions per query "
+            f"> {budget['max_mean_additions']:.0f}"
+        )
+    if cost["templates_per_slot"] < budget["min_pack"]:
+        raise RunFailure(
+            f"budget exceeded: digit bound {int(cost['digit_bound'])} packs {int(cost['templates_per_slot'])} "
+            f"templates per {PLAINTEXT_BITS}-bit slot < {budget['min_pack']}"
+        )
+    n_gen = len(bench["genuine"])
+    stats = _match_statistics(gallery_codes, probe_codes[:n_gen], bench["genuine_labels"], probe_codes[n_gen:])
+    if dump_dir is not None:
+        dump_dir.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(dump_dir / f"{experiment}__{name}.npz", true=stats[0], correct=stats[1], rank=stats[2], impostor_max=stats[3])
+    return identification_metrics(*stats), cost
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "roots",
-        nargs="*",
-        type=Path,
-        help="Optional output/checkpoint roots to scan for */predictions.npz directories.",
-    )
-    parser.add_argument("--plain", type=Path, default=DEFAULT_METHODS["plain"])
-    parser.add_argument("--random", type=Path, default=DEFAULT_METHODS["random"])
-    parser.add_argument("--idface", type=Path, default=DEFAULT_METHODS["idface_341_341"])
-    parser.add_argument("--idface-compressed", type=Path, default=DEFAULT_METHODS["idface_341_63"])
-    parser.add_argument("--method", action="append", default=[], type=_parse_method_arg)
-    parser.add_argument("--train-scores", type=Path, default=Path("scoring/scores_train.json"))
+    parser.add_argument("roots", nargs="*", type=Path, help="Extra roots whose subdirectories are method directories.")
     parser.add_argument("--out", type=Path, default=Path("scoring/scores_test.json"))
+    parser.add_argument("--data-seed", type=int, default=None, help="Audit only: score on a different test draw.")
+    parser.add_argument("--methods", default=None, help="Audit only: comma-separated subset of method names.")
+    parser.add_argument("--dump-dir", type=Path, default=None, help="Audit only: save per-probe outcomes.")
     args = parser.parse_args()
 
-    results = {
-        name: evaluate_method(name, path)
-        for name, path in _collect_methods(args).items()
-    }
+    seed = _TEST_SEED if args.data_seed is None else args.data_seed
+    bench = build_benchmark(seed)
+    methods = discover_methods(args.roots)
+    if args.methods:
+        wanted = set(args.methods.split(","))
+        methods = {k: v for k, v in methods.items() if k in wanted}
 
-    output = {
-        "experiments": {
-            EXPERIMENT: {
+    plain = identification_metrics(*_match_statistics(bench["gallery"], bench["genuine"], bench["genuine_labels"], bench["impostor"]))
+    output: dict = {"experiments": {}}
+    workdir = Path(tempfile.mkdtemp(prefix="idface_eval_"))
+    try:
+        for experiment, budget in EXPERIMENTS.items():
+            results, diagnostics = {}, {}
+            for name, method_dir in methods.items():
+                rng = np.random.default_rng([seed, zlib.crc32(name.encode()), zlib.crc32(experiment.encode())])
+                try:
+                    metrics, cost = evaluate_method(method_dir, experiment, bench, rng, workdir, args.dump_dir, name)
+                    diagnostics[name] = {"status": "ok", **cost}
+                except RunFailure as exc:
+                    metrics = dict(WORST_VALUES)
+                    diagnostics[name] = {"status": "failed", "reason": str(exc)}
+                results[name] = metrics
+                print(f"[{SLICE}] {experiment} {name}: {diagnostics[name]['status']} {metrics}", flush=True)
+            output["experiments"][experiment] = {
                 "slice": SLICE,
-                "split": "odd query rows from predictions.npz; impostor threshold rows split the same way",
+                "budget": {**budget, "plaintext_bits": PLAINTEXT_BITS, "max_code_dim": MAX_CODE_DIM},
                 "results": results,
+                "_diagnostics": diagnostics,
+                "_context": {"unprotected_float_cosine": plain},
             }
-        }
-    }
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n")
+    finally:
+        shutil.rmtree(workdir, ignore_errors=True)
+    out = args.out if args.out.is_absolute() else WORKSPACE / args.out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n")
 
 
 if __name__ == "__main__":
