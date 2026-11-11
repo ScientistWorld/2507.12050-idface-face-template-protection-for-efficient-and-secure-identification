@@ -10,13 +10,17 @@ This reproduction implements the core IDFace computation and evaluates whether t
 
 The task is privacy-preserving biometric identification over unit-norm templates.
 
-Given an enrolled gallery of identity templates and a query template, the system must return the closest identity when the query matches an enrolled subject and reject non-enrolled impostor queries. Templates are real-valued unit vectors, matching is based on inner product or cosine similarity, and the benchmark fixes a gallery, genuine queries with labels, and impostor queries.
+Given an enrolled gallery of identity templates and a query template, the system must identify the matching enrolled subject when the query is genuine and reject non-enrolled impostor queries. Templates are fixed 512-dimensional real-valued unit vectors, matching quality is judged from gallery-query scores, and the benchmark fixes:
 
-The problem is method-agnostic: any method may transform or protect templates, but it must produce a score matrix for genuine queries and impostor queries against the fixed gallery so the evaluator can compute identification metrics at fixed false-positive identification rates.
+- one enrolled gallery template per identity,
+- genuine query templates with identity labels,
+- impostor query templates that should be rejected at calibrated thresholds.
+
+The problem is method-agnostic. Any submitted method may use any protected representation or matching procedure, provided it writes gallery-query score matrices in the required artifact format and does not store enrolled gallery templates as raw reusable unit vectors when claiming protected-template performance.
 
 ## Portable Dataset
 
-The original paper evaluates on LFW, CFP-FP, AgeDB, and IJB-C with AdaFace embeddings. IJB-C distribution has been discontinued and AgeDB requires an email/password flow, so this gym includes a reproducible synthetic unit-vector benchmark in `data/generate_synthetic.py`. The substitute preserves the relevant structure: 512-dimensional unit embeddings, enrolled identities, noisy genuine queries, and random impostor queries.
+The gym uses a reproducible synthetic unit-vector benchmark in `data/generate_synthetic.py`. The generated data preserves the relevant identification structure: high-dimensional normalized templates, same-identity query variation, many enrolled identities, and impostor queries used to set false-positive identification thresholds.
 
 ---
 
@@ -50,7 +54,7 @@ The default reproduction runs the paper's high-accuracy setting `alpha=341,beta=
 
 # Evaluation
 
-The evaluator reads prediction artifacts from method or baseline output directories. It does not rerun the method.
+The evaluator reads prediction artifacts from submitted method or baseline output directories. It does not rerun the method or import method code.
 
 Each artifact directory must contain `predictions.npz` with:
 
@@ -59,13 +63,15 @@ Each artifact directory must contain `predictions.npz` with:
 - `genuine_labels`: identity label for each genuine query
 - `gallery_labels`: identity label for each gallery template
 
-Metrics:
+Primary retrieval metrics:
 
 - `top1_identification`: fraction of genuine queries whose highest-scoring gallery identity is correct.
 - `tpir_at_fpir_0.1`: true-positive identification rate when the threshold is set from impostor queries at FPIR 0.1.
 - `tpir_at_fpir_0.01`: true-positive identification rate at FPIR 0.01.
 - `mean_reciprocal_rank`, `mean_genuine_rank_margin`, and `open_set_score_auc`: ranking, margin, and threshold-independent separation checks.
-- Resource and protection metrics are read from method metadata. They report machine-independent operation counts, packing/compactness, and whether enrolled templates are stored in a protected representation instead of raw reusable unit vectors.
+- `tpir_at_fpir_0.001`: stricter tail operating point.
+
+Resource and protection metrics are read from artifact metadata. They report machine-independent operation counts, compactness, and whether enrolled templates are stored in a protected representation instead of raw reusable unit vectors. Wall-clock runtime is not scored.
 
 `scripts/evaluate.sh` writes `scoring/scores.json`.
 
