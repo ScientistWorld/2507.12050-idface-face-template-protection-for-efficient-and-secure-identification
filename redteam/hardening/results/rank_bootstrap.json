@@ -1,0 +1,70 @@
+{
+  "secret": {
+    "hv_multilevel_gallery": {
+      "rank_delta": 0.00846411386097357,
+      "bootstrap_se": 0.0013159834144643716,
+      "fraction_positive": 1.0
+    },
+    "hv_alpha277": {
+      "rank_delta": 0.004779473796042373,
+      "bootstrap_se": 0.003732220493909182,
+      "fraction_positive": 0.8366666666666667
+    },
+    "hv_weaker_127": {
+      "rank_delta": -0.3591851051689036,
+      "bootstrap_se": 0.024158392082899244,
+      "fraction_positive": 0.0
+    }
+  },
+  "101": {
+    "hv_multilevel_gallery": {
+      "rank_delta": 0.010123746340657155,
+      "bootstrap_se": 0.0012464618159937,
+      "fraction_positive": 1.0
+    },
+    "hv_alpha277": {
+      "rank_delta": 0.015986659825445903,
+      "bootstrap_se": 0.004100249929440764,
+      "fraction_positive": 1.0
+    },
+    "hv_weaker_127": {
+      "rank_delta": -0.2946498693682365,
+      "bootstrap_se": 0.03355408096964127,
+      "fraction_positive": 0.0
+    }
+  },
+  "202": {
+    "hv_multilevel_gallery": {
+      "rank_delta": 0.011003549312094024,
+      "bootstrap_se": 0.001392220325759777,
+      "fraction_positive": 1.0
+    },
+    "hv_alpha277": {
+      "rank_delta": 0.016680265090946975,
+      "bootstrap_se": 0.004703604478195668,
+      "fraction_positive": 0.9966666666666667
+    },
+    "hv_weaker_127": {
+      "rank_delta": -0.34574162478754517,
+      "bootstrap_se": 0.023232083509963145,
+      "fraction_positive": 0.0
+    }
+  },
+  "303": {
+    "hv_multilevel_gallery": {
+      "rank_delta": 0.010081863027819476,
+      "bootstrap_se": 0.0013204658294986345,
+      "fraction_positive": 1.0
+    },
+    "hv_alpha277": {
+      "rank_delta": 0.0014717825077420886,
+      "bootstrap_se": 0.005125120013069989,
+      "fraction_positive": 0.91
+    },
+    "hv_weaker_127": {
+      "rank_delta": -0.31062418003772607,
+      "bootstrap_se": 0.013572832919294467,
+      "fraction_positive": 0.0
+    }
+  }
+}
