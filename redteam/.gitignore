@@ -1,0 +1,6 @@
+_state/
+_cache/
+**/predictions.npz
+**/data.npz
+**/raw_gallery.npz
+**/__pycache__/
