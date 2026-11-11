@@ -2,4 +2,4 @@ action: submit
 gpus: 0
 test: false
 milestone: core_claim_plus
-notes: "Hardening check: reproduce reference end to end (data, self-check, Paillier smoke, train/test scoring, validate), then redteam/hardening/audit.py runs variants, shortcuts and 3 extra test draws through the hidden test evaluator."
+notes: "Rerun of the hardening check after fixing ENOSPC (encoder I/O now staged in eval/*/_work on the workspace fs): reproduce reference end to end, then redteam/hardening/audit.py (variants, shortcuts, 3 extra test draws) through the hidden test evaluator."

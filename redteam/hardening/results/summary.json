@@ -58,31 +58,66 @@
   "diagnostics_secret": {
     "synthetic_identification": {
       "hv_alpha277": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 8.118941072723507,
+        "ciphertext_additions_per_query": 552.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 277.0,
+        "max_query_l1": 277.0,
+        "status": "ok",
+        "templates_per_slot": 6.0
       },
       "hv_full_sign_512": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "budget exceeded: 1022.0 ciphertext additions per query > 680",
         "status": "failed"
       },
       "hv_multilevel_gallery": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 9.147204924942228,
+        "ciphertext_additions_per_query": 680.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 566.0,
+        "max_query_l1": 341.0,
+        "status": "ok",
+        "templates_per_slot": 5.0
       },
       "hv_weaker_127": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 7.0,
+        "ciphertext_additions_per_query": 252.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 127.0,
+        "max_query_l1": 127.0,
+        "status": "ok",
+        "templates_per_slot": 7.0
       },
       "idface": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 8.417852514885897,
+        "ciphertext_additions_per_query": 680.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 341.0,
+        "max_query_l1": 341.0,
+        "status": "ok",
+        "templates_per_slot": 5.0
       },
       "random_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 8.417852514885897,
+        "ciphertext_additions_per_query": 680.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 341.0,
+        "max_query_l1": 341.0,
+        "status": "ok",
+        "templates_per_slot": 5.0
       },
       "sc_batch_center": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
         "status": "failed"
       },
       "sc_cached_predictions": {
@@ -90,77 +125,154 @@
         "status": "failed"
       },
       "sc_constant_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 1.0,
+        "ciphertext_additions_per_query": 0.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 1.0,
+        "max_query_l1": 1.0,
+        "status": "ok",
+        "templates_per_slot": 50.0
       },
       "sc_empty_codes": {
         "reason": "gallery codes have shape (0, 512), expected (1000, D)",
         "status": "failed"
       },
       "sc_forged_metadata": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 8.417852514885897,
+        "ciphertext_additions_per_query": 680.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 341.0,
+        "max_query_l1": 341.0,
+        "status": "ok",
+        "templates_per_slot": 5.0
       },
       "sc_nan_codes": {
         "reason": "gallery codes must be integers, got dtype float64",
         "status": "failed"
       },
       "sc_scaled_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "budget exceeded: 681998.0 ciphertext additions per query > 680",
         "status": "failed"
       },
       "sc_stateful_gallery_fold": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
         "status": "failed"
       },
       "sc_stateful_query_lookup": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "query codes changed between calls (depend on batch or on previously seen gallery)",
         "status": "failed"
       },
       "sc_unprotected_float": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "budget exceeded: 147966.5 ciphertext additions per query > 680",
         "status": "failed"
       },
       "sc_visible_lookup": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 8.417852514885897,
+        "ciphertext_additions_per_query": 680.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 341.0,
+        "max_query_l1": 341.0,
+        "status": "ok",
+        "templates_per_slot": 5.0
       },
       "sc_zero_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 0.0,
+        "ciphertext_additions_per_query": 0.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 0.0,
+        "max_query_l1": 0.0,
+        "status": "ok",
+        "templates_per_slot": 50.0
       },
       "sign_random_subset": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 8.417852514885897,
+        "ciphertext_additions_per_query": 680.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 341.0,
+        "max_query_l1": 341.0,
+        "status": "ok",
+        "templates_per_slot": 5.0
       }
     },
     "synthetic_identification_compressed": {
       "hv_alpha277": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "hv_full_sign_512": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "hv_multilevel_gallery": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "hv_weaker_127": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "idface": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "random_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "sc_batch_center": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
         "status": "failed"
       },
       "sc_cached_predictions": {
@@ -168,483 +280,807 @@
         "status": "failed"
       },
       "sc_constant_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 1.0,
+        "ciphertext_additions_per_query": 0.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 1.0,
+        "max_query_l1": 1.0,
+        "status": "ok",
+        "templates_per_slot": 50.0
       },
       "sc_empty_codes": {
         "reason": "gallery codes have shape (0, 512), expected (1000, D)",
         "status": "failed"
       },
       "sc_forged_metadata": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "sc_nan_codes": {
         "reason": "gallery codes must be integers, got dtype float64",
         "status": "failed"
       },
       "sc_scaled_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "budget exceeded: 125998.0 ciphertext additions per query > 124",
         "status": "failed"
       },
       "sc_stateful_gallery_fold": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
         "status": "failed"
       },
       "sc_stateful_query_lookup": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "query codes changed between calls (depend on batch or on previously seen gallery)",
         "status": "failed"
       },
       "sc_unprotected_float": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+        "reason": "budget exceeded: 147966.5 ciphertext additions per query > 124",
         "status": "failed"
       },
       "sc_visible_lookup": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       },
       "sc_zero_codes": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 0.0,
+        "ciphertext_additions_per_query": 0.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 0.0,
+        "max_query_l1": 0.0,
+        "status": "ok",
+        "templates_per_slot": 50.0
       },
       "sign_random_subset": {
-        "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-        "status": "failed"
+        "bits_per_template": 6.0,
+        "ciphertext_additions_per_query": 124.0,
+        "ciphertext_multiplications_per_query": 0.0,
+        "code_dim": 512.0,
+        "decryptions_per_block": 2.0,
+        "digit_bound": 63.0,
+        "max_query_l1": 63.0,
+        "status": "ok",
+        "templates_per_slot": 8.0
       }
     }
   },
-  "paired_vs_reference": {},
+  "paired_vs_reference": {
+    "synthetic_identification:hv_alpha277:tpir@0.001": {
+      "101": {
+        "diff": 9.999999999998899e-05,
+        "se": 0.0006624752353861994
+      },
+      "202": {
+        "diff": 0.00019999999999997797,
+        "se": 0.0007575813075175496
+      },
+      "303": {
+        "diff": 0.0009000000000000119,
+        "se": 0.000870688089961041
+      },
+      "secret": {
+        "diff": -0.000300000000000078,
+        "se": 0.0006331111671736646
+      }
+    },
+    "synthetic_identification:hv_alpha277:tpir@0.01": {
+      "101": {
+        "diff": 0.0008000000000000229,
+        "se": 0.0006189717279488642
+      },
+      "202": {
+        "diff": 0.0010000000000000009,
+        "se": 0.0006906590602460833
+      },
+      "303": {
+        "diff": 0.00039999999999995595,
+        "se": 0.0006202078280705608
+      },
+      "secret": {
+        "diff": 0.00019999999999997797,
+        "se": 0.0006843822031584396
+      }
+    },
+    "synthetic_identification:hv_multilevel_gallery:tpir@0.001": {
+      "101": {
+        "diff": 0.0019000000000000128,
+        "se": 0.0005409962453659019
+      },
+      "202": {
+        "diff": 0.0037000000000000366,
+        "se": 0.0006772443705930726
+      },
+      "303": {
+        "diff": 0.0039000000000000146,
+        "se": 0.0007536318315331412
+      },
+      "secret": {
+        "diff": 0.0026999999999999247,
+        "se": 0.0007038710375487852
+      }
+    },
+    "synthetic_identification:hv_multilevel_gallery:tpir@0.01": {
+      "101": {
+        "diff": 0.0032999999999999696,
+        "se": 0.0005710814302706767
+      },
+      "202": {
+        "diff": 0.0036000000000000476,
+        "se": 0.0006466451886467603
+      },
+      "303": {
+        "diff": 0.0024999999999999467,
+        "se": 0.0005775148807606586
+      },
+      "secret": {
+        "diff": 0.0023999999999999577,
+        "se": 0.0006330789840138397
+      }
+    },
+    "synthetic_identification:hv_weaker_127:tpir@0.001": {
+      "101": {
+        "diff": -0.014100000000000001,
+        "se": 0.0017154283539396239
+      },
+      "202": {
+        "diff": -0.009000000000000008,
+        "se": 0.0022777013494969054
+      },
+      "303": {
+        "diff": -0.009099999999999997,
+        "se": 0.002079511420983304
+      },
+      "secret": {
+        "diff": -0.011099999999999999,
+        "se": 0.001238168380108295
+      }
+    },
+    "synthetic_identification:hv_weaker_127:tpir@0.01": {
+      "101": {
+        "diff": -0.006800000000000028,
+        "se": 0.0014130496939244513
+      },
+      "202": {
+        "diff": -0.007000000000000006,
+        "se": 0.0010298171864462158
+      },
+      "303": {
+        "diff": -0.008299999999999974,
+        "se": 0.0012739505239608036
+      },
+      "secret": {
+        "diff": -0.007099999999999995,
+        "se": 0.0012463039105691642
+      }
+    },
+    "synthetic_identification:sign_random_subset:tpir@0.001": {
+      "101": {
+        "diff": -0.11249999999999993,
+        "se": 0.007332741574609047
+      },
+      "202": {
+        "diff": -0.09819999999999995,
+        "se": 0.005301602204758481
+      },
+      "303": {
+        "diff": -0.10240000000000005,
+        "se": 0.007879958185168243
+      },
+      "secret": {
+        "diff": -0.09850000000000003,
+        "se": 0.005769971571637073
+      }
+    },
+    "synthetic_identification:sign_random_subset:tpir@0.01": {
+      "101": {
+        "diff": -0.057699999999999974,
+        "se": 0.0023540063721239177
+      },
+      "202": {
+        "diff": -0.06099999999999994,
+        "se": 0.002413880641208255
+      },
+      "303": {
+        "diff": -0.0645,
+        "se": 0.0025064388956246284
+      },
+      "secret": {
+        "diff": -0.061000000000000054,
+        "se": 0.0023463353873647303
+      }
+    },
+    "synthetic_identification_compressed:hv_alpha277:tpir@0.001": {
+      "101": {
+        "diff": 0.010000000000000009,
+        "se": 0.004940586604847648
+      },
+      "202": {
+        "diff": 0.011800000000000033,
+        "se": 0.005553111717766894
+      },
+      "303": {
+        "diff": -0.006799999999999917,
+        "se": 0.00658495588443841
+      },
+      "secret": {
+        "diff": 0.0014999999999999458,
+        "se": 0.0042375426546525765
+      }
+    },
+    "synthetic_identification_compressed:hv_alpha277:tpir@0.01": {
+      "101": {
+        "diff": 0.0032000000000000917,
+        "se": 0.0008957922471198327
+      },
+      "202": {
+        "diff": 0.0035999999999999366,
+        "se": 0.000938932239301644
+      },
+      "303": {
+        "diff": 0.0036999999999999256,
+        "se": 0.0010806662007761705
+      },
+      "secret": {
+        "diff": 0.0027000000000000357,
+        "se": 0.0009572669102711089
+      }
+    },
+    "synthetic_identification_compressed:hv_multilevel_gallery:tpir@0.001": {
+      "101": {
+        "diff": 0.0,
+        "se": 0.0
+      },
+      "202": {
+        "diff": 0.0,
+        "se": 0.0
+      },
+      "303": {
+        "diff": 0.0,
+        "se": 0.0
+      },
+      "secret": {
+        "diff": 0.0,
+        "se": 0.0
+      }
+    },
+    "synthetic_identification_compressed:hv_multilevel_gallery:tpir@0.01": {
+      "101": {
+        "diff": 0.0,
+        "se": 0.0
+      },
+      "202": {
+        "diff": 0.0,
+        "se": 0.0
+      },
+      "303": {
+        "diff": 0.0,
+        "se": 0.0
+      },
+      "secret": {
+        "diff": 0.0,
+        "se": 0.0
+      }
+    },
+    "synthetic_identification_compressed:hv_weaker_127:tpir@0.001": {
+      "101": {
+        "diff": -0.15450000000000008,
+        "se": 0.02493525912738827
+      },
+      "202": {
+        "diff": -0.15549999999999997,
+        "se": 0.006193940461249205
+      },
+      "303": {
+        "diff": -0.16649999999999998,
+        "se": 0.006904123242671728
+      },
+      "secret": {
+        "diff": -0.16480000000000006,
+        "se": 0.00831713306599696
+      }
+    },
+    "synthetic_identification_compressed:hv_weaker_127:tpir@0.01": {
+      "101": {
+        "diff": -0.08299999999999996,
+        "se": 0.02046849679385372
+      },
+      "202": {
+        "diff": -0.12860000000000005,
+        "se": 0.018131514215586075
+      },
+      "303": {
+        "diff": -0.08740000000000003,
+        "se": 0.008641961062166385
+      },
+      "secret": {
+        "diff": -0.1271,
+        "se": 0.017966839202750717
+      }
+    },
+    "synthetic_identification_compressed:sign_random_subset:tpir@0.001": {
+      "101": {
+        "diff": -0.9007000000000001,
+        "se": 0.01010661115310172
+      },
+      "202": {
+        "diff": -0.877,
+        "se": 0.012249856080787233
+      },
+      "303": {
+        "diff": -0.8867999999999999,
+        "se": 0.006607959400412504
+      },
+      "secret": {
+        "diff": -0.9072,
+        "se": 0.010528992351478843
+      }
+    },
+    "synthetic_identification_compressed:sign_random_subset:tpir@0.01": {
+      "101": {
+        "diff": -0.8642,
+        "se": 0.0030509699687148667
+      },
+      "202": {
+        "diff": -0.8679,
+        "se": 0.003502270370773794
+      },
+      "303": {
+        "diff": -0.8665,
+        "se": 0.0033811225114597702
+      },
+      "secret": {
+        "diff": -0.8642,
+        "se": 0.003428013965840861
+      }
+    }
+  },
   "rank_delta_calibration": {
-    "hv_alpha277": 0.0,
-    "hv_full_sign_512": 0.0,
-    "hv_multilevel_gallery": 0.0,
-    "hv_weaker_127": 0.0,
+    "hv_alpha277": 0.004779473796042374,
+    "hv_full_sign_512": -3.638238185060165,
+    "hv_multilevel_gallery": 0.008464113860973572,
+    "hv_weaker_127": -0.3591851051689036,
     "idface": 0.0,
-    "random_codes": 0.0,
-    "sc_batch_center": 0.0,
-    "sc_cached_predictions": 0.0,
-    "sc_constant_codes": 0.0,
-    "sc_empty_codes": 0.0,
+    "random_codes": -6.562931744731376,
+    "sc_batch_center": -6.563479065914159,
+    "sc_cached_predictions": -6.563479065914159,
+    "sc_constant_codes": -6.229588936113669,
+    "sc_empty_codes": -6.563479065914159,
     "sc_forged_metadata": 0.0,
-    "sc_nan_codes": 0.0,
-    "sc_scaled_codes": 0.0,
-    "sc_stateful_gallery_fold": 0.0,
-    "sc_stateful_query_lookup": 0.0,
-    "sc_unprotected_float": 0.0,
+    "sc_nan_codes": -6.563479065914159,
+    "sc_scaled_codes": -6.563479065914159,
+    "sc_stateful_gallery_fold": -6.563479065914159,
+    "sc_stateful_query_lookup": -6.563479065914159,
+    "sc_unprotected_float": -6.563479065914159,
     "sc_visible_lookup": 0.0,
-    "sc_zero_codes": 0.0,
-    "sign_random_subset": 0.0
+    "sc_zero_codes": -6.229588936113669,
+    "sign_random_subset": -2.774428797504367
   },
   "rank_delta_complete": {
-    "hv_alpha277": 0.0,
-    "hv_full_sign_512": 0.0,
-    "hv_multilevel_gallery": 0.0,
-    "hv_weaker_127": 0.0,
+    "hv_alpha277": 0.0044405118071678355,
+    "hv_full_sign_512": -2.8318253662288306,
+    "hv_multilevel_gallery": 0.006543828907773262,
+    "hv_weaker_127": -0.3308927478950922,
     "idface": 0.0,
-    "random_codes": 0.0,
-    "sc_batch_center": 0.0,
-    "sc_cached_predictions": 0.0,
-    "sc_constant_codes": 0.0,
-    "sc_empty_codes": 0.0,
+    "random_codes": -5.5111723400140065,
+    "sc_batch_center": -5.511607062464993,
+    "sc_cached_predictions": -5.511607062464993,
+    "sc_constant_codes": -5.231429221165336,
+    "sc_empty_codes": -5.511607062464993,
     "sc_forged_metadata": 0.0,
-    "sc_nan_codes": 0.0,
-    "sc_scaled_codes": 0.0,
-    "sc_stateful_gallery_fold": 0.0,
-    "sc_stateful_query_lookup": 0.0,
-    "sc_unprotected_float": 0.0,
+    "sc_nan_codes": -5.511607062464993,
+    "sc_scaled_codes": -5.511607062464993,
+    "sc_stateful_gallery_fold": -5.511607062464993,
+    "sc_stateful_query_lookup": -5.511607062464993,
+    "sc_unprotected_float": -5.511607062464993,
     "sc_visible_lookup": 0.0,
-    "sc_zero_codes": 0.0,
-    "sign_random_subset": 0.0
+    "sc_zero_codes": -5.231429221165336,
+    "sign_random_subset": -2.5260477587864347
   },
   "reference_rank_by_seed_vs_secret_reference": {
-    "101": 0.0,
-    "202": 0.0,
-    "303": 0.0,
+    "101": -0.006114796986918033,
+    "202": -0.0061447042856246584,
+    "303": -0.0050617676959809794,
     "secret": 0.0
   },
   "reference_tpir_0.01_by_seed": {
-    "101": 0.0,
-    "202": 0.0,
-    "303": 0.0,
-    "secret": 0.0
+    "101": 0.9696,
+    "202": 0.97,
+    "303": 0.9695,
+    "secret": 0.9694
   },
   "seeds": {
     "101": {
       "rank_delta_calibration_scale": {
-        "hv_alpha277": 0.0,
-        "hv_multilevel_gallery": 0.0,
-        "hv_weaker_127": 0.0,
+        "hv_alpha277": 0.015986659825445903,
+        "hv_multilevel_gallery": 0.010123746340657155,
+        "hv_weaker_127": -0.2946498693682365,
         "idface": 0.0,
-        "sign_random_subset": 0.0
+        "sign_random_subset": -2.7730569199966384
       },
       "results": {
         "synthetic_identification": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9784009372533988,
+            "open_set_score_auc": 0.97667444,
+            "top1_identification": 0.9767,
+            "tpir_at_fpir_0.001": 0.9682,
+            "tpir_at_fpir_0.01": 0.9704,
+            "tpir_at_fpir_0.1": 0.9737
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9803910505199023,
+            "open_set_score_auc": 0.978420425,
+            "top1_identification": 0.9786,
+            "tpir_at_fpir_0.001": 0.97,
+            "tpir_at_fpir_0.01": 0.9729,
+            "tpir_at_fpir_0.1": 0.9758
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9720587890026602,
+            "open_set_score_auc": 0.97090765,
+            "top1_identification": 0.9696,
+            "tpir_at_fpir_0.001": 0.954,
+            "tpir_at_fpir_0.01": 0.9628,
+            "tpir_at_fpir_0.1": 0.9662
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9775868922931357,
+            "open_set_score_auc": 0.97582477,
+            "top1_identification": 0.9759,
+            "tpir_at_fpir_0.001": 0.9681,
+            "tpir_at_fpir_0.01": 0.9696,
+            "tpir_at_fpir_0.1": 0.9727
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9586835964053029,
+            "open_set_score_auc": 0.953084275,
+            "top1_identification": 0.9531,
+            "tpir_at_fpir_0.001": 0.8556,
+            "tpir_at_fpir_0.01": 0.9119,
+            "tpir_at_fpir_0.1": 0.9369
           }
         },
         "synthetic_identification_compressed": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9701797557710277,
+            "open_set_score_auc": 0.968286675,
+            "top1_identification": 0.9677,
+            "tpir_at_fpir_0.001": 0.9411,
+            "tpir_at_fpir_0.01": 0.9542,
+            "tpir_at_fpir_0.1": 0.9635
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9694283230072737,
+            "open_set_score_auc": 0.9674986525,
+            "top1_identification": 0.9662,
+            "tpir_at_fpir_0.001": 0.9311,
+            "tpir_at_fpir_0.01": 0.951,
+            "tpir_at_fpir_0.1": 0.9591
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9374658844135669,
+            "open_set_score_auc": 0.9342199225,
+            "top1_identification": 0.9249,
+            "tpir_at_fpir_0.001": 0.7766,
+            "tpir_at_fpir_0.01": 0.868,
+            "tpir_at_fpir_0.1": 0.8983
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9694283230072737,
+            "open_set_score_auc": 0.9674986525,
+            "top1_identification": 0.9662,
+            "tpir_at_fpir_0.001": 0.9311,
+            "tpir_at_fpir_0.01": 0.951,
+            "tpir_at_fpir_0.1": 0.9591
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.35323089561956933,
+            "open_set_score_auc": 0.315987485,
+            "top1_identification": 0.2794,
+            "tpir_at_fpir_0.001": 0.0304,
+            "tpir_at_fpir_0.01": 0.0868,
+            "tpir_at_fpir_0.1": 0.1751
           }
         }
       }
     },
     "202": {
       "rank_delta_calibration_scale": {
-        "hv_alpha277": 0.0,
-        "hv_multilevel_gallery": 0.0,
-        "hv_weaker_127": 0.0,
+        "hv_alpha277": 0.016680265090946975,
+        "hv_multilevel_gallery": 0.011003549312094024,
+        "hv_weaker_127": -0.34574162478754517,
         "idface": 0.0,
-        "sign_random_subset": 0.0
+        "sign_random_subset": -2.751605253253212
       },
       "results": {
         "synthetic_identification": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9782097176574662,
+            "open_set_score_auc": 0.976937585,
+            "top1_identification": 0.9766,
+            "tpir_at_fpir_0.001": 0.967,
+            "tpir_at_fpir_0.01": 0.971,
+            "tpir_at_fpir_0.1": 0.9739
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9796545736311713,
+            "open_set_score_auc": 0.9783182125,
+            "top1_identification": 0.9781,
+            "tpir_at_fpir_0.001": 0.9705,
+            "tpir_at_fpir_0.01": 0.9736,
+            "tpir_at_fpir_0.1": 0.9755
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9733067652722922,
+            "open_set_score_auc": 0.9719900625,
+            "top1_identification": 0.9714,
+            "tpir_at_fpir_0.001": 0.9578,
+            "tpir_at_fpir_0.01": 0.963,
+            "tpir_at_fpir_0.1": 0.9675
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9774614303465365,
+            "open_set_score_auc": 0.97639124,
+            "top1_identification": 0.976,
+            "tpir_at_fpir_0.001": 0.9668,
+            "tpir_at_fpir_0.01": 0.97,
+            "tpir_at_fpir_0.1": 0.9735
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9578794250248007,
+            "open_set_score_auc": 0.953190115,
+            "top1_identification": 0.951,
+            "tpir_at_fpir_0.001": 0.8686,
+            "tpir_at_fpir_0.01": 0.909,
+            "tpir_at_fpir_0.1": 0.9358
           }
         },
         "synthetic_identification_compressed": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9693589998278878,
+            "open_set_score_auc": 0.9673583325,
+            "top1_identification": 0.9669,
+            "tpir_at_fpir_0.001": 0.9424,
+            "tpir_at_fpir_0.01": 0.9549,
+            "tpir_at_fpir_0.1": 0.9628
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9685340386871946,
+            "open_set_score_auc": 0.96694241,
+            "top1_identification": 0.9653,
+            "tpir_at_fpir_0.001": 0.9306,
+            "tpir_at_fpir_0.01": 0.9513,
+            "tpir_at_fpir_0.1": 0.9609
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9373516974816106,
+            "open_set_score_auc": 0.933673735,
+            "top1_identification": 0.9248,
+            "tpir_at_fpir_0.001": 0.7751,
+            "tpir_at_fpir_0.01": 0.8227,
+            "tpir_at_fpir_0.1": 0.896
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9685340386871946,
+            "open_set_score_auc": 0.96694241,
+            "top1_identification": 0.9653,
+            "tpir_at_fpir_0.001": 0.9306,
+            "tpir_at_fpir_0.01": 0.9513,
+            "tpir_at_fpir_0.1": 0.9609
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.35753477078587315,
+            "open_set_score_auc": 0.3211669525,
+            "top1_identification": 0.2831,
+            "tpir_at_fpir_0.001": 0.0536,
+            "tpir_at_fpir_0.01": 0.0834,
+            "tpir_at_fpir_0.1": 0.1738
           }
         }
       }
     },
     "303": {
       "rank_delta_calibration_scale": {
-        "hv_alpha277": 0.0,
-        "hv_multilevel_gallery": 0.0,
-        "hv_weaker_127": 0.0,
+        "hv_alpha277": 0.0014717825077420878,
+        "hv_multilevel_gallery": 0.010081863027819476,
+        "hv_weaker_127": -0.31062418003772607,
         "idface": 0.0,
-        "sign_random_subset": 0.0
+        "sign_random_subset": -2.7699378996584505
       },
       "results": {
         "synthetic_identification": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9769689643803023,
+            "open_set_score_auc": 0.9756534025,
+            "top1_identification": 0.9751,
+            "tpir_at_fpir_0.001": 0.9667,
+            "tpir_at_fpir_0.01": 0.9699,
+            "tpir_at_fpir_0.1": 0.9725
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9792739125969654,
+            "open_set_score_auc": 0.977445455,
+            "top1_identification": 0.9775,
+            "tpir_at_fpir_0.001": 0.9697,
+            "tpir_at_fpir_0.01": 0.972,
+            "tpir_at_fpir_0.1": 0.9751
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9716193183590051,
+            "open_set_score_auc": 0.97015165,
+            "top1_identification": 0.9695,
+            "tpir_at_fpir_0.001": 0.9567,
+            "tpir_at_fpir_0.01": 0.9612,
+            "tpir_at_fpir_0.1": 0.9649
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9771103359140682,
+            "open_set_score_auc": 0.97540671,
+            "top1_identification": 0.9751,
+            "tpir_at_fpir_0.001": 0.9658,
+            "tpir_at_fpir_0.01": 0.9695,
+            "tpir_at_fpir_0.1": 0.9724
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9569464443195331,
+            "open_set_score_auc": 0.9519990975,
+            "top1_identification": 0.9508,
+            "tpir_at_fpir_0.001": 0.8634,
+            "tpir_at_fpir_0.01": 0.905,
+            "tpir_at_fpir_0.1": 0.9322
           }
         },
         "synthetic_identification_compressed": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9683992619242117,
+            "open_set_score_auc": 0.9667673725,
+            "top1_identification": 0.9658,
+            "tpir_at_fpir_0.001": 0.9321,
+            "tpir_at_fpir_0.01": 0.9531,
+            "tpir_at_fpir_0.1": 0.9625
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9688493893046496,
+            "open_set_score_auc": 0.9667413475,
+            "top1_identification": 0.9663,
+            "tpir_at_fpir_0.001": 0.9389,
+            "tpir_at_fpir_0.01": 0.9494,
+            "tpir_at_fpir_0.1": 0.9605
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9346234352401638,
+            "open_set_score_auc": 0.93124918,
+            "top1_identification": 0.922,
+            "tpir_at_fpir_0.001": 0.7724,
+            "tpir_at_fpir_0.01": 0.862,
+            "tpir_at_fpir_0.1": 0.895
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9688493893046496,
+            "open_set_score_auc": 0.9667413475,
+            "top1_identification": 0.9663,
+            "tpir_at_fpir_0.001": 0.9389,
+            "tpir_at_fpir_0.01": 0.9494,
+            "tpir_at_fpir_0.1": 0.9605
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.3548073930022864,
+            "open_set_score_auc": 0.3177511525,
+            "top1_identification": 0.279,
+            "tpir_at_fpir_0.001": 0.0521,
+            "tpir_at_fpir_0.01": 0.0829,
+            "tpir_at_fpir_0.1": 0.1733
           }
         }
       }
     },
     "secret": {
       "rank_delta_calibration_scale": {
-        "hv_alpha277": 0.0,
-        "hv_multilevel_gallery": 0.0,
-        "hv_weaker_127": 0.0,
+        "hv_alpha277": 0.004779473796042374,
+        "hv_multilevel_gallery": 0.008464113860973572,
+        "hv_weaker_127": -0.3591851051689036,
         "idface": 0.0,
-        "sign_random_subset": 0.0
+        "sign_random_subset": -2.774428797504367
       },
       "results": {
         "synthetic_identification": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.977989388552693,
+            "open_set_score_auc": 0.9761270875,
+            "top1_identification": 0.9759,
+            "tpir_at_fpir_0.001": 0.9662,
+            "tpir_at_fpir_0.01": 0.9696,
+            "tpir_at_fpir_0.1": 0.9727
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.979406120755201,
+            "open_set_score_auc": 0.977821645,
+            "top1_identification": 0.9776,
+            "tpir_at_fpir_0.001": 0.9692,
+            "tpir_at_fpir_0.01": 0.9718,
+            "tpir_at_fpir_0.1": 0.9746
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9710760061863836,
+            "open_set_score_auc": 0.9695790525,
+            "top1_identification": 0.9686,
+            "tpir_at_fpir_0.001": 0.9554,
+            "tpir_at_fpir_0.01": 0.9623,
+            "tpir_at_fpir_0.1": 0.9653
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9773902427359346,
+            "open_set_score_auc": 0.9757013575,
+            "top1_identification": 0.9755,
+            "tpir_at_fpir_0.001": 0.9665,
+            "tpir_at_fpir_0.01": 0.9694,
+            "tpir_at_fpir_0.1": 0.9727
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9556145242760434,
+            "open_set_score_auc": 0.9516046325,
+            "top1_identification": 0.9486,
+            "tpir_at_fpir_0.001": 0.868,
+            "tpir_at_fpir_0.01": 0.9084,
+            "tpir_at_fpir_0.1": 0.9351
           }
         },
         "synthetic_identification_compressed": {
           "hv_alpha277": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9699033162788655,
+            "open_set_score_auc": 0.968258435,
+            "top1_identification": 0.9671,
+            "tpir_at_fpir_0.001": 0.9408,
+            "tpir_at_fpir_0.01": 0.9537,
+            "tpir_at_fpir_0.1": 0.9631
           },
           "hv_multilevel_gallery": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9703507507364766,
+            "open_set_score_auc": 0.96829163,
+            "top1_identification": 0.9677,
+            "tpir_at_fpir_0.001": 0.9393,
+            "tpir_at_fpir_0.01": 0.951,
+            "tpir_at_fpir_0.1": 0.9622
           },
           "hv_weaker_127": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9360785192392814,
+            "open_set_score_auc": 0.931612055,
+            "top1_identification": 0.9236,
+            "tpir_at_fpir_0.001": 0.7745,
+            "tpir_at_fpir_0.01": 0.8239,
+            "tpir_at_fpir_0.1": 0.8945
           },
           "idface": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.9703507507364766,
+            "open_set_score_auc": 0.96829163,
+            "top1_identification": 0.9677,
+            "tpir_at_fpir_0.001": 0.9393,
+            "tpir_at_fpir_0.01": 0.951,
+            "tpir_at_fpir_0.1": 0.9622
           },
           "sign_random_subset": {
-            "mean_reciprocal_rank": 0.0,
-            "open_set_score_auc": 0.0,
-            "top1_identification": 0.0,
-            "tpir_at_fpir_0.001": 0.0,
-            "tpir_at_fpir_0.01": 0.0,
-            "tpir_at_fpir_0.1": 0.0
+            "mean_reciprocal_rank": 0.35700587307574305,
+            "open_set_score_auc": 0.319083145,
+            "top1_identification": 0.2812,
+            "tpir_at_fpir_0.001": 0.0321,
+            "tpir_at_fpir_0.01": 0.0868,
+            "tpir_at_fpir_0.1": 0.1731
           }
         }
       }
@@ -653,12 +1089,12 @@
   "test_secret": {
     "synthetic_identification": {
       "hv_alpha277": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.977989388552693,
+        "open_set_score_auc": 0.9761270875,
+        "top1_identification": 0.9759,
+        "tpir_at_fpir_0.001": 0.9662,
+        "tpir_at_fpir_0.01": 0.9696,
+        "tpir_at_fpir_0.1": 0.9727
       },
       "hv_full_sign_512": {
         "mean_reciprocal_rank": 0.0,
@@ -669,33 +1105,33 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "hv_multilevel_gallery": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.979406120755201,
+        "open_set_score_auc": 0.977821645,
+        "top1_identification": 0.9776,
+        "tpir_at_fpir_0.001": 0.9692,
+        "tpir_at_fpir_0.01": 0.9718,
+        "tpir_at_fpir_0.1": 0.9746
       },
       "hv_weaker_127": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9710760061863836,
+        "open_set_score_auc": 0.9695790525,
+        "top1_identification": 0.9686,
+        "tpir_at_fpir_0.001": 0.9554,
+        "tpir_at_fpir_0.01": 0.9623,
+        "tpir_at_fpir_0.1": 0.9653
       },
       "idface": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9773902427359346,
+        "open_set_score_auc": 0.9757013575,
+        "top1_identification": 0.9755,
+        "tpir_at_fpir_0.001": 0.9665,
+        "tpir_at_fpir_0.01": 0.9694,
+        "tpir_at_fpir_0.1": 0.9727
       },
       "random_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
+        "mean_reciprocal_rank": 0.0010729639062006745,
+        "open_set_score_auc": 0.0002747525,
+        "top1_identification": 0.0002,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
         "tpir_at_fpir_0.1": 0.0
@@ -717,8 +1153,8 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_constant_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
@@ -733,12 +1169,12 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_forged_metadata": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9773902427359346,
+        "open_set_score_auc": 0.9757013575,
+        "top1_identification": 0.9755,
+        "tpir_at_fpir_0.001": 0.9665,
+        "tpir_at_fpir_0.01": 0.9694,
+        "tpir_at_fpir_0.1": 0.9727
       },
       "sc_nan_codes": {
         "mean_reciprocal_rank": 0.0,
@@ -781,74 +1217,74 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_visible_lookup": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9773902427359346,
+        "open_set_score_auc": 0.9757013575,
+        "top1_identification": 0.9755,
+        "tpir_at_fpir_0.001": 0.9665,
+        "tpir_at_fpir_0.01": 0.9694,
+        "tpir_at_fpir_0.1": 0.9727
       },
       "sc_zero_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
         "tpir_at_fpir_0.1": 0.0
       },
       "sign_random_subset": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9556145242760434,
+        "open_set_score_auc": 0.9516046325,
+        "top1_identification": 0.9486,
+        "tpir_at_fpir_0.001": 0.868,
+        "tpir_at_fpir_0.01": 0.9084,
+        "tpir_at_fpir_0.1": 0.9351
       }
     },
     "synthetic_identification_compressed": {
       "hv_alpha277": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9699033162788655,
+        "open_set_score_auc": 0.968258435,
+        "top1_identification": 0.9671,
+        "tpir_at_fpir_0.001": 0.9408,
+        "tpir_at_fpir_0.01": 0.9537,
+        "tpir_at_fpir_0.1": 0.9631
       },
       "hv_full_sign_512": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9607447485570648,
+        "open_set_score_auc": 0.958260645,
+        "top1_identification": 0.9554,
+        "tpir_at_fpir_0.001": 0.8815,
+        "tpir_at_fpir_0.01": 0.9071,
+        "tpir_at_fpir_0.1": 0.9423
       },
       "hv_multilevel_gallery": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9703507507364766,
+        "open_set_score_auc": 0.96829163,
+        "top1_identification": 0.9677,
+        "tpir_at_fpir_0.001": 0.9393,
+        "tpir_at_fpir_0.01": 0.951,
+        "tpir_at_fpir_0.1": 0.9622
       },
       "hv_weaker_127": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9360785192392814,
+        "open_set_score_auc": 0.931612055,
+        "top1_identification": 0.9236,
+        "tpir_at_fpir_0.001": 0.7745,
+        "tpir_at_fpir_0.01": 0.8239,
+        "tpir_at_fpir_0.1": 0.8945
       },
       "idface": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9703507507364766,
+        "open_set_score_auc": 0.96829163,
+        "top1_identification": 0.9677,
+        "tpir_at_fpir_0.001": 0.9393,
+        "tpir_at_fpir_0.01": 0.951,
+        "tpir_at_fpir_0.1": 0.9622
       },
       "random_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.0007044417029824115,
+        "open_set_score_auc": 2.85e-05,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
@@ -871,8 +1307,8 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_constant_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
@@ -887,12 +1323,12 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_forged_metadata": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9703507507364766,
+        "open_set_score_auc": 0.96829163,
+        "top1_identification": 0.9677,
+        "tpir_at_fpir_0.001": 0.9393,
+        "tpir_at_fpir_0.01": 0.951,
+        "tpir_at_fpir_0.1": 0.9622
       },
       "sc_nan_codes": {
         "mean_reciprocal_rank": 0.0,
@@ -935,40 +1371,40 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_visible_lookup": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9703507507364766,
+        "open_set_score_auc": 0.96829163,
+        "top1_identification": 0.9677,
+        "tpir_at_fpir_0.001": 0.9393,
+        "tpir_at_fpir_0.01": 0.951,
+        "tpir_at_fpir_0.1": 0.9622
       },
       "sc_zero_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
         "tpir_at_fpir_0.1": 0.0
       },
       "sign_random_subset": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.35700587307574305,
+        "open_set_score_auc": 0.319083145,
+        "top1_identification": 0.2812,
+        "tpir_at_fpir_0.001": 0.0321,
+        "tpir_at_fpir_0.01": 0.0868,
+        "tpir_at_fpir_0.1": 0.1731
       }
     }
   },
   "train": {
     "synthetic_identification": {
       "hv_alpha277": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9796768050412564,
+        "open_set_score_auc": 0.978060165,
+        "top1_identification": 0.9782,
+        "tpir_at_fpir_0.001": 0.9688,
+        "tpir_at_fpir_0.01": 0.9709,
+        "tpir_at_fpir_0.1": 0.9749
       },
       "hv_full_sign_512": {
         "mean_reciprocal_rank": 0.0,
@@ -979,32 +1415,32 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "hv_multilevel_gallery": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9817207256549872,
+        "open_set_score_auc": 0.9802162475,
+        "top1_identification": 0.9802,
+        "tpir_at_fpir_0.001": 0.9727,
+        "tpir_at_fpir_0.01": 0.975,
+        "tpir_at_fpir_0.1": 0.9772
       },
       "hv_weaker_127": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9746581288609819,
+        "open_set_score_auc": 0.9731322775,
+        "top1_identification": 0.9725,
+        "tpir_at_fpir_0.001": 0.9566,
+        "tpir_at_fpir_0.01": 0.9656,
+        "tpir_at_fpir_0.1": 0.9686
       },
       "idface": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9794530358048283,
+        "open_set_score_auc": 0.978098675,
+        "top1_identification": 0.9777,
+        "tpir_at_fpir_0.001": 0.9697,
+        "tpir_at_fpir_0.01": 0.972,
+        "tpir_at_fpir_0.1": 0.9753
       },
       "random_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.0009147668742223562,
+        "open_set_score_auc": 6.031e-05,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
@@ -1027,8 +1463,8 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_constant_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
@@ -1043,12 +1479,12 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_forged_metadata": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9794530358048283,
+        "open_set_score_auc": 0.978098675,
+        "top1_identification": 0.9777,
+        "tpir_at_fpir_0.001": 0.9697,
+        "tpir_at_fpir_0.01": 0.972,
+        "tpir_at_fpir_0.1": 0.9753
       },
       "sc_nan_codes": {
         "mean_reciprocal_rank": 0.0,
@@ -1091,75 +1527,75 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_visible_lookup": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 1.0,
+        "open_set_score_auc": 1.0,
+        "top1_identification": 1.0,
+        "tpir_at_fpir_0.001": 1.0,
+        "tpir_at_fpir_0.01": 1.0,
+        "tpir_at_fpir_0.1": 1.0
       },
       "sc_zero_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
         "tpir_at_fpir_0.1": 0.0
       },
       "sign_random_subset": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9588761338659195,
+        "open_set_score_auc": 0.954405125,
+        "top1_identification": 0.9519,
+        "tpir_at_fpir_0.001": 0.8689,
+        "tpir_at_fpir_0.01": 0.9097,
+        "tpir_at_fpir_0.1": 0.9357
       }
     },
     "synthetic_identification_compressed": {
       "hv_alpha277": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9718282014786604,
+        "open_set_score_auc": 0.970502415,
+        "top1_identification": 0.9685,
+        "tpir_at_fpir_0.001": 0.9345,
+        "tpir_at_fpir_0.01": 0.9541,
+        "tpir_at_fpir_0.1": 0.9643
       },
       "hv_full_sign_512": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9612362669412814,
+        "open_set_score_auc": 0.9595325975,
+        "top1_identification": 0.9548,
+        "tpir_at_fpir_0.001": 0.8403,
+        "tpir_at_fpir_0.01": 0.9065,
+        "tpir_at_fpir_0.1": 0.942
       },
       "hv_multilevel_gallery": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9722498708000152,
+        "open_set_score_auc": 0.96985503,
+        "top1_identification": 0.9695,
+        "tpir_at_fpir_0.001": 0.9315,
+        "tpir_at_fpir_0.01": 0.953,
+        "tpir_at_fpir_0.1": 0.9625
       },
       "hv_weaker_127": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9374775942414357,
+        "open_set_score_auc": 0.934300485,
+        "top1_identification": 0.9247,
+        "tpir_at_fpir_0.001": 0.7701,
+        "tpir_at_fpir_0.01": 0.8634,
+        "tpir_at_fpir_0.1": 0.8957
       },
       "idface": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9722498708000152,
+        "open_set_score_auc": 0.96985503,
+        "top1_identification": 0.9695,
+        "tpir_at_fpir_0.001": 0.9315,
+        "tpir_at_fpir_0.01": 0.953,
+        "tpir_at_fpir_0.1": 0.9625
       },
       "random_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
+        "mean_reciprocal_rank": 0.0008135247377459906,
+        "open_set_score_auc": 0.00010528,
+        "top1_identification": 0.0001,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
         "tpir_at_fpir_0.1": 0.0
@@ -1181,8 +1617,8 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_constant_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
@@ -1197,12 +1633,12 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_forged_metadata": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.9722498708000152,
+        "open_set_score_auc": 0.96985503,
+        "top1_identification": 0.9695,
+        "tpir_at_fpir_0.001": 0.9315,
+        "tpir_at_fpir_0.01": 0.953,
+        "tpir_at_fpir_0.1": 0.9625
       },
       "sc_nan_codes": {
         "mean_reciprocal_rank": 0.0,
@@ -1245,28 +1681,28 @@
         "tpir_at_fpir_0.1": 0.0
       },
       "sc_visible_lookup": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 1.0,
+        "open_set_score_auc": 1.0,
+        "top1_identification": 1.0,
+        "tpir_at_fpir_0.001": 1.0,
+        "tpir_at_fpir_0.01": 1.0,
+        "tpir_at_fpir_0.1": 1.0
       },
       "sc_zero_codes": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
+        "mean_reciprocal_rank": 0.00010000000000000002,
+        "open_set_score_auc": 0.5,
         "top1_identification": 0.0,
         "tpir_at_fpir_0.001": 0.0,
         "tpir_at_fpir_0.01": 0.0,
         "tpir_at_fpir_0.1": 0.0
       },
       "sign_random_subset": {
-        "mean_reciprocal_rank": 0.0,
-        "open_set_score_auc": 0.0,
-        "top1_identification": 0.0,
-        "tpir_at_fpir_0.001": 0.0,
-        "tpir_at_fpir_0.01": 0.0,
-        "tpir_at_fpir_0.1": 0.0
+        "mean_reciprocal_rank": 0.3538844723656216,
+        "open_set_score_auc": 0.3169786175,
+        "top1_identification": 0.2787,
+        "tpir_at_fpir_0.001": 0.049,
+        "tpir_at_fpir_0.01": 0.0805,
+        "tpir_at_fpir_0.1": 0.1727
       }
     }
   }

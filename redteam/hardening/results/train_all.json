@@ -13,31 +13,66 @@
       },
       "_diagnostics": {
         "hv_alpha277": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 8.118941072723507,
+          "ciphertext_additions_per_query": 552.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 277.0,
+          "max_query_l1": 277.0,
+          "status": "ok",
+          "templates_per_slot": 6.0
         },
         "hv_full_sign_512": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "budget exceeded: 1022.0 ciphertext additions per query > 680",
           "status": "failed"
         },
         "hv_multilevel_gallery": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 9.147204924942228,
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 566.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
         },
         "hv_weaker_127": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 7.0,
+          "ciphertext_additions_per_query": 252.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 127.0,
+          "max_query_l1": 127.0,
+          "status": "ok",
+          "templates_per_slot": 7.0
         },
         "idface": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 8.417852514885897,
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 341.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
         },
         "random_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 8.417852514885897,
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 341.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
         },
         "sc_batch_center": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
           "status": "failed"
         },
         "sc_cached_predictions": {
@@ -45,48 +80,83 @@
           "status": "failed"
         },
         "sc_constant_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 1.0,
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 1.0,
+          "max_query_l1": 1.0,
+          "status": "ok",
+          "templates_per_slot": 50.0
         },
         "sc_empty_codes": {
           "reason": "gallery codes have shape (0, 512), expected (1000, D)",
           "status": "failed"
         },
         "sc_forged_metadata": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 8.417852514885897,
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 341.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
         },
         "sc_nan_codes": {
           "reason": "gallery codes must be integers, got dtype float64",
           "status": "failed"
         },
         "sc_scaled_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "budget exceeded: 681998.0 ciphertext additions per query > 680",
           "status": "failed"
         },
         "sc_stateful_gallery_fold": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
           "status": "failed"
         },
         "sc_stateful_query_lookup": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "query codes changed between calls (depend on batch or on previously seen gallery)",
           "status": "failed"
         },
         "sc_unprotected_float": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "budget exceeded: 147971.6 ciphertext additions per query > 680",
           "status": "failed"
         },
         "sc_visible_lookup": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 1.584962500721156,
+          "ciphertext_additions_per_query": 0.6666666666666666,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 2.0,
+          "max_query_l1": 2.0,
+          "status": "ok",
+          "templates_per_slot": 31.0
         },
         "sc_zero_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 0.0,
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 0.0,
+          "max_query_l1": 0.0,
+          "status": "ok",
+          "templates_per_slot": 50.0
         },
         "sign_random_subset": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 8.417852514885897,
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 341.0,
+          "max_query_l1": 341.0,
+          "status": "ok",
+          "templates_per_slot": 5.0
         }
       },
       "budget": {
@@ -97,12 +167,12 @@
       },
       "results": {
         "hv_alpha277": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9796768050412564,
+          "open_set_score_auc": 0.978060165,
+          "top1_identification": 0.9782,
+          "tpir_at_fpir_0.001": 0.9688,
+          "tpir_at_fpir_0.01": 0.9709,
+          "tpir_at_fpir_0.1": 0.9749
         },
         "hv_full_sign_512": {
           "mean_reciprocal_rank": 0.0,
@@ -113,32 +183,32 @@
           "tpir_at_fpir_0.1": 0.0
         },
         "hv_multilevel_gallery": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9817207256549872,
+          "open_set_score_auc": 0.9802162475,
+          "top1_identification": 0.9802,
+          "tpir_at_fpir_0.001": 0.9727,
+          "tpir_at_fpir_0.01": 0.975,
+          "tpir_at_fpir_0.1": 0.9772
         },
         "hv_weaker_127": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9746581288609819,
+          "open_set_score_auc": 0.9731322775,
+          "top1_identification": 0.9725,
+          "tpir_at_fpir_0.001": 0.9566,
+          "tpir_at_fpir_0.01": 0.9656,
+          "tpir_at_fpir_0.1": 0.9686
         },
         "idface": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9794530358048283,
+          "open_set_score_auc": 0.978098675,
+          "top1_identification": 0.9777,
+          "tpir_at_fpir_0.001": 0.9697,
+          "tpir_at_fpir_0.01": 0.972,
+          "tpir_at_fpir_0.1": 0.9753
         },
         "random_codes": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
+          "mean_reciprocal_rank": 0.0009147668742223562,
+          "open_set_score_auc": 6.031e-05,
           "top1_identification": 0.0,
           "tpir_at_fpir_0.001": 0.0,
           "tpir_at_fpir_0.01": 0.0,
@@ -161,8 +231,8 @@
           "tpir_at_fpir_0.1": 0.0
         },
         "sc_constant_codes": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
+          "mean_reciprocal_rank": 0.00010000000000000002,
+          "open_set_score_auc": 0.5,
           "top1_identification": 0.0,
           "tpir_at_fpir_0.001": 0.0,
           "tpir_at_fpir_0.01": 0.0,
@@ -177,12 +247,12 @@
           "tpir_at_fpir_0.1": 0.0
         },
         "sc_forged_metadata": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9794530358048283,
+          "open_set_score_auc": 0.978098675,
+          "top1_identification": 0.9777,
+          "tpir_at_fpir_0.001": 0.9697,
+          "tpir_at_fpir_0.01": 0.972,
+          "tpir_at_fpir_0.1": 0.9753
         },
         "sc_nan_codes": {
           "mean_reciprocal_rank": 0.0,
@@ -225,28 +295,28 @@
           "tpir_at_fpir_0.1": 0.0
         },
         "sc_visible_lookup": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 1.0,
+          "open_set_score_auc": 1.0,
+          "top1_identification": 1.0,
+          "tpir_at_fpir_0.001": 1.0,
+          "tpir_at_fpir_0.01": 1.0,
+          "tpir_at_fpir_0.1": 1.0
         },
         "sc_zero_codes": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
+          "mean_reciprocal_rank": 0.00010000000000000002,
+          "open_set_score_auc": 0.5,
           "top1_identification": 0.0,
           "tpir_at_fpir_0.001": 0.0,
           "tpir_at_fpir_0.01": 0.0,
           "tpir_at_fpir_0.1": 0.0
         },
         "sign_random_subset": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9588761338659195,
+          "open_set_score_auc": 0.954405125,
+          "top1_identification": 0.9519,
+          "tpir_at_fpir_0.001": 0.8689,
+          "tpir_at_fpir_0.01": 0.9097,
+          "tpir_at_fpir_0.1": 0.9357
         }
       },
       "slice": "train"
@@ -264,31 +334,73 @@
       },
       "_diagnostics": {
         "hv_alpha277": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
         "hv_full_sign_512": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
         "hv_multilevel_gallery": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
         "hv_weaker_127": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
         "idface": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
         "random_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
         "sc_batch_center": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
           "status": "failed"
         },
         "sc_cached_predictions": {
@@ -296,48 +408,83 @@
           "status": "failed"
         },
         "sc_constant_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 1.0,
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 1.0,
+          "max_query_l1": 1.0,
+          "status": "ok",
+          "templates_per_slot": 50.0
         },
         "sc_empty_codes": {
           "reason": "gallery codes have shape (0, 512), expected (1000, D)",
           "status": "failed"
         },
         "sc_forged_metadata": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         },
         "sc_nan_codes": {
           "reason": "gallery codes must be integers, got dtype float64",
           "status": "failed"
         },
         "sc_scaled_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "budget exceeded: 125998.0 ciphertext additions per query > 124",
           "status": "failed"
         },
         "sc_stateful_gallery_fold": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "gallery codes changed between calls (depend on batch or on previously seen probes)",
           "status": "failed"
         },
         "sc_stateful_query_lookup": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "query codes changed between calls (depend on batch or on previously seen gallery)",
           "status": "failed"
         },
         "sc_unprotected_float": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
+          "reason": "budget exceeded: 147971.6 ciphertext additions per query > 124",
           "status": "failed"
         },
         "sc_visible_lookup": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 1.584962500721156,
+          "ciphertext_additions_per_query": 0.6666666666666666,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 2.0,
+          "max_query_l1": 2.0,
+          "status": "ok",
+          "templates_per_slot": 31.0
         },
         "sc_zero_codes": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 0.0,
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 0.0,
+          "max_query_l1": 0.0,
+          "status": "ok",
+          "templates_per_slot": 50.0
         },
         "sign_random_subset": {
-          "reason": "query encoder exited 1:   File \"/usr/local/lib/python3.11/zipfile.py\", line 2030, in _fpclose |     fp.close() | OSError: [Errno 28] No space left on device",
-          "status": "failed"
+          "bits_per_template": 6.0,
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "code_dim": 512.0,
+          "decryptions_per_block": 2.0,
+          "digit_bound": 63.0,
+          "max_query_l1": 63.0,
+          "status": "ok",
+          "templates_per_slot": 8.0
         }
       },
       "budget": {
@@ -348,49 +495,49 @@
       },
       "results": {
         "hv_alpha277": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9718282014786604,
+          "open_set_score_auc": 0.970502415,
+          "top1_identification": 0.9685,
+          "tpir_at_fpir_0.001": 0.9345,
+          "tpir_at_fpir_0.01": 0.9541,
+          "tpir_at_fpir_0.1": 0.9643
         },
         "hv_full_sign_512": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9612362669412814,
+          "open_set_score_auc": 0.9595325975,
+          "top1_identification": 0.9548,
+          "tpir_at_fpir_0.001": 0.8403,
+          "tpir_at_fpir_0.01": 0.9065,
+          "tpir_at_fpir_0.1": 0.942
         },
         "hv_multilevel_gallery": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9722498708000152,
+          "open_set_score_auc": 0.96985503,
+          "top1_identification": 0.9695,
+          "tpir_at_fpir_0.001": 0.9315,
+          "tpir_at_fpir_0.01": 0.953,
+          "tpir_at_fpir_0.1": 0.9625
         },
         "hv_weaker_127": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9374775942414357,
+          "open_set_score_auc": 0.934300485,
+          "top1_identification": 0.9247,
+          "tpir_at_fpir_0.001": 0.7701,
+          "tpir_at_fpir_0.01": 0.8634,
+          "tpir_at_fpir_0.1": 0.8957
         },
         "idface": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9722498708000152,
+          "open_set_score_auc": 0.96985503,
+          "top1_identification": 0.9695,
+          "tpir_at_fpir_0.001": 0.9315,
+          "tpir_at_fpir_0.01": 0.953,
+          "tpir_at_fpir_0.1": 0.9625
         },
         "random_codes": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
+          "mean_reciprocal_rank": 0.0008135247377459906,
+          "open_set_score_auc": 0.00010528,
+          "top1_identification": 0.0001,
           "tpir_at_fpir_0.001": 0.0,
           "tpir_at_fpir_0.01": 0.0,
           "tpir_at_fpir_0.1": 0.0
@@ -412,8 +559,8 @@
           "tpir_at_fpir_0.1": 0.0
         },
         "sc_constant_codes": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
+          "mean_reciprocal_rank": 0.00010000000000000002,
+          "open_set_score_auc": 0.5,
           "top1_identification": 0.0,
           "tpir_at_fpir_0.001": 0.0,
           "tpir_at_fpir_0.01": 0.0,
@@ -428,12 +575,12 @@
           "tpir_at_fpir_0.1": 0.0
         },
         "sc_forged_metadata": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.9722498708000152,
+          "open_set_score_auc": 0.96985503,
+          "top1_identification": 0.9695,
+          "tpir_at_fpir_0.001": 0.9315,
+          "tpir_at_fpir_0.01": 0.953,
+          "tpir_at_fpir_0.1": 0.9625
         },
         "sc_nan_codes": {
           "mean_reciprocal_rank": 0.0,
@@ -476,28 +623,28 @@
           "tpir_at_fpir_0.1": 0.0
         },
         "sc_visible_lookup": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 1.0,
+          "open_set_score_auc": 1.0,
+          "top1_identification": 1.0,
+          "tpir_at_fpir_0.001": 1.0,
+          "tpir_at_fpir_0.01": 1.0,
+          "tpir_at_fpir_0.1": 1.0
         },
         "sc_zero_codes": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
+          "mean_reciprocal_rank": 0.00010000000000000002,
+          "open_set_score_auc": 0.5,
           "top1_identification": 0.0,
           "tpir_at_fpir_0.001": 0.0,
           "tpir_at_fpir_0.01": 0.0,
           "tpir_at_fpir_0.1": 0.0
         },
         "sign_random_subset": {
-          "mean_reciprocal_rank": 0.0,
-          "open_set_score_auc": 0.0,
-          "top1_identification": 0.0,
-          "tpir_at_fpir_0.001": 0.0,
-          "tpir_at_fpir_0.01": 0.0,
-          "tpir_at_fpir_0.1": 0.0
+          "mean_reciprocal_rank": 0.3538844723656216,
+          "open_set_score_auc": 0.3169786175,
+          "top1_identification": 0.2787,
+          "tpir_at_fpir_0.001": 0.049,
+          "tpir_at_fpir_0.01": 0.0805,
+          "tpir_at_fpir_0.1": 0.1727
         }
       },
       "slice": "train"
