@@ -1,4 +1,4 @@
 action: submit
 gpus: 0
 test: false
-notes: "Run 32 bundled scoring-audit trials: quality variants, three data seeds, deterministic reruns, exhaustive cosine, and shortcut attempts; preserve per-trial hidden-test scores."
+notes: "Run six paired compressed-method calibration trials across three data seeds, reuse completed audit results, and recompute score comparisons."

@@ -1,0 +1,60 @@
+{
+  "alpha": 341,
+  "artifact_shapes": {
+    "gallery_labels": [
+      2000
+    ],
+    "genuine_labels": [
+      2000
+    ],
+    "genuine_scores": [
+      2000,
+      2000
+    ],
+    "impostor_scores": [
+      2000,
+      2000
+    ]
+  },
+  "beta": 127,
+  "candidate_name": "audit_variant_beta127_20260713",
+  "fresh_test_output": true,
+  "kind": "quality_variant",
+  "method_run": {
+    "argv": [
+      "/usr/local/bin/python",
+      "method/run_idface.py",
+      "--data",
+      "/home/user/redteam/_cache/seed_20260713.npz",
+      "--out",
+      "/home/user/method/outputs/audit_variant_beta127_20260713",
+      "--alpha",
+      "341",
+      "--beta",
+      "127"
+    ],
+    "exit_code": 0,
+    "seconds": 15.749040166003397
+  },
+  "name": "variant_beta127_20260713",
+  "prediction_sha256": "ede8d6c5a06963a2060c12253d09ff5238d463c783e1f640b0ca6a6278f44de5",
+  "score_file_changed": true,
+  "seed": 20260713,
+  "test": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 4.553435177003848
+  },
+  "test_no_arguments": true,
+  "train": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 5.924244219000684
+  }
+}

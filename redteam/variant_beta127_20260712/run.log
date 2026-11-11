@@ -1,0 +1,6 @@
+$ /usr/local/bin/python method/run_idface.py --data /home/user/data/synthetic_embeddings.npz --out /home/user/method/outputs/audit_variant_beta127_20260712 --alpha 341 --beta 127
+exit=0 seconds=17.028063
+$ bash scripts/evaluate_train.sh
+exit=0 seconds=10.118268
+$ bash scripts/evaluate_test.sh
+exit=0 seconds=3.605587
