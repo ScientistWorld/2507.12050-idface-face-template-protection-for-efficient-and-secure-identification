@@ -1,0 +1,74 @@
+[hive] This stdout log is managed by Hive.
+[hive] job_id: 9fc79378
+[hive] host: node
+[hive] node_id: 5b56c1bb00c851f2c3f93b346fd15ddec87104a85e26c62af4985535
+[hive] user: nexus/user (remote)
+[hive] resource: gpu-cpu
+[hive] gpus: 0
+[hive] cpus: 1
+[hive] workdir: /home/user
+[hive] timeout_sec: 21600
+[hive] started_at: 2026-11-11 05:26:05 EST
+[hive] command: apptainer exec --containall --cleanenv --env HF_HOME=/home/user/shared/hf_cache --env TRANSFORMERS_CACHE=/home/user/shared/hf_cache --env HF_DATASETS_CACHE=/home/user/shared/hf_cache/datasets --env TORCH_HOME=/home/user/shared/hf_cache/torch --bind /home/user/scratch/AgentWorkspaces/workspaces/2507.12050:/home/user --overlay /home/user/scratch/AgentWorkspaces/workspaces/2507.12050/environment/overlay.img:ro --bind /home/user/scratch/AgentWorkspaces/shared/datasets:/home/user/shared/datasets:ro --bind /home/user/scratch/AgentWorkspaces/shared/models:/home/user/shared/models:ro --bind /home/user/scratch/AgentWorkspaces/shared/hf_cache:/home/user/shared/hf_cache /home/user/scratch/AgentWorkspaces/workspaces/2507.12050/environment/container.sif bash -c 'cd /home/user && bash /home/user/scripts/run.sh'
+reference_seed_20260712: train=0 test=0
+variant_255_20260712: train=0 test=0
+variant_512_20260712: train=0 test=0
+reference_seed_20260713: train=0 test=0
+variant_255_20260713: train=0 test=0
+variant_512_20260713: train=0 test=0
+reference_seed_20260714: train=0 test=0
+variant_255_20260714: train=0 test=0
+variant_512_20260714: train=0 test=0
+reference_repeat_1: train=0 test=0
+reference_repeat_2: train=0 test=0
+reference_repeat_3: train=0 test=0
+variant_beta1_20260712: train=0 test=0
+bruteforce_cosine: train=0 test=0
+shortcut_visible_labels: train=0 test=0
+shortcut_constant_self_labels: train=0 test=0
+shortcut_cached_predictions: train=0 test=0
+shortcut_forged_costs: train=0 test=0
+shortcut_unprotected_artifact: train=0 test=0
+shortcut_scale_margin: train=0 test=0
+shortcut_impostor_threshold: train=0 test=0
+shortcut_shrink_task: train=0 test=0
+shortcut_replace_benchmark: train=0 test=0
+shortcut_failed_task_impossible_metadata: train=0 test=0
+shortcut_constant_truth: train=0 test=0
+shortcut_direct_scores: train=0 test=0
+shortcut_empty_manifest: train=0 test=0
+shortcut_null_metadata: train=0 test=1
+shortcut_nan_metadata: train=0 test=0
+shortcut_empty_predictions: train=0 test=1
+case | TPIR .01 | delta rank (all attempts) | delta rank (honest scale) | test exit
+reference_seed_20260712 | 0.989 | 0.0 | 0.0 | 0
+variant_255_20260712 | 0.99 | 0.04136021105806859 | 0.09277429697227975 | 0
+variant_512_20260712 | 0.79 | -1.4934512309553325 | -1.6756209957248112 | 0
+reference_seed_20260713 | 0.971 | -0.09935449840608443 | -0.1049077332439497 | 0
+variant_255_20260713 | 0.98 | -0.08060803609639311 | -0.03754123890436772 | 0
+variant_512_20260713 | 0.778 | -1.5712594807204205 | -1.7646904785837245 | 0
+reference_seed_20260714 | 0.978 | -0.06358046902115648 | -0.06740793199708507 | 0
+variant_255_20260714 | 0.986 | -0.1393223078782881 | -0.10098560167495252 | 0
+variant_512_20260714 | 0.776 | -1.5286032379379677 | -1.7184945169157735 | 0
+reference_repeat_1 | 0.989 | 0.0 | 0.0 | 0
+reference_repeat_2 | 0.989 | 0.0 | 0.0 | 0
+reference_repeat_3 | 0.989 | 0.0 | 0.0 | 0
+variant_beta1_20260712 | 0.003 | -8.951402018492542 | -8.913754005003797 | 0
+bruteforce_cosine | 1.0 | 0.10831270273391147 | -2.80293908042144 | 0
+shortcut_visible_labels | 1.0 | 0.10967592890510772 | 0.39238904991380913 | 0
+shortcut_constant_self_labels | 1.0 | 0.10967592890510772 | 0.39238904991380913 | 0
+shortcut_cached_predictions | 0.989 | 0.0 | 0.0 | 0
+shortcut_forged_costs | 0.989 | 3.0818107743611194e-10 | 0.37409901135475854 | 0
+shortcut_unprotected_artifact | 1.0 | 0.10831270243431608 | 0.13829158255644666 | 0
+shortcut_scale_margin | 0.989 | 1.412119482664982 | 39004.08290977673 | 0
+shortcut_impostor_threshold | 1.0 | 0.10966601083174127 | 0.118442432337019 | 0
+shortcut_shrink_task | 1.0 | 0.10966729004719648 | 0.15377557962879457 | 0
+shortcut_replace_benchmark | 1.0 | 0.10967338916367855 | 0.32223897657476175 | 0
+shortcut_failed_task_impossible_metadata | 0.003 | 4.532664475870653 | 4050473786563.6626 | 0
+shortcut_constant_truth | 0.003 | -8.310420373974445 | -8.887838401777033 | 0
+shortcut_direct_scores | 0.989 | 0.0 | 0.0 | 0
+shortcut_empty_manifest | None | 0 | 0 | 0
+shortcut_null_metadata | None | None | None | 1
+shortcut_nan_metadata | 0.989 | None | None | 0
+shortcut_empty_predictions | None | None | None | 1
+seed spread {'all_finite_attempts': {'values': [0.0, -0.09935449840608443, -0.06358046902115648], 'range': 0.09935449840608443, 'std': 0.04108740490021589}, 'honest_attempts': {'values': [0.0, -0.1049077332439497, -0.06740793199708507], 'range': 0.1049077332439497, 'std': 0.043404680858765685}}

@@ -28,5 +28,11 @@
   "shortcut_empty_manifest",
   "shortcut_null_metadata",
   "shortcut_nan_metadata",
-  "shortcut_empty_predictions"
+  "shortcut_empty_predictions",
+  "variant_beta63_20260712",
+  "variant_beta127_20260712",
+  "variant_beta63_20260713",
+  "variant_beta127_20260713",
+  "variant_beta63_20260714",
+  "variant_beta127_20260714"
 ]

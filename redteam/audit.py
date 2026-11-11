@@ -133,7 +133,8 @@ def build(name, out, folder, log):
         else:
             _, variant, seed = name.split("_")
             seed = int(seed)
-            alpha, beta = {"255": (255, 255), "512": (512, 512), "beta1": (341, 1)}[variant]
+            alpha, beta = {"255": (255, 255), "512": (512, 512), "beta1": (341, 1),
+                           "beta63": (341, 63), "beta127": (341, 127)}[variant]
         result = required([sys.executable, "method/run_idface.py", "--data", seed_data(seed, log),
                            "--out", out, "--alpha", str(alpha), "--beta", str(beta)], log)
         return {"kind": "quality_variant", "seed": seed, "alpha": alpha, "beta": beta, "method_run": result}
@@ -268,7 +269,7 @@ def run(name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("operation", choices=["run", "all"])
+    parser.add_argument("operation", choices=["run", "all", "remaining"])
     parser.add_argument("name", nargs="?")
     args = parser.parse_args()
     if args.operation == "run":
@@ -276,6 +277,9 @@ def main():
     else:
         names = json.loads((AUDIT / "cases.json").read_text())
         for name in names:
+            if args.operation == "remaining" and (AUDIT / name / "status.json").exists():
+                print(f"Reusing completed trial: {name}", flush=True)
+                continue
             # Every trial invokes the very same standalone run.sh a reviewer can use.
             result = subprocess.run(["bash", str(AUDIT / name / "run.sh")], cwd=ROOT)
             if result.returncode:
