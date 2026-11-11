@@ -357,7 +357,11 @@ def main() -> None:
 
     plain = identification_metrics(*_match_statistics(bench["gallery"], bench["genuine"], bench["genuine_labels"], bench["impostor"]))
     output: dict = {"experiments": {}}
-    workdir = Path(tempfile.mkdtemp(prefix="idface_eval_"))
+    # Encoder inputs/outputs are tens of MB; stage them on the workspace filesystem,
+    # not in a (possibly tiny) system temp directory.
+    work_root = Path(__file__).resolve().parent / "_work"
+    work_root.mkdir(parents=True, exist_ok=True)
+    workdir = Path(tempfile.mkdtemp(prefix="idface_eval_", dir=work_root))
     try:
         for experiment, budget in EXPERIMENTS.items():
             results, diagnostics = {}, {}
@@ -380,6 +384,10 @@ def main() -> None:
             }
     finally:
         shutil.rmtree(workdir, ignore_errors=True)
+        try:
+            work_root.rmdir()
+        except OSError:
+            pass
     out = args.out if args.out.is_absolute() else WORKSPACE / args.out
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n")

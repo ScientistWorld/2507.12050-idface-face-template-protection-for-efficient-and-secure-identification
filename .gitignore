@@ -111,3 +111,5 @@ core.*
 # Hardening audit scratch state and per-probe dumps
 redteam/hardening/state/
 redteam/hardening/results/dump_*/
+eval/train/_work/
+eval/test/_work/
