@@ -1,0 +1,86 @@
+[hive] This stdout log is managed by Hive.
+[hive] job_id: bea7868f
+[hive] host: node
+[hive] node_id: 5b56c1bb00c851f2c3f93b346fd15ddec87104a85e26c62af4985535
+[hive] user: nexus/user (remote)
+[hive] resource: gpu-cpu
+[hive] gpus: 0
+[hive] cpus: 1
+[hive] workdir: /home/user
+[hive] timeout_sec: 21600
+[hive] started_at: 2026-11-11 05:42:11 EST
+[hive] command: apptainer exec --containall --cleanenv --env HF_HOME=/home/user/shared/hf_cache --env TRANSFORMERS_CACHE=/home/user/shared/hf_cache --env HF_DATASETS_CACHE=/home/user/shared/hf_cache/datasets --env TORCH_HOME=/home/user/shared/hf_cache/torch --bind /home/user/scratch/AgentWorkspaces/workspaces/2507.12050:/home/user --overlay /home/user/scratch/AgentWorkspaces/workspaces/2507.12050/environment/overlay.img:ro --bind /home/user/scratch/AgentWorkspaces/shared/datasets:/home/user/shared/datasets:ro --bind /home/user/scratch/AgentWorkspaces/shared/models:/home/user/shared/models:ro --bind /home/user/scratch/AgentWorkspaces/shared/hf_cache:/home/user/shared/hf_cache /home/user/scratch/AgentWorkspaces/workspaces/2507.12050/environment/container.sif bash -c 'cd /home/user && bash /home/user/scripts/run.sh'
+Reusing completed trial: reference_seed_20260712
+Reusing completed trial: variant_255_20260712
+Reusing completed trial: variant_512_20260712
+Reusing completed trial: reference_seed_20260713
+Reusing completed trial: variant_255_20260713
+Reusing completed trial: variant_512_20260713
+Reusing completed trial: reference_seed_20260714
+Reusing completed trial: variant_255_20260714
+Reusing completed trial: variant_512_20260714
+Reusing completed trial: reference_repeat_1
+Reusing completed trial: reference_repeat_2
+Reusing completed trial: reference_repeat_3
+Reusing completed trial: variant_beta1_20260712
+Reusing completed trial: bruteforce_cosine
+Reusing completed trial: shortcut_visible_labels
+Reusing completed trial: shortcut_constant_self_labels
+Reusing completed trial: shortcut_cached_predictions
+Reusing completed trial: shortcut_forged_costs
+Reusing completed trial: shortcut_unprotected_artifact
+Reusing completed trial: shortcut_scale_margin
+Reusing completed trial: shortcut_impostor_threshold
+Reusing completed trial: shortcut_shrink_task
+Reusing completed trial: shortcut_replace_benchmark
+Reusing completed trial: shortcut_failed_task_impossible_metadata
+Reusing completed trial: shortcut_constant_truth
+Reusing completed trial: shortcut_direct_scores
+Reusing completed trial: shortcut_empty_manifest
+Reusing completed trial: shortcut_null_metadata
+Reusing completed trial: shortcut_nan_metadata
+Reusing completed trial: shortcut_empty_predictions
+variant_beta63_20260712: train=0 test=0
+variant_beta127_20260712: train=0 test=0
+variant_beta63_20260713: train=0 test=0
+variant_beta127_20260713: train=0 test=0
+variant_beta63_20260714: train=0 test=0
+variant_beta127_20260714: train=0 test=0
+case | TPIR .01 | delta rank (all attempts) | delta rank (honest scale) | test exit
+reference_seed_20260712 | 0.989 | 0.0 | 0.0 | 0
+variant_255_20260712 | 0.99 | 0.04331110450440041 | 0.0989095981377668 | 0
+variant_512_20260712 | 0.79 | -1.6019301804670774 | -1.8575880069792876 | 0
+reference_seed_20260713 | 0.971 | -0.10698799955237905 | -0.11729999095340884 | 0
+variant_255_20260713 | 0.98 | -0.0862263684557233 | -0.04367981453641468 | 0
+variant_512_20260713 | 0.778 | -1.6831432703933267 | -1.9526519752979428 | 0
+reference_seed_20260714 | 0.978 | -0.06829206703346752 | -0.07506606175623982 | 0
+variant_255_20260714 | 0.986 | -0.14591871554443178 | -0.10835664529776881 | 0
+variant_512_20260714 | 0.776 | -1.6379567217387716 | -1.9022126953645586 | 0
+reference_repeat_1 | 0.989 | 0.0 | 0.0 | 0
+reference_repeat_2 | 0.989 | 0.0 | 0.0 | 0
+reference_repeat_3 | 0.989 | 0.0 | 0.0 | 0
+variant_beta1_20260712 | 0.003 | -9.661994087673836 | -10.019037698059252 | 0
+bruteforce_cosine | 1.0 | 0.11469267977308512 | -3.1615540807525666 | 0
+shortcut_visible_labels | 1.0 | 0.11611609553366391 | 0.441752778322795 | 0
+shortcut_constant_self_labels | 1.0 | 0.11611609553366391 | 0.441752778322795 | 0
+shortcut_cached_predictions | 0.989 | 0.0 | 0.0 | 0
+shortcut_forged_costs | 0.989 | 3.357804265036752e-10 | 0.4076290445157794 | 0
+shortcut_unprotected_artifact | 1.0 | 0.11469267944665927 | 0.15173473888846237 | 0
+shortcut_scale_margin | 0.989 | 1.5385827328419885 | 44535.2448463988 | 0
+shortcut_impostor_threshold | 1.0 | 0.11610528924098683 | 0.12895784049932388 | 0
+shortcut_shrink_task | 1.0 | 0.11610668301738829 | 0.16930157501227325 | 0
+shortcut_replace_benchmark | 1.0 | 0.11611332834409054 | 0.36165473578263285 | 0
+shortcut_failed_task_impossible_metadata | 0.003 | 5.028107612305051 | 4466032348713.035 | 0
+shortcut_constant_truth | 0.003 | -8.963632036140933 | -9.977407490068858 | 0
+shortcut_direct_scores | 0.989 | 0.0 | 0.0 | 0
+shortcut_empty_manifest | None | 0 | 0 | 0
+shortcut_null_metadata | None | None | None | 1
+shortcut_nan_metadata | 0.989 | None | None | 0
+shortcut_empty_predictions | None | None | None | 1
+variant_beta63_20260712 | 0.718 | -2.151151305014372 | -2.232924219293317 | 0
+variant_beta127_20260712 | 0.925 | -0.4486558525860917 | -0.38821695644639176 | 0
+variant_beta63_20260713 | 0.758 | -2.30225289637591 | -2.3847660554636185 | 0
+variant_beta127_20260713 | 0.915 | -0.5786279385862821 | -0.5308272238442073 | 0
+variant_beta63_20260714 | 0.724 | -1.9740542623479331 | -2.0369414398643624 | 0
+variant_beta127_20260714 | 0.934 | -0.44097287244772787 | -0.37537616397422885 | 0
+seed spread {'all_finite_attempts': {'values': [0.0, -0.10698799955237905, -0.06829206703346752], 'range': 0.10698799955237905, 'std': 0.04423122785924949}, 'honest_attempts': {'values': [0.0, -0.11729999095340884, -0.07506606175623982], 'range': 0.11729999095340884, 'std': 0.04850876928818918}}

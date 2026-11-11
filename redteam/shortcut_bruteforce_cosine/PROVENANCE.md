@@ -1,0 +1,1 @@
+This shortcut was executed in job 1 under the original case name `bruteforce_cosine`. The folder and standalone runner were renamed after its positive rank in the complete audit cohort established that it pays as a shortcut. Original status, logs, score keys, and timings are preserved unchanged; the summary reads the candidate key recorded in status.json.

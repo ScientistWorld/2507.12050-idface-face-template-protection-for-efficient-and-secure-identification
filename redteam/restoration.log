@@ -1,0 +1,7 @@
+Iteration changes outside redteam/ and REDTEAM.md were reverted in the index to 1175570. The temporary launcher and action file are restored; harness-created jobs/ files were removed after preserving logs in redteam/.
+README.md and manifest.json were pre-existing /dev/null character-device mounts at audit start. They were never changed by the audit; git cannot replace these busy mounts. trajectory/session.json was already missing at audit start and its directory is read-only. Its index entry was restored, but the worktree file cannot be restored.
+Git restore diagnostics for pre-existing mounts:
+error: unable to unlink old 'README.md': Device or resource busy
+error: unable to unlink old 'manifest.json': Device or resource busy
+
+Trajectory diagnostic from git restore: unable to create file trajectory/session.json: Read-only file system

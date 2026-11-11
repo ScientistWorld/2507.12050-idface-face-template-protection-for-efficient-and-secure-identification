@@ -12,7 +12,7 @@
   "reference_repeat_2",
   "reference_repeat_3",
   "variant_beta1_20260712",
-  "bruteforce_cosine",
+  "shortcut_bruteforce_cosine",
   "shortcut_visible_labels",
   "shortcut_constant_self_labels",
   "shortcut_cached_predictions",

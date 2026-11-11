@@ -1,4 +1,8 @@
-action: submit
+# Once you set action to 'submit' or 'done', STOP immediately.
+# Do NOT sleep, poll, or wait for jobs. The system reads this file
+# only after your turn ends.
+action: pending
 gpus: 0
 test: false
-notes: "Run six paired compressed-method calibration trials across three data seeds, reuse completed audit results, and recompute score comparisons."
+milestone: core_claim_plus
+notes: ""

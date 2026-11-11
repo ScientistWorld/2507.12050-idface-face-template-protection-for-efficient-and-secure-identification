@@ -141,10 +141,10 @@ def build(name, out, folder, log):
     if name.startswith("reference_repeat_"):
         result = required([sys.executable, "method/run_idface.py", "--out", out], log)
         return {"kind": "deterministic_reference_repeat", "method_run": result}
-    if name == "bruteforce_cosine":
+    if name == "shortcut_bruteforce_cosine":
         result = required([sys.executable, "baseline/run_plain.py", "--out", out], log)
         metadata(out, {**dict.fromkeys(list(COUNTS)[:4], 0), "pack": 1, "protected_template_storage": 0})
-        return {"kind": "exhaustive_unprotected_baseline", "method_run": result,
+        return {"kind": "shortcut_exhaustive_unprotected_baseline", "shortcut": name, "method_run": result,
                 "dot_products": 4000 * 2000, "dimension": 512}
 
     copy_reference(out)

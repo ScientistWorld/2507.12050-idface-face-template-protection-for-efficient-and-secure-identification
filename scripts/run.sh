@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-python redteam/audit.py remaining
+bash scripts/reproduce.sh
+bash scripts/evaluate_train.sh checkpoints
+bash scripts/evaluate_test.sh checkpoints

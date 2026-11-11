@@ -2,7 +2,8 @@
 """Compute the user-specified rank with explicit, reproducible attempt cohorts."""
 import json
 from pathlib import Path
-import numpy as np
+import math
+import statistics
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = ROOT / "redteam"
@@ -22,20 +23,20 @@ for name in names:
     result = scores["experiments"][EXP]["results"]
     rows[name] = result.get(status["candidate_name"], {}) if status["test"]["exit_code"] == 0 else None
 
-finite = {k: v for k, v in rows.items() if v is not None and all(np.isfinite(x) for x in v.values())}
-honest = {k: v for k, v in finite.items() if not k.startswith("shortcut_")}
+finite = {k: v for k, v in rows.items() if v is not None and all(math.isfinite(x) for x in v.values())}
+honest = {k: v for k, v in finite.items() if not k.startswith("shortcut_") or k == "shortcut_bruteforce_cosine"}
 cohorts = {"all_finite_attempts": {**original, **finite}, "honest_attempts": {**original, **honest}}
 scales = {}
 for cohort, attempts in cohorts.items():
     scales[cohort] = {}
     for metric in metrics:
-        values = [r[metric] for r in attempts.values() if metric in r and np.isfinite(r[metric])]
-        std = float(np.std(values))
+        values = [r[metric] for r in attempts.values() if metric in r and math.isfinite(r[metric])]
+        std = float(statistics.pstdev(values))
         scales[cohort][metric] = std if std > 0 else 1.0
 
 
 def rank(row, scale):
-    if row is None or any(not np.isfinite(x) for x in row.values()):
+    if row is None or any(not math.isfinite(x) for x in row.values()):
         return None
     return sum(spec["weight"] * abs(m["coefficient"]) * (1 if m["higher_is_better"] else -1)
                * (row[k] - anchor[k]) / scale[k]
@@ -63,10 +64,10 @@ for cohort, scale in scales.items():
     seed_names = [f"reference_seed_{seed}" for seed in (20260712, 20260713, 20260714)]
     values = [rank(rows[name], scale) for name in seed_names]
     summary.setdefault("reference_seed_rank_spread", {})[cohort] = {
-        "values": values, "range": float(max(values) - min(values)), "std": float(np.std(values))}
+        "values": values, "range": float(max(values) - min(values)), "std": float(statistics.pstdev(values))}
 summary["reference_seed_metric_spread"] = {
     k: {"values": [rows[f"reference_seed_{s}"][k] for s in (20260712, 20260713, 20260714)],
-        "range": float(np.ptp([rows[f"reference_seed_{s}"][k] for s in (20260712, 20260713, 20260714)]))}
+        "range": float(max(rows[f"reference_seed_{s}"][k] for s in (20260712, 20260713, 20260714)) - min(rows[f"reference_seed_{s}"][k] for s in (20260712, 20260713, 20260714)))}
     for k in metrics}
 summary["deterministic_reference_repeats"] = {
     name: rows[name] == anchor for name in names if name.startswith("reference_repeat_")}
