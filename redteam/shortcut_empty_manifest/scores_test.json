@@ -1,0 +1,9 @@
+{
+  "experiments": {
+    "synthetic_identification": {
+      "results": {},
+      "slice": "test",
+      "split": "odd query rows from predictions.npz; impostor threshold rows split the same way"
+    }
+  }
+}

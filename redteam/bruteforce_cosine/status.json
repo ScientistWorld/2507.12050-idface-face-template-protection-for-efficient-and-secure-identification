@@ -1,0 +1,53 @@
+{
+  "artifact_shapes": {
+    "gallery_labels": [
+      2000
+    ],
+    "genuine_labels": [
+      2000
+    ],
+    "genuine_scores": [
+      2000,
+      2000
+    ],
+    "impostor_scores": [
+      2000,
+      2000
+    ]
+  },
+  "candidate_name": "audit_bruteforce_cosine",
+  "dimension": 512,
+  "dot_products": 8000000,
+  "fresh_test_output": true,
+  "kind": "exhaustive_unprotected_baseline",
+  "method_run": {
+    "argv": [
+      "/usr/local/bin/python",
+      "baseline/run_plain.py",
+      "--out",
+      "/home/user/method/outputs/audit_bruteforce_cosine"
+    ],
+    "exit_code": 0,
+    "seconds": 6.052310471000965
+  },
+  "name": "bruteforce_cosine",
+  "prediction_sha256": "bde2f3ec058ed3bbf4c2e2c65ab1c926db05e3f941331f000b845c69e725ee9b",
+  "score_file_changed": true,
+  "test": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 4.235290460012038
+  },
+  "test_no_arguments": true,
+  "train": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 5.77825848700013
+  }
+}

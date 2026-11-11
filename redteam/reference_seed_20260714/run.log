@@ -1,0 +1,8 @@
+$ /usr/local/bin/python data/generate_synthetic.py --seed 20260714 --out /home/user/redteam/_cache/seed_20260714.npz
+exit=0 seconds=5.556287
+$ /usr/local/bin/python method/run_idface.py --data /home/user/redteam/_cache/seed_20260714.npz --out /home/user/method/outputs/audit_reference_seed_20260714 --alpha 341 --beta 341
+exit=0 seconds=21.411798
+$ bash scripts/evaluate_train.sh
+exit=0 seconds=4.897609
+$ bash scripts/evaluate_test.sh
+exit=0 seconds=6.014347

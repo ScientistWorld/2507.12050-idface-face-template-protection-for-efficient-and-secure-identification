@@ -1,0 +1,6 @@
+$ /usr/local/bin/python baseline/run_plain.py --out /home/user/method/outputs/audit_bruteforce_cosine
+exit=0 seconds=6.052310
+$ bash scripts/evaluate_train.sh
+exit=0 seconds=5.778258
+$ bash scripts/evaluate_test.sh
+exit=0 seconds=4.235290

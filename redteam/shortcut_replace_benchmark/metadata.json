@@ -1,0 +1,16 @@
+{
+  "method": "idface",
+  "alpha": 341,
+  "beta": 341,
+  "plaintext_bits": 50,
+  "operation_counts": {
+    "ciphertext_additions_per_query": 680,
+    "ciphertext_multiplications_per_query": 0,
+    "ciphertext_rotations_per_query": 0,
+    "decryptions_per_query": 2,
+    "ciphertexts_per_block": 2,
+    "local_blocks": 2,
+    "pack": 5,
+    "protected_template_storage": 1.0
+  }
+}

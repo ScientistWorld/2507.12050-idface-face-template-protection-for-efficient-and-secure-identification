@@ -1,0 +1,42 @@
+{
+  "artifact_shapes": {
+    "gallery_labels": [
+      2000
+    ],
+    "genuine_labels": [
+      2000
+    ],
+    "genuine_scores": [
+      2000,
+      2000
+    ],
+    "impostor_scores": [
+      2000,
+      2000
+    ]
+  },
+  "candidate_name": "audit_shortcut_constant_self_labels",
+  "fresh_test_output": true,
+  "kind": "shortcut",
+  "name": "shortcut_constant_self_labels",
+  "prediction_sha256": "6a85d7e7592ff2575cffe960068bcc1ba5a29a6668c69b8d299c4b05ac7c53a5",
+  "score_file_changed": true,
+  "shortcut": "shortcut_constant_self_labels",
+  "test": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 4.906695498008048
+  },
+  "test_no_arguments": true,
+  "train": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 6.410481118000462
+  }
+}

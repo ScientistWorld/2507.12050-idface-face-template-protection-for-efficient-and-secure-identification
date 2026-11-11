@@ -1,0 +1,60 @@
+{
+  "alpha": 512,
+  "artifact_shapes": {
+    "gallery_labels": [
+      2000
+    ],
+    "genuine_labels": [
+      2000
+    ],
+    "genuine_scores": [
+      2000,
+      2000
+    ],
+    "impostor_scores": [
+      2000,
+      2000
+    ]
+  },
+  "beta": 512,
+  "candidate_name": "audit_variant_512_20260712",
+  "fresh_test_output": true,
+  "kind": "quality_variant",
+  "method_run": {
+    "argv": [
+      "/usr/local/bin/python",
+      "method/run_idface.py",
+      "--data",
+      "/home/user/data/synthetic_embeddings.npz",
+      "--out",
+      "/home/user/method/outputs/audit_variant_512_20260712",
+      "--alpha",
+      "512",
+      "--beta",
+      "512"
+    ],
+    "exit_code": 0,
+    "seconds": 11.478530570006114
+  },
+  "name": "variant_512_20260712",
+  "prediction_sha256": "c306efe9bfcaf6625e0d7ac7cd1fdd0ec7006426a0a429ac233c6735add8b582",
+  "score_file_changed": true,
+  "seed": 20260712,
+  "test": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 6.084261165000498
+  },
+  "test_no_arguments": true,
+  "train": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 3.2377295030019013
+  }
+}

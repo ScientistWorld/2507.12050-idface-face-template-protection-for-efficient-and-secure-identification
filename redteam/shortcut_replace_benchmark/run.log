@@ -1,0 +1,8 @@
+$ /usr/local/bin/python data/generate_synthetic.py --identities 8 --noise 0 --genuine-queries 32 --impostor-queries 32 --out /home/user/redteam/shortcut_replace_benchmark/data.npz
+exit=0 seconds=0.625537
+$ /usr/local/bin/python method/run_idface.py --data /home/user/redteam/shortcut_replace_benchmark/data.npz --out /home/user/method/outputs/audit_shortcut_replace_benchmark
+exit=0 seconds=3.779152
+$ bash scripts/evaluate_train.sh
+exit=0 seconds=4.924714
+$ bash scripts/evaluate_test.sh
+exit=0 seconds=8.185566

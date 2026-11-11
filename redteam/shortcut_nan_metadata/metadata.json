@@ -1,0 +1,10 @@
+{
+  "operation_counts": {
+    "ciphertext_additions_per_query": NaN,
+    "ciphertext_multiplications_per_query": NaN,
+    "ciphertext_rotations_per_query": NaN,
+    "decryptions_per_query": NaN,
+    "pack": NaN,
+    "protected_template_storage": NaN
+  }
+}

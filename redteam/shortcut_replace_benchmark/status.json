@@ -1,0 +1,54 @@
+{
+  "artifact_shapes": {
+    "gallery_labels": [
+      8
+    ],
+    "genuine_labels": [
+      32
+    ],
+    "genuine_scores": [
+      32,
+      8
+    ],
+    "impostor_scores": [
+      32,
+      8
+    ]
+  },
+  "candidate_name": "audit_shortcut_replace_benchmark",
+  "fresh_test_output": true,
+  "kind": "shortcut",
+  "method_run": {
+    "argv": [
+      "/usr/local/bin/python",
+      "method/run_idface.py",
+      "--data",
+      "/home/user/redteam/shortcut_replace_benchmark/data.npz",
+      "--out",
+      "/home/user/method/outputs/audit_shortcut_replace_benchmark"
+    ],
+    "exit_code": 0,
+    "seconds": 3.779152201008401
+  },
+  "name": "shortcut_replace_benchmark",
+  "prediction_sha256": "b9dd9288875f3c9a71ed3bd2f4ddee580d3983b5c5dfc327ebcd44efb2a689e0",
+  "score_file_changed": true,
+  "shortcut": "shortcut_replace_benchmark",
+  "test": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 8.185566004001885
+  },
+  "test_no_arguments": true,
+  "train": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 4.924714060995029
+  }
+}

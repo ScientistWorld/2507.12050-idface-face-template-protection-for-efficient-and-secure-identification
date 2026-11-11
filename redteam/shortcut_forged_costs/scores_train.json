@@ -1,0 +1,108 @@
+{
+  "experiments": {
+    "synthetic_identification": {
+      "_method_paths": {
+        "audit_shortcut_forged_costs": "method/outputs/audit_shortcut_forged_costs",
+        "idface_341_341": "method/outputs/idface_synthetic",
+        "idface_341_63": "method/outputs/idface_synthetic_beta63",
+        "idface_paillier_small": "method/outputs/idface_paillier_small",
+        "plain": "baseline/outputs/plain_synthetic",
+        "random": "baseline/outputs/random_synthetic"
+      },
+      "results": {
+        "audit_shortcut_forged_costs": {
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 0.0,
+          "mean_genuine_rank_margin": 0.12504984438419342,
+          "mean_reciprocal_rank": 0.9995,
+          "open_set_score_auc": 0.9983395,
+          "pack": 5.0,
+          "protected_template_storage": 1.0,
+          "top1_identification": 0.999,
+          "tpir_at_fpir_0.001": 0.929,
+          "tpir_at_fpir_0.01": 0.986,
+          "tpir_at_fpir_0.1": 0.997
+        },
+        "idface_341_341": {
+          "ciphertext_additions_per_query": 680.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 2.0,
+          "mean_genuine_rank_margin": 0.12504984438419342,
+          "mean_reciprocal_rank": 0.9995,
+          "open_set_score_auc": 0.9983395,
+          "pack": 5.0,
+          "protected_template_storage": 1.0,
+          "top1_identification": 0.999,
+          "tpir_at_fpir_0.001": 0.929,
+          "tpir_at_fpir_0.01": 0.986,
+          "tpir_at_fpir_0.1": 0.997
+        },
+        "idface_341_63": {
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 2.0,
+          "mean_genuine_rank_margin": 0.057276077568531036,
+          "mean_reciprocal_rank": 0.9619660997991457,
+          "open_set_score_auc": 0.9241585,
+          "pack": 8.0,
+          "protected_template_storage": 1.0,
+          "top1_identification": 0.928,
+          "tpir_at_fpir_0.001": 0.505,
+          "tpir_at_fpir_0.01": 0.71,
+          "tpir_at_fpir_0.1": 0.845
+        },
+        "idface_paillier_small": {
+          "ciphertext_additions_per_query": 124.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 2.0,
+          "mean_genuine_rank_margin": 0.10703019052743912,
+          "mean_reciprocal_rank": 1.0,
+          "open_set_score_auc": 0.96484375,
+          "pack": 8.0,
+          "protected_template_storage": 1.0,
+          "top1_identification": 1.0,
+          "tpir_at_fpir_0.001": 0.9375,
+          "tpir_at_fpir_0.01": 0.9375,
+          "tpir_at_fpir_0.1": 0.9375
+        },
+        "plain": {
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 0.0,
+          "mean_genuine_rank_margin": 0.1927802711725235,
+          "mean_reciprocal_rank": 1.0,
+          "open_set_score_auc": 1.0,
+          "pack": 1.0,
+          "protected_template_storage": 0.0,
+          "top1_identification": 1.0,
+          "tpir_at_fpir_0.001": 1.0,
+          "tpir_at_fpir_0.01": 1.0,
+          "tpir_at_fpir_0.1": 1.0
+        },
+        "random": {
+          "ciphertext_additions_per_query": 0.0,
+          "ciphertext_multiplications_per_query": 0.0,
+          "ciphertext_rotations_per_query": 0.0,
+          "decryptions_per_query": 0.0,
+          "mean_genuine_rank_margin": -3.4281997680664062,
+          "mean_reciprocal_rank": 0.0036610333632641234,
+          "open_set_score_auc": 6.2e-05,
+          "pack": 0.0,
+          "protected_template_storage": 0.0,
+          "top1_identification": 0.0,
+          "tpir_at_fpir_0.001": 0.0,
+          "tpir_at_fpir_0.01": 0.0,
+          "tpir_at_fpir_0.1": 0.0
+        }
+      },
+      "slice": "train",
+      "split": "even query rows from predictions.npz; impostor threshold rows split the same way"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+$ /usr/local/bin/python method/run_idface.py --out /home/user/method/outputs/audit_reference_repeat_3
+exit=0 seconds=21.981824
+$ bash scripts/evaluate_train.sh
+exit=0 seconds=5.727725
+$ bash scripts/evaluate_test.sh
+exit=0 seconds=5.346929

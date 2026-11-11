@@ -1,0 +1,4 @@
+$ bash scripts/evaluate_train.sh
+exit=0 seconds=5.562808
+$ bash scripts/evaluate_test.sh
+exit=0 seconds=6.495209

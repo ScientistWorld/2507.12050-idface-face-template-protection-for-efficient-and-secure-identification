@@ -1,0 +1,50 @@
+{
+  "artifact_shapes": {
+    "gallery_labels": [
+      2000
+    ],
+    "genuine_labels": [
+      2
+    ],
+    "genuine_scores": [
+      2,
+      2000
+    ],
+    "impostor_scores": [
+      2,
+      2000
+    ]
+  },
+  "candidate_name": "audit_shortcut_shrink_task",
+  "fresh_test_output": true,
+  "genuine_rows": [
+    344,
+    296
+  ],
+  "impostor_rows": [
+    659,
+    1627
+  ],
+  "kind": "shortcut",
+  "name": "shortcut_shrink_task",
+  "prediction_sha256": "7c09f71b2b89954eae86ec34f6b65873f9def0c6507bed6be4611b5ce9995b8d",
+  "score_file_changed": true,
+  "shortcut": "shortcut_shrink_task",
+  "test": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 4.55506017600419
+  },
+  "test_no_arguments": true,
+  "train": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 2.4427786309970543
+  }
+}

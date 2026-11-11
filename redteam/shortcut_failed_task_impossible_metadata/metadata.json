@@ -1,0 +1,10 @@
+{
+  "operation_counts": {
+    "ciphertext_additions_per_query": -1000000000000.0,
+    "ciphertext_multiplications_per_query": -1000000000000.0,
+    "ciphertext_rotations_per_query": -1000000000000.0,
+    "decryptions_per_query": -1000000000000.0,
+    "pack": 1000000000000.0,
+    "protected_template_storage": 1000000000000.0
+  }
+}

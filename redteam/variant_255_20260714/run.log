@@ -1,0 +1,6 @@
+$ /usr/local/bin/python method/run_idface.py --data /home/user/redteam/_cache/seed_20260714.npz --out /home/user/method/outputs/audit_variant_255_20260714 --alpha 255 --beta 255
+exit=0 seconds=17.206633
+$ bash scripts/evaluate_train.sh
+exit=0 seconds=5.816173
+$ bash scripts/evaluate_test.sh
+exit=0 seconds=6.926336

@@ -1,0 +1,42 @@
+{
+  "artifact_shapes": {
+    "gallery_labels": [
+      2000
+    ],
+    "genuine_labels": [
+      2000
+    ],
+    "genuine_scores": [
+      2000,
+      2000
+    ],
+    "impostor_scores": [
+      2000,
+      2000
+    ]
+  },
+  "candidate_name": "audit_shortcut_forged_costs",
+  "fresh_test_output": true,
+  "kind": "shortcut",
+  "name": "shortcut_forged_costs",
+  "prediction_sha256": "b10b4505a5231acf7161dd3a9ad1805fc59496975306a0b80085d1087f51662f",
+  "score_file_changed": true,
+  "shortcut": "shortcut_forged_costs",
+  "test": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_test.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 6.495208571999683
+  },
+  "test_no_arguments": true,
+  "train": {
+    "argv": [
+      "bash",
+      "scripts/evaluate_train.sh"
+    ],
+    "exit_code": 0,
+    "seconds": 5.562807611990138
+  }
+}
