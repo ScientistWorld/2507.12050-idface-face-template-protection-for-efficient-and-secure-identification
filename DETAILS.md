@@ -459,6 +459,52 @@ Each experiment's output also records `_diagnostics` (status, failure reason, ad
 
 </details>
 
+### Iteration 11: claude-opus-5-5 (hardener)
+- **Milestone**: `core_claim_plus` | **Status**: done
+- **Working time**: 36m | **GPU**: 0.0h
+- **Jobs**: 2 total (2 completed, 0 failed)
+
+<details>
+<summary>Progress Log</summary>
+
+### [2026-05-28 23:38] - core_claim
+- Audited the inherited workspace and confirmed prior packaged CPU jobs reproduced the core IDFace claim on the synthetic identification benchmark.
+- Found and fixed a compressed-packing issue: IDFace's packing base must be tied to `min(alpha, beta) + 1`, not `max(alpha, beta) + 1`, so the `alpha=341,beta=63` setting can pack 8 templates under the 50-bit plaintext model.
+- Added `method/self_check.py` to verify top-alpha sparsity, encode/decode arithmetic, direct transformed-score equivalence, and compressed packing before future benchmark runs.
+- A post-fix CPU test job is queued through `action.yaml`; milestone remains `core_claim` until the updated scores are produced by the packaged run.
+
+### [2026-05-28 23:39] - core_claim
+- Rechecked the workspace and found no new post-fix job directory; `scoring/scores.json` still reflects the old `idface_341_63` packing factor of `5`.
+- Refreshed `action.yaml` to resubmit the packaged CPU reproduction so the corrected implementation can produce updated scores.
+
+### [2026-05-28 23:42] - core_claim_plus
+- Ran the deterministic IDFace self-check and refreshed the compressed `alpha=341,beta=63` method output after the packing fix.
+- Re-ran the independent evaluator; `scoring/scores.json` now reports `idface_341_63.pack = 8`, `top1_identification = 0.936`, and `tpir_at_fpir_0.01 = 0.714`.
+- Verified `python validate.py --compare` and `python validate.py --post-reproducer`; both passed.
+
+### [2026-05-28 23:57] - core_claim_plus
+- Continuing-agent audit reviewed `method/`, `eval/`, `baseline/`, `data/`, scripts, scoring files, briefing files, and environment files.
+- Confirmed the implementation is the IDFace algorithmic computation rather than a surrogate: top-alpha ternary transform, positive/negative splitting, base-`p` packing, additive packed inner products, and decoding are all present.
+- Verified the evaluator reads prediction artifacts independently from `method/`; `uv run --with numpy bash scripts/evaluate.sh`, `python validate.py --compare`, `python validate.py --post-reproducer`, and `uv run --with numpy python method/self_check.py` all passed.
+- Restored the reset milestone to `core_claim_plus`.
+
+### [2026-05-29 00:30] - core_claim_plus
+- Added a pure-Python Paillier-backed IDFace smoke test to exercise actual randomized encrypted template storage and additive homomorphic matching on a small subset.
+- Updated the main evaluator to emit every declared synthetic metric and score the Paillier artifact.
+- Local `uv run --with numpy bash scripts/reproduce.sh` regenerated `scoring/scores.json`; `python validate.py --compare` and `python validate.py --post-reproducer` passed.
+
+### [2026-05-29 01:05] - core_claim_plus
+- Final verification preserved `core_claim_plus` after auditing folder structure, method/problem separation, reusable evaluation, scoring coefficients, and train/test evaluation artifacts.
+- Rewrote method-agnostic scoring guidance to remove implementation details and added `protected_template_storage` as a scored constraint so unprotected raw-template search cannot dominate the gym.
+- Re-ran `scripts/reproduce.sh`, `scripts/evaluate_train.sh`, `scripts/evaluate_test.sh`, `python validate.py --compare`, and `python validate.py --post-reproducer`; all passed.
+
+### [2026-05-29 00:33] - core_claim_plus
+- Final verifier preserved `core_claim_plus` after checking folder structure, download portability, problem/solution separation, scoring coefficients, train/test artifacts, and reusable evaluation.
+- Tightened method-agnostic guidance in `briefing/` and `scoring/` and made `scripts/evaluate.sh` discover arbitrary `*/predictions.npz` method artifacts under standard output roots.
+- Re-ran `uv run --with numpy bash scripts/evaluate.sh`, `uv run --with numpy bash scripts/evaluate_train.sh`, `uv run --with numpy bash scripts/evaluate_test.sh`, `uv run --with numpy python validate.py --compare`, `uv run --with numpy python validate.py --post-reproducer`, and `uv run --with numpy python validate.py`; all passed.
+
+</details>
+
 
 ---
 

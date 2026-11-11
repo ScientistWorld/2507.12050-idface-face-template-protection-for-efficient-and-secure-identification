@@ -1,5 +1,3 @@
-action: submit
-gpus: 0
-test: false
+action: done
 milestone: core_claim_plus
-notes: "Rerun of the hardening check after fixing ENOSPC (encoder I/O now staged in eval/*/_work on the workspace fs): reproduce reference end to end, then redteam/hardening/audit.py (variants, shortcuts, 3 extra test draws) through the hidden test evaluator."
+notes: "Hardened: hidden test generated in eval/test, method = per-template encoder run by the evaluator, scores/costs/metrics recomputed from codes, fixed (341,341)/(341,63) cost budgets, failures get worst values; all REDTEAM shortcuts fail or tie; better variant +6.5 SE paired; see HARDENING.md."
