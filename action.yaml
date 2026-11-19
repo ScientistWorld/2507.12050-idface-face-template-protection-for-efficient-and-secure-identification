@@ -1,3 +1,8 @@
-action: done
+# Once you set action to 'submit' or 'done', STOP immediately.
+# Do NOT sleep, poll, or wait for jobs. The system reads this file
+# only after your turn ends.
+action: pending
+gpus: 0
+test: false
 milestone: core_claim_plus
-notes: "Hardened: hidden test generated in eval/test, method = per-template encoder run by the evaluator, scores/costs/metrics recomputed from codes, fixed (341,341)/(341,63) cost budgets, failures get worst values; all REDTEAM shortcuts fail or tie; better variant +6.5 SE paired; see HARDENING.md."
+notes: ""
