@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# Reproduce the reference end to end. The hardening audit is run separately:
-#   python redteam/hardening/audit.py && python redteam/hardening/rank_bootstrap.py
+# Job: extract AdaFace IR-101 embeddings of LFW / XQLFW / CPLFW (data preparation).
 set -euo pipefail
-
-bash scripts/reproduce.sh
+cd /home/user
+export PYTHONPATH="$PWD/.pylib${PYTHONPATH:+:$PYTHONPATH}"
+nvidia-smi || true
+python -c "import torch; print('cuda', torch.cuda.is_available(), torch.__version__)"
+python data/extract_embeddings.py
+ls -la data/downloads/embeddings
