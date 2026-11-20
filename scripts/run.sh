@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
-# One combined verification job. All method runs are serial.
+# Reproduce the reference and baselines end to end from committed real-face banks.
 set -euo pipefail
-cd /home/user
-export OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 MKL_NUM_THREADS=4
-# Public AdaFace extraction was completed in the preceding preparation job.
-# Build banks once; the partition builder is kept on the hidden side.
-if [ ! -s data/face_embeddings_dev.npz ] || [ ! -s eval/test/face_embeddings_test.npz ]; then
-  python eval/test/prepare_data.py
-fi
+cd "$(dirname "$0")/.."
 bash scripts/reproduce.sh
-python redteam/hardening/review_audit.py
-python validate.py

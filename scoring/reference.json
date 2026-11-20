@@ -96,7 +96,7 @@
         "ciphertext_rotations_per_query": {
           "higher_is_better": false,
           "coefficient": 0.0,
-          "description": "Context-only paper count of encrypted rotations per query; the portable gym scores its own artifact metadata instead."
+          "description": "Context-only paper count of encrypted rotations per query; the gym enforces its fixed encrypted-cost protocol from raw integer codes."
         }
       },
       "results": {
