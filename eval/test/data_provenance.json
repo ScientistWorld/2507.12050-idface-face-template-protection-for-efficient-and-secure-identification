@@ -1,0 +1,18 @@
+{
+  "extractor": "AdaFace IR-101 / WebFace12M (CVLFace)",
+  "sources": [
+    "lfw",
+    "xqlfw",
+    "cplfw"
+  ],
+  "train": {
+    "identities": 2881,
+    "images": 18932,
+    "sha256": "2a87ad06925e0b8c3b6cfe2b9e081b998e714cbf54e8838cae28b598d41a2ff0"
+  },
+  "test": {
+    "identities": 2882,
+    "images": 19186,
+    "sha256": "fd565f94d1849610aa8433e079e3835cdbb9d57ea412dae836b56f39e4d69059"
+  }
+}

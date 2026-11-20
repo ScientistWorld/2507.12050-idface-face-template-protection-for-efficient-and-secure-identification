@@ -177,16 +177,40 @@
       },
       "results": {
         "idface": {
-          "type": "proposed"
+          "type": "proposed",
+          "mean_reciprocal_rank": 0.9503822919669356,
+          "open_set_score_auc": 0.9432012433214151,
+          "top1_identification": 0.9444034017336892,
+          "tpir_at_fpir_0.001": 0.4320333029397986,
+          "tpir_at_fpir_0.01": 0.9045610400033064,
+          "tpir_at_fpir_0.1": 0.9302246020792979
         },
         "sign_random_subset": {
-          "type": "baseline"
+          "type": "baseline",
+          "mean_reciprocal_rank": 0.9210531356522548,
+          "open_set_score_auc": 0.9089123510429304,
+          "top1_identification": 0.9086991272733873,
+          "tpir_at_fpir_0.001": 0.4453037588336082,
+          "tpir_at_fpir_0.01": 0.8339328505283736,
+          "tpir_at_fpir_0.1": 0.880357963122685
         },
         "random_codes": {
-          "type": "baseline"
+          "type": "baseline",
+          "mean_reciprocal_rank": 0.0,
+          "open_set_score_auc": 0.0,
+          "top1_identification": 0.0,
+          "tpir_at_fpir_0.001": 0.0,
+          "tpir_at_fpir_0.01": 0.0,
+          "tpir_at_fpir_0.1": 0.0
         },
         "sparse_63": {
-          "type": "baseline"
+          "type": "baseline",
+          "mean_reciprocal_rank": 0.9005195768501046,
+          "open_set_score_auc": 0.8914499410942524,
+          "top1_identification": 0.883722443797208,
+          "tpir_at_fpir_0.001": 0.4150446616127827,
+          "tpir_at_fpir_0.01": 0.7828081836643084,
+          "tpir_at_fpir_0.1": 0.8404554564593867
         }
       }
     },
@@ -235,16 +259,40 @@
       },
       "results": {
         "idface": {
-          "type": "proposed"
+          "type": "proposed",
+          "mean_reciprocal_rank": 0.9356171649294884,
+          "open_set_score_auc": 0.9270215210536845,
+          "top1_identification": 0.9262052152773278,
+          "tpir_at_fpir_0.001": 0.4231961482867142,
+          "tpir_at_fpir_0.01": 0.8652115595194929,
+          "tpir_at_fpir_0.1": 0.9036623204559544
         },
         "sign_random_subset": {
-          "type": "baseline"
+          "type": "baseline",
+          "mean_reciprocal_rank": 0.5789892497789304,
+          "open_set_score_auc": 0.5392767014306195,
+          "top1_identification": 0.5113760026599186,
+          "tpir_at_fpir_0.001": 0.2326001050994728,
+          "tpir_at_fpir_0.01": 0.2925857048957414,
+          "tpir_at_fpir_0.1": 0.4204580177161407
         },
         "random_codes": {
-          "type": "baseline"
+          "type": "baseline",
+          "mean_reciprocal_rank": 0.0,
+          "open_set_score_auc": 0.0,
+          "top1_identification": 0.0,
+          "tpir_at_fpir_0.001": 0.0,
+          "tpir_at_fpir_0.01": 0.0,
+          "tpir_at_fpir_0.1": 0.0
         },
         "sparse_63": {
-          "type": "baseline"
+          "type": "baseline",
+          "mean_reciprocal_rank": 0.9005195768501046,
+          "open_set_score_auc": 0.8914499410942524,
+          "top1_identification": 0.883722443797208,
+          "tpir_at_fpir_0.001": 0.4150446616127827,
+          "tpir_at_fpir_0.01": 0.7828081836643084,
+          "tpir_at_fpir_0.1": 0.8404554564593867
         }
       }
     }

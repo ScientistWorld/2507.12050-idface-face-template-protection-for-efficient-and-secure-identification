@@ -1,0 +1,71 @@
+{
+  "rank_delta_complete": {
+    "hv_alpha277": 0.03112192291988769,
+    "hv_fourlevel_gallery": 0.014630816524223336,
+    "hv_multilevel_gallery": 0.021405224932569328,
+    "hv_quantized_gallery": 0.015799597459229625,
+    "hv_weaker_127": -0.19686473927817613,
+    "idface": 0.0,
+    "random_codes": -5.5365817400968,
+    "sc_batch": -5.5365817400968,
+    "sc_cached_predictions": -5.5365817400968,
+    "sc_constant": -5.5365817400968,
+    "sc_empty_directory": -5.5365817400968,
+    "sc_forged_metadata": 0.0,
+    "sc_hidden_read": -5.5365817400968,
+    "sc_missing_experiment": -5.5365817400968,
+    "sc_nan": -5.5365817400968,
+    "sc_public_bank_read": -5.5365817400968,
+    "sc_scaled": -5.5365817400968,
+    "sc_stateful": -5.5365817400968,
+    "sc_unprotected": -5.5365817400968,
+    "sc_visible_lookup": -5.5365817400968,
+    "sc_wrong_shape": -5.5365817400968,
+    "sc_zero": -5.5365817400968,
+    "sign_random_subset": -1.6148960865447661,
+    "sparse_63": -0.4102304059592804
+  },
+  "paired_identity_cluster": {
+    "hv_multilevel_gallery": {
+      "rank_delta": 0.021405224932569328,
+      "cluster_bootstrap_se": 0.0066818491202010576,
+      "tpir_full_difference": 0.006542617338694101,
+      "tpir_full_cluster_se": 0.0006957906317074064,
+      "fraction_rank_positive": 1.0
+    },
+    "hv_fourlevel_gallery": {
+      "rank_delta": 0.014630816524223355,
+      "cluster_bootstrap_se": 0.007485861115407238,
+      "tpir_full_difference": 0.006837800008816952,
+      "tpir_full_cluster_se": 0.000683286128136672,
+      "fraction_rank_positive": 0.9933333333333333
+    },
+    "hv_quantized_gallery": {
+      "rank_delta": 0.015799597459229625,
+      "cluster_bootstrap_se": 0.00860766472176898,
+      "tpir_full_difference": 0.008402648919627165,
+      "tpir_full_cluster_se": 0.0007020432788759433,
+      "fraction_rank_positive": 0.9866666666666667
+    },
+    "hv_alpha277": {
+      "rank_delta": 0.031121922919887687,
+      "cluster_bootstrap_se": 0.019498494282423107,
+      "tpir_full_difference": 0.0008730839943903446,
+      "tpir_full_cluster_se": 0.0007554261980054413,
+      "fraction_rank_positive": 0.8766666666666667
+    },
+    "hv_weaker_127": {
+      "rank_delta": -0.19686473927817613,
+      "cluster_bootstrap_se": 0.061157937098477916,
+      "tpir_full_difference": -0.02133894403324299,
+      "tpir_full_cluster_se": 0.0013137069382283284,
+      "fraction_rank_positive": 0.0
+    }
+  },
+  "checks": {
+    "forged_scores_overwritten": true,
+    "all_directories_scored_with_empty_train_manifest": true,
+    "official_scores_from_isolated_reference_only": true,
+    "reference_exactly_reproduced_during_audit": true
+  }
+}

@@ -1,0 +1,1302 @@
+{
+  "experiments": {
+    "face_identification": {
+      "_context": {
+        "full_sign_512": {
+          "mean_reciprocal_rank": 0.9331520592262185,
+          "open_set_score_auc": 0.9233429711385178,
+          "top1_identification": 0.9246165061557492,
+          "tpir_at_fpir_0.001": 0.3329806944040837,
+          "tpir_at_fpir_0.01": 0.8658983602083685,
+          "tpir_at_fpir_0.1": 0.9058490291918644
+        },
+        "unprotected_float_cosine": {
+          "mean_reciprocal_rank": 0.9513294544451285,
+          "open_set_score_auc": 0.9438823507267874,
+          "top1_identification": 0.9463884526530475,
+          "tpir_at_fpir_0.001": 0.3415752098653979,
+          "tpir_at_fpir_0.01": 0.9083302741442316,
+          "tpir_at_fpir_0.1": 0.9325767620821723
+        }
+      },
+      "_diagnostics": {
+        "idface": {
+          "draw_costs": [
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            }
+          ],
+          "status": "ok"
+        },
+        "random_codes": {
+          "reason": "face_identification, draw 0: RunFailure: task failed: top-1 < 0.10 or TPIR@1% < 0.05",
+          "status": "failed"
+        },
+        "sign_random_subset": {
+          "draw_costs": [
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            },
+            {
+              "bits_per_template": 8.417852514885897,
+              "ciphertext_additions_per_query": 680.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 341.0,
+              "max_query_l1": 341.0,
+              "templates_per_slot": 5.0
+            }
+          ],
+          "status": "ok"
+        },
+        "sparse_63": {
+          "draw_costs": [
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            }
+          ],
+          "status": "ok"
+        }
+      },
+      "_protocol": {
+        "draws": 16,
+        "max_probes_per_identity": 8,
+        "note": "Identity-disjoint real AdaFace templates; orthogonal basis per draw. Results are means over draws.",
+        "per_draw_counts": [
+          {
+            "gallery": 1200,
+            "genuine": 5084,
+            "impostor": 6772
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5050,
+            "impostor": 6788
+          },
+          {
+            "gallery": 1200,
+            "genuine": 4992,
+            "impostor": 6830
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5038,
+            "impostor": 6815
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5111,
+            "impostor": 6756
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5113,
+            "impostor": 6742
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5033,
+            "impostor": 6800
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5132,
+            "impostor": 6742
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5139,
+            "impostor": 6722
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5064,
+            "impostor": 6784
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5139,
+            "impostor": 6725
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5113,
+            "impostor": 6749
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5049,
+            "impostor": 6794
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5146,
+            "impostor": 6720
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5078,
+            "impostor": 6774
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5114,
+            "impostor": 6742
+          }
+        ]
+      },
+      "budget": {
+        "max_code_dim": 512,
+        "max_mean_additions": 680.0,
+        "min_pack": 5,
+        "plaintext_bits": 50
+      },
+      "results": {
+        "idface": {
+          "mean_reciprocal_rank": 0.9440028657430459,
+          "open_set_score_auc": 0.936133588291915,
+          "top1_identification": 0.9372280654527954,
+          "tpir_at_fpir_0.001": 0.3424123130296073,
+          "tpir_at_fpir_0.01": 0.8922442964723588,
+          "tpir_at_fpir_0.1": 0.9223810794645997
+        },
+        "random_codes": {
+          "mean_reciprocal_rank": 0.0,
+          "open_set_score_auc": 0.0,
+          "top1_identification": 0.0,
+          "tpir_at_fpir_0.001": 0.0,
+          "tpir_at_fpir_0.01": 0.0,
+          "tpir_at_fpir_0.1": 0.0
+        },
+        "sign_random_subset": {
+          "mean_reciprocal_rank": 0.9140939279171002,
+          "open_set_score_auc": 0.9016895913111439,
+          "top1_identification": 0.9011035857360941,
+          "tpir_at_fpir_0.001": 0.33017760068973323,
+          "tpir_at_fpir_0.01": 0.8203845797156709,
+          "tpir_at_fpir_0.1": 0.8728681229604989
+        },
+        "sparse_63": {
+          "mean_reciprocal_rank": 0.8942963489231198,
+          "open_set_score_auc": 0.8846730438864476,
+          "top1_identification": 0.8770412559907387,
+          "tpir_at_fpir_0.001": 0.30570064648554474,
+          "tpir_at_fpir_0.01": 0.7779163608856587,
+          "tpir_at_fpir_0.1": 0.8334704981376201
+        }
+      },
+      "slice": "train"
+    },
+    "face_identification_compressed": {
+      "_context": {
+        "full_sign_512": {
+          "mean_reciprocal_rank": 0.9331520592262185,
+          "open_set_score_auc": 0.9233429711385178,
+          "top1_identification": 0.9246165061557492,
+          "tpir_at_fpir_0.001": 0.3329806944040837,
+          "tpir_at_fpir_0.01": 0.8658983602083685,
+          "tpir_at_fpir_0.1": 0.9058490291918644
+        },
+        "unprotected_float_cosine": {
+          "mean_reciprocal_rank": 0.9513294544451285,
+          "open_set_score_auc": 0.9438823507267874,
+          "top1_identification": 0.9463884526530475,
+          "tpir_at_fpir_0.001": 0.3415752098653979,
+          "tpir_at_fpir_0.01": 0.9083302741442316,
+          "tpir_at_fpir_0.1": 0.9325767620821723
+        }
+      },
+      "_diagnostics": {
+        "idface": {
+          "draw_costs": [
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            }
+          ],
+          "status": "ok"
+        },
+        "random_codes": {
+          "reason": "face_identification, draw 0: RunFailure: task failed: top-1 < 0.10 or TPIR@1% < 0.05",
+          "status": "failed"
+        },
+        "sign_random_subset": {
+          "draw_costs": [
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            }
+          ],
+          "status": "ok"
+        },
+        "sparse_63": {
+          "draw_costs": [
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            },
+            {
+              "bits_per_template": 6.0,
+              "ciphertext_additions_per_query": 124.0,
+              "ciphertext_multiplications_per_query": 0.0,
+              "code_dim": 512.0,
+              "decryptions_per_block": 2.0,
+              "digit_bound": 63.0,
+              "max_query_l1": 63.0,
+              "templates_per_slot": 8.0
+            }
+          ],
+          "status": "ok"
+        }
+      },
+      "_protocol": {
+        "draws": 16,
+        "max_probes_per_identity": 8,
+        "note": "Identity-disjoint real AdaFace templates; orthogonal basis per draw. Results are means over draws.",
+        "per_draw_counts": [
+          {
+            "gallery": 1200,
+            "genuine": 5084,
+            "impostor": 6772
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5050,
+            "impostor": 6788
+          },
+          {
+            "gallery": 1200,
+            "genuine": 4992,
+            "impostor": 6830
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5038,
+            "impostor": 6815
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5111,
+            "impostor": 6756
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5113,
+            "impostor": 6742
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5033,
+            "impostor": 6800
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5132,
+            "impostor": 6742
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5139,
+            "impostor": 6722
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5064,
+            "impostor": 6784
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5139,
+            "impostor": 6725
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5113,
+            "impostor": 6749
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5049,
+            "impostor": 6794
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5146,
+            "impostor": 6720
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5078,
+            "impostor": 6774
+          },
+          {
+            "gallery": 1200,
+            "genuine": 5114,
+            "impostor": 6742
+          }
+        ]
+      },
+      "budget": {
+        "max_code_dim": 512,
+        "max_mean_additions": 124.0,
+        "min_pack": 8,
+        "plaintext_bits": 50
+      },
+      "results": {
+        "idface": {
+          "mean_reciprocal_rank": 0.928502437021852,
+          "open_set_score_auc": 0.9192657469705632,
+          "top1_identification": 0.918804695950277,
+          "tpir_at_fpir_0.001": 0.3331959087170832,
+          "tpir_at_fpir_0.01": 0.8514852584744488,
+          "tpir_at_fpir_0.1": 0.8951143568044863
+        },
+        "random_codes": {
+          "mean_reciprocal_rank": 0.0,
+          "open_set_score_auc": 0.0,
+          "top1_identification": 0.0,
+          "tpir_at_fpir_0.001": 0.0,
+          "tpir_at_fpir_0.01": 0.0,
+          "tpir_at_fpir_0.1": 0.0
+        },
+        "sign_random_subset": {
+          "mean_reciprocal_rank": 0.5758591205216039,
+          "open_set_score_auc": 0.5378511116147688,
+          "top1_identification": 0.5084244161661909,
+          "tpir_at_fpir_0.001": 0.21894176203408922,
+          "tpir_at_fpir_0.01": 0.302582199742641,
+          "tpir_at_fpir_0.1": 0.41621351590122424
+        },
+        "sparse_63": {
+          "mean_reciprocal_rank": 0.8942963489231198,
+          "open_set_score_auc": 0.8846730438864476,
+          "top1_identification": 0.8770412559907387,
+          "tpir_at_fpir_0.001": 0.30570064648554474,
+          "tpir_at_fpir_0.01": 0.7779163608856587,
+          "tpir_at_fpir_0.1": 0.8334704981376201
+        }
+      },
+      "slice": "train"
+    }
+  }
+}
