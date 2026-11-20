@@ -1,4 +1,2 @@
-action: submit
-gpus: 0
-test: false
-notes: "Single serial verification: build identity-disjoint real AdaFace banks; reproduce reference and paper/simple baselines; score paired better/weaker encoders and repaired shortcuts; identity-cluster bootstrap; validate."
+action: done
+notes: "Real-face hardening verified: reference and baselines reproduced; better encoder wins beyond paired noise; repaired attacks fail; reference-only scores and final reports committed."
