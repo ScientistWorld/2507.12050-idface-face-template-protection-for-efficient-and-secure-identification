@@ -1,4 +1,8 @@
-action: submit
-gpus: 1
+# Once you set action to 'submit' or 'done', STOP immediately.
+# Do NOT sleep, poll, or wait for jobs. The system reads this file
+# only after your turn ends.
+action: pending
+gpus: 0
 test: false
-notes: "Extract AdaFace-IR101 (WebFace12M) 512-D embeddings of LFW, XQLFW and CPLFW aligned faces (data preparation for the real-embedding benchmark)."
+milestone: core_claim_plus
+notes: ""
