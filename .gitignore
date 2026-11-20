@@ -113,3 +113,6 @@ redteam/hardening/state/
 redteam/hardening/results/dump_*/
 eval/train/_work/
 eval/test/_work/
+
+# Hidden identity-level audit outcomes
+eval/test/review_outcomes/

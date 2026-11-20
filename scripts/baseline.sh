@@ -5,4 +5,5 @@ set -euo pipefail
 
 test -f baseline/outputs/sign_random_subset/encoder.json
 test -f baseline/outputs/random_codes/encoder.json
-echo "baseline encoders: sign_random_subset, random_codes"
+test -f baseline/outputs/sparse_63/encoder.json
+echo "baseline encoders: sign_random_subset, random_codes, sparse_63"

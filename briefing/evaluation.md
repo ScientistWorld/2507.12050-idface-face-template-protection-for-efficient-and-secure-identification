@@ -1,49 +1,43 @@
 # Evaluation
 
-The evaluator runs each method's encoder itself and computes every scored number from the codes it returns. Nothing a method writes besides its codes (scores, labels, costs, flags, metadata) is read.
+The evaluator runs every encoder directory under `method/outputs/`, `baseline/outputs/` and `checkpoints/`. It computes scores, costs, thresholds and metrics itself from returned codes and its own fixed benchmark. It ignores submitted predictions, labels, sample counts, metadata, costs and verdicts. Train manifests do not determine discovery.
 
-## Method interface
+## Encoder interface
 
-A method is a directory under `method/outputs/`, `baseline/outputs/` or `checkpoints/` containing `encoder.json`:
+Register an encoder in a method directory's `encoder.json`:
 
 ```json
 {
   "command": ["python", "method/my_encoder.py"],
   "experiments": {
-    "synthetic_identification": {"args": ["--my-option", "1"]},
-    "synthetic_identification_compressed": {"args": ["--my-option", "2"]}
+    "face_identification": {"args": ["--setting", "1"]},
+    "face_identification_compressed": {"args": ["--setting", "2"]}
   }
 }
 ```
 
-For each experiment the evaluator runs, from the workspace root,
-`command + args + ["--role", "gallery"|"query", "--input", IN.npz, "--output", OUT.npz]`.
-`IN.npz` holds `templates`, a float32 array `[n, 512]` of unit vectors; the encoder must write `OUT.npz` with `codes`, an integer array `[n, D]`, `1 ≤ D ≤ 512`, the same `D` for both roles, `|code| ≤ 2^20`. Probe batches mix genuine and impostor probes in random order without labels.
+For each draw and experiment, the command is run from the workspace root with the experiment arguments and `--role gallery|query --input IN.npz --output OUT.npz`. The input contains `templates`, float32 unit vectors with shape `[n,512]`. Write `codes`, an integer array `[n,D]`, to the output npz: `1 <= D <= 512`, the same D for both roles, absolute coordinate at most 2^20. Queries mix genuine and impostor probes in a shuffled, unlabeled batch.
 
-Each experiment calls the encoder four times: a random 10% of the gallery; all probes (shuffled); the whole gallery (shuffled); a random 10% of the probes. Codes of the same template must be identical across calls, so an encoder must be a per-template function that keeps no state between calls and does not use other templates in the batch.
+Four calls encode a random 10% gallery subset, all queries shuffled, the full gallery shuffled, and a random 10% query subset. Repeated templates must produce exactly identical codes. Each call has its own scratch directory and Linux Landlock filesystem restriction. The encoder can read its input, installed libraries, `method/`, `baseline/`, `checkpoints/`, `.pylib/`, `scripts/`, audit encoder code, and `data/face_embeddings_dev.npz`. It can write only in its call directory (including `TMPDIR`). Put learned assets in `method/` or `checkpoints/`. Other calls, evaluation code, hidden templates, labels, downloads and score files are unreadable. There is no wall-clock timeout in the encoder or method path. There is no training during evaluation.
 
-A directory without a usable `encoder.json` entry for an experiment, an encoder that crashes, times out (10 min per call), or writes malformed, non-integer or wrongly shaped codes, codes that change between calls, or codes over the experiment's budget is a **failed run** for that experiment and receives the worst value (0) of every scored metric.
+## Costs and failure
 
-## Scores and costs
+The evaluator computes encrypted additions as `2*max(||q||_1-1,0)`, averaged over all probes of each draw. The digit bound is `B = min(max||g||_1 * max|q|, max||q||_1 * max|g|)`. Packing is the largest m with `(B+1)^m <= 2^50`. Budgets are fixed at 680 additions / 5 packed templates and 124 / 8, respectively, and must hold in every draw. Costs are per packed SIMD block, not timings or a claim about total runtime at a million identities.
 
-- Match score = cosine of the integer codes (0 for an all-zero code), i.e. the decrypted additive-HE inner product normalized by code norms.
-- Ciphertext additions per probe = 2 × (‖q‖₁ − 1), averaged over all probes.
-- Templates per 50-bit slot = largest m with (B + 1)^m ≤ 2^50, B = min(max‖g‖₁·max|q|, max‖q‖₁·max|g|) over all codes of the run.
+Missing or malformed specs, absent experiment entries, crashes, forbidden reads, invalid codes, inconsistent codes, exceeded budgets and nonfinite or impossible metrics fail the run. Minimum task feasibility is top-1 >= 0.10 and TPIR@1% >= 0.05 in every draw. A failure anywhere assigns **zero to all six metrics in both experiments**, including experiments not run. No empty result is emitted. The evaluator continues with other methods and atomically replaces its score file.
 
-Budgets: `synthetic_identification` ≤ 680 additions and ≥ 5 templates per slot; `synthetic_identification_compressed` ≤ 124 additions and ≥ 8 templates per slot.
+## Scientific measurements
 
-## Metrics (per experiment, all higher is better)
+All six metrics are higher-is-better, bounded by [0,1], averaged equally over 16 fixed draws. Every method sees the same gallery, probes, bases and orders.
 
-- `tpir_at_fpir_0.01` (primary): fraction of genuine probes whose true identity is the strict unique top match and whose score exceeds the threshold at which 1% of impostor probes are accepted (threshold from the benchmark's own impostor probes, accept on `>`).
-- `tpir_at_fpir_0.001`, `tpir_at_fpir_0.1`: the same at 0.1% and 10% FPIR.
-- `top1_identification`: closed-set rank-1 rate; a tie with a wrong identity is an error.
-- `mean_reciprocal_rank`: tied wrong identities rank ahead of the true one.
-- `open_set_score_auc`: probability that a genuine probe's true-identity score exceeds an impostor probe's highest score (ties ½).
+- `tpir_at_fpir_0.01` (primary, coefficient 1): fraction of genuine probes correctly identified as the strict unique top match and accepted at 1% false positive identification rate.
+- `tpir_at_fpir_0.001` (0.6) and `tpir_at_fpir_0.1` (0.3): the same at 0.1% and 10% FPIR.
+- `top1_identification` (0.3): closed-set strict rank-one accuracy; ties are errors.
+- `open_set_score_auc` (0.25): probability the true-person genuine score exceeds an impostor's maximum gallery score, ties worth one half.
+- `mean_reciprocal_rank` (0.15): tied wrong identities rank ahead of the true person.
 
-Each experiment's output also records `_diagnostics` (status, failure reason, additions, packing, code dimension per method) and `_context` (accuracy of unprotected float cosine matching on the same split, an unreachable upper reference). These are not scored.
+Each FPIR threshold is the `floor(FPIR*n)`-indexed score among descending impostor maxima. Acceptance requires strict `>`, so ties cannot inflate false accepts. Similarities are cosine values, with zero vectors scoring zero. Thresholds, impostors and labels belong to the evaluator.
 
-## Scripts
+Both experiments have weight 0.5. Rank improvement is the sum of `weight * abs(coefficient) * direction * (candidate-reference) / population_SD`, where direction follows `higher_is_better` and SD is over the attempts being ranked. A zero-variance metric contributes zero. Only numbers under each experiment's `results` in the official score file are ranked; diagnostics and audit summaries are not.
 
-- `scripts/evaluate_train.sh` scores every method directory on the visible development split and writes `scoring/scores_train.json`.
-- `scripts/evaluate_test.sh` (no arguments) scores every method directory on the hidden test split and writes `scoring/scores_test.json`.
-- `scripts/evaluate.sh` writes the development scores to `scoring/scores.json`.
+`bash scripts/evaluate_train.sh` writes `scoring/scores_train.json`. `bash scripts/evaluate_test.sh` takes no required arguments and writes `scoring/scores_test.json`. Both discover every directory independently. `scripts/evaluate.sh` also copies train results to `scoring/scores.json`. Development and test use independent implementations and identity banks with the same protocol and difficulty. Test inputs, labels, partition and draw construction stay in `eval/test/`.

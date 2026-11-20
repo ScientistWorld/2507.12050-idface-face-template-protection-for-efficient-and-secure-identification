@@ -1,22 +1,9 @@
-# Method
+# Reproduced method
 
-IDFace protects biometric templates for large-scale identification by adapting the template representation to additively homomorphic encrypted database search.
+IDFace keeps the largest-magnitude coordinates of an embedding and replaces them with their signs. The paper uses the top-alpha ternary transformation for enrollment and top-beta for queries, splits each into positive and negative parts, and packs gallery templates in base `min(alpha,beta)+1`. Two additive encrypted accumulators decode to the signed integer inner product. It takes `2*(beta-1)` ciphertext additions, no ciphertext multiplications or rotations, and two decryptions per packed SIMD block.
 
-The paper's algorithmic steps:
+`method/encode_idface.py` is the unchanged paper transformation. The full experiment uses alpha=beta=341 (680 additions, 5 templates per 50-bit slot); compressed uses alpha=341, beta=63 (124, 8). `method/idface.py` implements packing and decoding. `method/self_check.py` checks equivalence with direct code inner products. `scripts/method.sh` additionally checks real Paillier encryption on eight visible real templates using a 2048-bit key and 50-bit packed payload; decrypted scores must equal plaintext packed arithmetic. It now uses the paper's first-ciphertext accumulator schedule, with no unnecessary scalar powers or extra initial-zero additions.
 
-1. Apply `T_alpha` to every enrolled unit vector: keep the `alpha` largest absolute components, replace them by their signs, and set all other components to zero.
-2. Split each ternary vector into positive and negative binary parts.
-3. Pack `m` transformed templates into one vector using base-`p` encoding, `p = min(alpha, beta) + 1`, `m = floor(n / log2 p)` for an `n`-bit plaintext slot (50 bits for CKKS).
-4. For a query, apply `T_beta`, split signs, and compute four binary inner products between enrolled/query sign parts.
-5. Homomorphically add those four products into two packed accumulators (same-sign and opposite-sign counts): `2(beta - 1)` ciphertext additions, no multiplications or rotations, 2 decryptions.
-6. Decode the packed accumulators and subtract opposite-sign from same-sign counts to recover the transformed-template scores.
+The backbone matches the paper's publicly available AdaFace IR-101 trained on WebFace12M and is frozen for all encoders. Its 512-D outputs were extracted from aligned public LFW, XQLFW and CPLFW images. The source paper's IJB-C protocol and million-identity HE runtime are not reproduced. This gym instead tests mixed quality and pose using an identity-disjoint, 1,200-person open-set protocol averaged over 16 orthogonal bases. This is a scientific scale change, not a fit to the paper's reported percentages.
 
-In this gym the reference method is the encoder `method/encode_idface.py` (steps 1 and 4), registered in `method/outputs/idface/encoder.json`. The evaluator computes exactly the decoded result of steps 2–6 (the integer inner products of the codes) and the cost of steps 3 and 5 from the codes. The reference runs the paper's operating points: `alpha=beta=341` (680 additions, 5 templates per slot) for `synthetic_identification` and `alpha=341, beta=63` (124 additions, 8 templates per slot) for `synthetic_identification_compressed`.
-
-`method/idface.py` also implements the packed encode/decode database; `method/self_check.py` verifies that its packed computation equals the code inner products the evaluator scores, and `method/run_encrypted_idface.py` runs a small real-Paillier database (64 identities, 256-bit key) whose decrypted scores must equal the plaintext packed arithmetic.
-
-## Deviations
-
-- Synthetic 512-D templates with face-embedding-like coordinate statistics replace AdaFace embeddings of IJB-C and the verification benchmarks.
-- Encrypted search is evaluated through its exact decrypted result and machine-independent operation counts; no wall-clock HE timing (IPCL/HEaaN) is reproduced.
-- The gallery is 10,000 identities, not the paper's 1M-identity efficiency setting (the per-probe cost is per packed block and does not depend on gallery size).
+For the paper's fixed-norm ternary codes, evaluator cosine normalization is exactly division by sqrt(alpha*beta). Other integer representations remain expressible at the same cost and may use their own code norms. The test computes the exact decrypted integer scores without retraining or benchmarking wall-clock HE performance. Paper-reported numbers remain unchanged under `_paper_reported` in `scoring/reference.json`.

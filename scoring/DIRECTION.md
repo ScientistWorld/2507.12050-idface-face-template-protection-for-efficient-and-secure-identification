@@ -1,7 +1,7 @@
 # Direction
 
-Work within biometric template protection for large-scale identification under additively homomorphic encryption: find template representations whose encrypted inner products preserve identification accuracy at a fixed encrypted cost.
+Improve integer template representations for face identification under additive homomorphic encryption. Preserve identity information from real, mixed-quality face embeddings at fixed query-addition and gallery-packing budgets.
 
-Valid improvements include better per-template integer encodings for the gallery or the probes, better use of the plaintext digit capacity (packing), learned or data-independent transforms applied before encoding, and representations that move the accuracy/cost frontier at either budget, especially the compressed one.
+Valid work includes more accurate per-template quantization, better use of digit capacity, learned or fixed transforms, and asymmetric enrollment/query representations. It may change the entire encoder procedure and learn from development identities before test. The compressed experiment carries half the weight because reducing encrypted cost exposes additional representation loss.
 
-Invalid improvements include matching with unprotected full-precision templates, encoders that look at other templates, labels or evaluation files, encoders that keep state between calls, training an identity classifier on the benchmark identities, and changing the benchmark, the evaluators or the budgets.
+Matching unprotected full-precision templates, identifying benchmark people from labels or public-image lookup, using other templates during encoding, keeping evaluation state, and changing evaluator comparisons are outside the task. A legitimate alternative with indistinguishable accuracy is a scientific headroom question, not a reason to restrict submissions to reference settings.

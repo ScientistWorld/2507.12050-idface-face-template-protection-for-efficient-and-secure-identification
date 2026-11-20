@@ -1,27 +1,16 @@
-# Problem Definition
+# Problem
 
-The task is privacy-preserving biometric identification with an encrypted enrolled database.
+Build a protected template representation for open-set face identification. A database holds one enrollment capture per person. Each probe must either identify its enrolled person or be rejected as unenrolled. Inputs are fixed, normalized 512-dimensional face embeddings; the representation must preserve their useful identity information while fitting an encrypted computation budget.
 
-A server holds one enrolled template per identity and must, for each incoming probe template, either name the enrolled identity it belongs to or reject it as not enrolled. Templates are fixed 512-dimensional real unit vectors (face-recognition embeddings). Enrolled templates must stay protected: the database is stored under an additively homomorphic encryption scheme, so the server can add encrypted values and combine them with plaintext probe data, then a key holder decrypts the resulting match scores.
+The method supplies two per-template encoders: one for enrollment (gallery) and one for probes (query). Each returns an integer vector of dimension at most 512. Gallery codes can be stored under additive homomorphic encryption. Matching sums encrypted gallery coordinates according to the query code. After decryption the evaluator computes the cosine of the integer codes. Signed coordinates use separate same-sign and opposite-sign accumulators; multiple gallery codes occupy base-p digits of a plaintext slot.
 
-What a method controls is the **template representation**. A method maps each template, independently of every other template, to an integer code vector: enrolled templates to gallery codes, probes to probe codes. The encrypted database stores the gallery codes; for a probe, the server forms the inner products between the probe code and every encrypted gallery code using only ciphertext additions (a probe coordinate of magnitude k adds the corresponding encrypted column k times), and the decrypted inner products, normalized by the code norms, are the match scores. Signed codes are handled with two non-negative accumulators (contributions of matching and of opposite signs), and several gallery codes are packed into each plaintext slot as base-p digits, which is possible only when every decoded accumulator digit is small.
+| Experiment | Mean ciphertext additions per probe per packed block | Minimum templates per 50-bit slot |
+|---|---:|---:|
+| `face_identification` | 680 | 5 |
+| `face_identification_compressed` | 124 | 8 |
 
-The representation therefore trades identification accuracy against encrypted cost:
+The goal is higher identification accuracy within both budgets. The compressed experiment tests the accuracy lost when encrypted computation and storage are more constrained. Costs are constraints, so saving unused computation alone earns no reward.
 
-- **ciphertext additions per probe**: 2 × (L1 norm of the probe code − 1);
-- **templates per 50-bit plaintext slot**: the largest m with (B + 1)^m ≤ 2^50, where B = min(max ‖g‖₁ · max |q|, max ‖q‖₁ · max |g|) bounds every decoded digit.
+Inputs come from real, fixed AdaFace IR-101 / WebFace12M embeddings of public LFW, cross-quality XQLFW and cross-pose CPLFW images. Development and hidden test contain disjoint identities. Each side averages 16 fixed draws with 1,200 enrolled identities, up to eight genuine probes per enrolled identity and up to eight impostor probes per unenrolled identity. Enrollment prefers LFW; probes mix the three sources. Another version of the enrollment image cannot be a genuine probe. The actual probe counts are evaluator-owned and recorded in each score file.
 
-The benchmark fixes two encrypted-cost budgets, and the goal is the best open-set identification accuracy within each:
-
-| Experiment | Mean additions per probe | Templates per slot | Code dimension |
-|---|---|---|---|
-| `synthetic_identification` | ≤ 680 | ≥ 5 | ≤ 512 |
-| `synthetic_identification_compressed` | ≤ 124 | ≥ 8 | ≤ 512 |
-
-A method may use any per-template integer encoding (and may learn it from the development data), but it never sees identity labels at evaluation, never sees gallery and probe templates in the same call, and its codes must not depend on which other templates were encoded before or alongside.
-
-## Benchmark data
-
-Templates are synthetic 512-D unit vectors with the coordinate statistics of face embeddings (isotropic, Gaussian-like coordinates). Each identity has a center on the sphere; each sample has a per-sample quality ρ, its cosine to the center. Enrolled templates are good captures (ρ ∈ [0.75, 0.95]); probes have mixed quality: most are usable (ρ ∈ [0.5, 0.9]) and 5% are degraded (ρ ∈ [0.05, 0.5]). Genuine probes come from enrolled identities, impostor probes from never-enrolled identities, and the two are presented unlabeled and mixed. Each split has 10,000 enrolled identities, 10,000 genuine probes and 20,000 impostor probes.
-
-`data/generate_synthetic.py` writes the visible development split `data/synthetic_embeddings.npz` (with labels). The hidden test split is a fresh draw of the same distribution, generated by the test evaluator; its templates, identities and labels are never on disk.
+Each draw applies a dense orthogonal change of basis to all its embeddings. This preserves all pairwise cosine similarities and prevents direct public-vector lookup. Codes must be functions of an individual template and its role; they cannot depend on other rows, prior calls or benchmark identities. Encoders may be learned on the development bank before evaluation. See [evaluation.md](evaluation.md) for the interface.

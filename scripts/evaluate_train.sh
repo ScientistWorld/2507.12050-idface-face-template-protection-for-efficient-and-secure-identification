@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Score every method directory on disk on the visible development benchmark.
 set -euo pipefail
-
-[ -f data/synthetic_embeddings.npz ] || python data/generate_synthetic.py --out data/synthetic_embeddings.npz
+cd "$(dirname "$0")/.."
+export OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 MKL_NUM_THREADS=4
 python eval/train/evaluate.py "$@" --out scoring/scores_train.json

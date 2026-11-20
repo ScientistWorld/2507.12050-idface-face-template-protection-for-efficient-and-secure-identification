@@ -1,24 +1,9 @@
 #!/usr/bin/env python3
-"""Train (development) evaluator for protected biometric identification.
+"""Independent train evaluator: real face open-set identification from integer codes.
 
-Scores every method directory on the visible development benchmark
-``data/synthetic_embeddings.npz`` (produced by ``data/generate_synthetic.py``),
-with the same interface, protocol, budgets and metrics as the hidden test:
-
-* every method is a directory holding ``encoder.json``; the evaluator runs the
-  method's encoder separately on gallery templates and on probe templates
-  (genuine and impostor probes shuffled together, unlabeled) and receives one
-  integer code vector per template;
-* the evaluator computes every match score itself as the cosine of the
-  integer codes and every metric from the benchmark's labels;
-* the encrypted-computation cost of the codes (ciphertext additions per probe,
-  templates packed per 50-bit plaintext slot) is computed from the codes and
-  must fit the experiment's fixed budget;
-* an encoder whose codes depend on call order or batch composition, a crash,
-  a timeout, malformed or non-integer codes, or a budget violation fails the
-  run, which then receives the worst value of every scored metric.
+Benchmark, costs, labels, gallery and operating points are evaluator-owned.
+No method-written score, label, flag, cost or verdict is consumed.
 """
-
 from __future__ import annotations
 
 import argparse
@@ -38,19 +23,18 @@ import numpy as np
 SLICE = "train"
 WORKSPACE = Path(__file__).resolve().parents[2]
 
-DEFAULT_DATA = Path("data/synthetic_embeddings.npz")
-PROTOCOL_SEED = 0
+PROTOCOL_SEED = 20381742
+BANK_PATH = WORKSPACE / "data/face_embeddings_dev.npz"
 
 PLAINTEXT_BITS = 50
 MAX_CODE_DIM = 512
 MAX_ABS_CODE = 1 << 20
-ENCODER_TIMEOUT_SECONDS = 600
 CONSISTENCY_FRACTION = 0.1
 FPIRS = (0.1, 0.01, 0.001)
 
 EXPERIMENTS = {
-    "synthetic_identification": {"max_mean_additions": 680.0, "min_pack": 5},
-    "synthetic_identification_compressed": {"max_mean_additions": 124.0, "min_pack": 8},
+    "face_identification": {"max_mean_additions": 680.0, "min_pack": 5},
+    "face_identification_compressed": {"max_mean_additions": 124.0, "min_pack": 8},
 }
 SCORED_METRICS = (
     "top1_identification",
@@ -64,23 +48,50 @@ WORST_VALUES = {name: 0.0 for name in SCORED_METRICS}
 DEFAULT_ROOTS = ("method/outputs", "baseline/outputs", "checkpoints")
 
 
-# ── Visible development benchmark ────────────────────────────────────────────
+# Real-face protocol. This implementation is independent of the other split.
+DRAWS = 16
+GALLERY_SIZE = 1200
+MAX_PROBES_PER_ID = 8
+DIM = 512
 
 
-def load_benchmark(path: Path) -> dict[str, np.ndarray]:
-    path = path if path.is_absolute() else WORKSPACE / path
-    if not path.is_file():
-        raise SystemExit(f"missing {path}; run: python data/generate_synthetic.py")
-    with np.load(path, allow_pickle=False) as data:
-        gallery_labels = data["gallery_labels"]
-        if not np.array_equal(gallery_labels, np.arange(len(gallery_labels))):
-            raise SystemExit("gallery_labels must be 0..N-1 in gallery order")
-        return {
-            "gallery": data["gallery"].astype(np.float32),
-            "genuine": data["genuine_queries"].astype(np.float32),
-            "genuine_labels": data["genuine_labels"].astype(np.int64),
-            "impostor": data["impostor_queries"].astype(np.float32),
-        }
+def build_benchmark(seed: int, draw: int = 0) -> dict[str, np.ndarray]:
+    rng = np.random.default_rng([seed, draw])
+    with np.load(BANK_PATH, allow_pickle=False) as d:
+        x, names, keys, sources = (d[k] for k in ('embeddings', 'identities', 'keys', 'sources'))
+    unique, identity = np.unique(names, return_inverse=True)
+    groups = [np.flatnonzero(identity == i) for i in range(len(unique))]
+    # A second image, not just a low-quality version of the enrollment image,
+    # is required. Prefer LFW enrollment, then use all three sources as probes.
+    eligible = np.array([i for i, rows in enumerate(groups) if len(np.unique(keys[rows])) >= 2])
+    if len(eligible) < GALLERY_SIZE:
+        raise ValueError(f'only {len(eligible)} eligible identities for {GALLERY_SIZE} gallery rows')
+    enrolled = rng.choice(eligible, GALLERY_SIZE, replace=False)
+    label_of = {int(i): j for j, i in enumerate(enrolled)}
+    gallery, genuine, labels, gen_ids, impostor, imp_ids = [], [], [], [], [], []
+    for i, rows in enumerate(groups):
+        if i in label_of:
+            preferred = rows[sources[rows] == 'lfw']
+            enrollment = int(rng.choice(preferred if len(preferred) else rows))
+            gallery.append((label_of[i], enrollment))
+            available = rows[keys[rows] != keys[enrollment]]
+            take = rng.choice(available, min(MAX_PROBES_PER_ID, len(available)), replace=False)
+            genuine.extend(take)
+            labels.extend([label_of[i]] * len(take))
+            gen_ids.extend([i] * len(take))
+        else:
+            take = rng.choice(rows, min(MAX_PROBES_PER_ID, len(rows)), replace=False)
+            impostor.extend(take)
+            imp_ids.extend([i] * len(take))
+    gallery = np.array([row for _, row in sorted(gallery)])
+    # A fresh secret dense orthogonal basis per draw prevents public vector
+    # lookup while preserving every real face-to-face cosine relationship.
+    rotation, r = np.linalg.qr(rng.standard_normal((DIM, DIM)))
+    rotation *= np.where(np.diag(r) < 0, -1.0, 1.0)[None, :]
+    rotated = (x.astype(np.float64) @ rotation).astype(np.float32)
+    return dict(gallery=rotated[gallery], genuine=rotated[genuine],
+                genuine_labels=np.array(labels, dtype=np.int64), impostor=rotated[impostor],
+                genuine_ids=np.array(gen_ids, dtype=np.int64), impostor_ids=np.array(imp_ids, dtype=np.int64))
 
 
 # ── Metrics ──────────────────────────────────────────────────────────────────
@@ -172,12 +183,17 @@ def discover_methods(extra_roots: list[Path]) -> dict[str, Path]:
         except ValueError:
             tag = root.name
         for directory in sorted(p for p in root.iterdir() if p.is_dir()):
-            if not any((directory / marker).is_file() for marker in ("encoder.json", "predictions.npz", "metadata.json")):
-                continue
             name = _safe_name(directory.name)
             if name in methods and methods[name].resolve() != directory.resolve():
                 name = _safe_name(f"{tag}_{directory.name}")
-            methods.setdefault(name, directory)
+            if any(p.resolve() == directory.resolve() for p in methods.values()):
+                continue
+            base = name
+            suffix = 2
+            while name in methods:
+                name = f'{base}_{suffix}'
+                suffix += 1
+            methods[name] = directory
     return dict(sorted(methods.items()))
 
 
@@ -212,15 +228,13 @@ def _run_encoder(command: list[str], role: str, templates: np.ndarray, workdir: 
         np.savez(in_file, templates=templates.astype(np.float32))
         scratch = call_dir / "tmp"
         scratch.mkdir()
-        env = dict(os.environ, TMPDIR=str(scratch))
+        env = dict(os.environ, TMPDIR=str(scratch), PYTHONDONTWRITEBYTECODE="1")
         full = command + ["--role", role, "--input", str(in_file), "--output", str(out_file)]
         try:
             proc = subprocess.run(
-                full, cwd=WORKSPACE, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                timeout=ENCODER_TIMEOUT_SECONDS,
+                [sys.executable, str(Path(__file__).with_name("run_encoder.py")), str(call_dir), *full],
+                cwd=WORKSPACE, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             )
-        except subprocess.TimeoutExpired:
-            raise RunFailure(f"{role} encoder exceeded {ENCODER_TIMEOUT_SECONDS}s") from None
         except OSError as exc:
             raise RunFailure(f"{role} encoder could not start: {exc}") from None
         if proc.returncode != 0:
@@ -333,65 +347,98 @@ def evaluate_method(method_dir: Path, experiment: str, bench: dict, rng, workdir
         )
     n_gen = len(bench["genuine"])
     stats = _match_statistics(gallery_codes, probe_codes[:n_gen], bench["genuine_labels"], probe_codes[n_gen:])
+    metrics = identification_metrics(*stats)
+    if metrics["top1_identification"] < 0.10 or metrics["tpir_at_fpir_0.01"] < 0.05:
+        raise RunFailure("task failed: top-1 < 0.10 or TPIR@1% < 0.05")
+    if not all(np.isfinite(v) and 0 <= v <= 1 for v in metrics.values()):
+        raise RunFailure("nonfinite or impossible metric")
     if dump_dir is not None:
         dump_dir.mkdir(parents=True, exist_ok=True)
-        np.savez_compressed(dump_dir / f"{experiment}__{name}.npz", true=stats[0], correct=stats[1], rank=stats[2], impostor_max=stats[3])
-    return identification_metrics(*stats), cost
+        np.savez_compressed(dump_dir / f"{experiment}__{name}.npz", true=stats[0], correct=stats[1], rank=stats[2], impostor_max=stats[3], genuine_ids=bench["genuine_ids"], impostor_ids=bench["impostor_ids"])
+    return metrics, cost
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("roots", nargs="*", type=Path, help="Extra roots whose subdirectories are method directories.")
-    parser.add_argument("--out", type=Path, default=Path("scoring/scores_train.json"))
-    parser.add_argument("--data", type=Path, default=DEFAULT_DATA)
-    parser.add_argument("--methods", default=None, help="Audit only: comma-separated subset of method names.")
-    parser.add_argument("--dump-dir", type=Path, default=None, help="Audit only: save per-probe outcomes.")
+    parser.add_argument('roots', nargs='*', type=Path)
+    parser.add_argument('--out', type=Path, default=Path(f'scoring/scores_{SLICE}.json'))
+    parser.add_argument('--methods', default=None, help='Audit only: subset of discovered methods.')
+    parser.add_argument('--dump-dir', type=Path, default=os.environ.get('IDFACE_AUDIT_DUMP'), help='Audit only: per-probe outcomes, kept within this evaluator directory.')
     args = parser.parse_args()
-
-    seed = PROTOCOL_SEED
-    bench = load_benchmark(args.data)
+    if args.dump_dir is not None:
+        args.dump_dir = args.dump_dir.resolve()
+        if not args.dump_dir.is_relative_to(Path(__file__).resolve().parent):
+            raise SystemExit('Raw test outcomes must stay inside the corresponding eval directory')
+    seed = _TEST_SEED if SLICE == 'test' else PROTOCOL_SEED
     methods = discover_methods(args.roots)
     if args.methods:
-        wanted = set(args.methods.split(","))
-        methods = {k: v for k, v in methods.items() if k in wanted}
-
-    plain = identification_metrics(*_match_statistics(bench["gallery"], bench["genuine"], bench["genuine_labels"], bench["impostor"]))
-    output: dict = {"experiments": {}}
-    # Encoder inputs/outputs are tens of MB; stage them on the workspace filesystem,
-    # not in a (possibly tiny) system temp directory.
-    work_root = Path(__file__).resolve().parent / "_work"
+        methods = {k: v for k, v in methods.items() if k in set(args.methods.split(','))}
+    rows = {exp: {name: [] for name in methods} for exp in EXPERIMENTS}
+    diagnostic = {exp: {name: [] for name in methods} for exp in EXPERIMENTS}
+    context = {exp: {'unprotected_float_cosine': [], 'full_sign_512': []} for exp in EXPERIMENTS}
+    failed = {}
+    counts = []
+    work_root = Path(__file__).resolve().parent / '_work'
     work_root.mkdir(parents=True, exist_ok=True)
-    workdir = Path(tempfile.mkdtemp(prefix="idface_eval_", dir=work_root))
+    workdir = Path(tempfile.mkdtemp(prefix='idface_eval_', dir=work_root))
     try:
-        for experiment, budget in EXPERIMENTS.items():
-            results, diagnostics = {}, {}
-            for name, method_dir in methods.items():
-                rng = np.random.default_rng([seed, zlib.crc32(name.encode()), zlib.crc32(experiment.encode())])
-                try:
-                    metrics, cost = evaluate_method(method_dir, experiment, bench, rng, workdir, args.dump_dir, name)
-                    diagnostics[name] = {"status": "ok", **cost}
-                except RunFailure as exc:
-                    metrics = dict(WORST_VALUES)
-                    diagnostics[name] = {"status": "failed", "reason": str(exc)}
-                results[name] = metrics
-                print(f"[{SLICE}] {experiment} {name}: {diagnostics[name]['status']} {metrics}", flush=True)
-            output["experiments"][experiment] = {
-                "slice": SLICE,
-                "budget": {**budget, "plaintext_bits": PLAINTEXT_BITS, "max_code_dim": MAX_CODE_DIM},
-                "results": results,
-                "_diagnostics": diagnostics,
-                "_context": {"unprotected_float_cosine": plain},
-            }
+        for draw in range(DRAWS):
+            bench = build_benchmark(seed, draw)
+            counts.append({k: len(bench[k]) for k in ('gallery', 'genuine', 'impostor')})
+            plain = identification_metrics(*_match_statistics(bench['gallery'], bench['genuine'], bench['genuine_labels'], bench['impostor']))
+            sign = identification_metrics(*_match_statistics(np.sign(bench['gallery']), np.sign(bench['genuine']), bench['genuine_labels'], np.sign(bench['impostor'])))
+            for exp, budget in EXPERIMENTS.items():
+                for key, value in (('unprotected_float_cosine', plain), ('full_sign_512', sign)):
+                    context[exp][key].append(value)
+                for name, method_dir in methods.items():
+                    if name in failed:
+                        rows[exp][name].append(dict(WORST_VALUES))
+                        continue
+                    # The same templates and orders for every method.
+                    rng = np.random.default_rng([seed, draw, zlib.crc32(exp.encode())])
+                    dump = args.dump_dir / f'draw_{draw:02d}' if args.dump_dir else None
+                    try:
+                        metrics, cost = evaluate_method(method_dir, exp, bench, rng, workdir, dump, name)
+                        diagnostic[exp][name].append(cost)
+                    except Exception as exc:
+                        metrics = dict(WORST_VALUES)
+                        failed[name] = f'{exp}, draw {draw}: {type(exc).__name__}: {exc}'
+                    rows[exp][name].append(metrics)
+                    print(f'[{SLICE}] draw {draw} {exp} {name}: {failed.get(name, metrics)}', flush=True)
     finally:
         shutil.rmtree(workdir, ignore_errors=True)
         try:
             work_root.rmdir()
         except OSError:
             pass
+
+    def average(entries):
+        return {m: float(np.mean([r[m] for r in entries])) for m in SCORED_METRICS}
+
+    output = {'experiments': {}}
+    for exp, budget in EXPERIMENTS.items():
+        results, diagnostics = {}, {}
+        for name in methods:
+            # Failure in any experiment or draw means failure of the entire run.
+            if name in failed:
+                results[name] = dict(WORST_VALUES)
+                diagnostics[name] = {'status': 'failed', 'reason': failed[name]}
+            else:
+                results[name] = average(rows[exp][name])
+                diagnostics[name] = {'status': 'ok', 'draw_costs': diagnostic[exp][name]}
+        output['experiments'][exp] = {
+            'slice': SLICE, 'budget': {**budget, 'plaintext_bits': PLAINTEXT_BITS, 'max_code_dim': MAX_CODE_DIM},
+            'results': results, '_diagnostics': diagnostics,
+            '_context': {k: average(v) for k, v in context[exp].items()},
+            '_protocol': {'draws': DRAWS, 'per_draw_counts': counts, 'max_probes_per_identity': MAX_PROBES_PER_ID,
+                          'note': 'Identity-disjoint real AdaFace templates; orthogonal basis per draw. Results are means over draws.'},
+        }
     out = args.out if args.out.is_absolute() else WORKSPACE / args.out
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n")
+    temporary = out.with_suffix('.part.json')
+    temporary.write_text(json.dumps(output, indent=2, sort_keys=True, allow_nan=False)+'\n')
+    temporary.replace(out)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

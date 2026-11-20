@@ -32,21 +32,21 @@ def encrypted_scores(db: IDFaceDatabase, queries: np.ndarray, key_bits: int) -> 
         packed_neg = []
         active_dims = np.flatnonzero((q_pos + q_neg) > 0)
         for block in range(db.enc_pos.shape[0]):
-            acc_pos = zero
-            acc_neg = zero
+            # T_beta is ternary: select columns, then add from the first
+            # selected ciphertext. This is the paper's 2*(beta-1) schedule.
+            acc_pos = acc_neg = None
             for dim in active_dims:
                 pp = int(q_pos[dim])
-                pn = int(q_neg[dim])
-                if pp:
-                    acc_pos = public.add(acc_pos, public.mul_plain(enc_pos[block, dim], pp))
-                    acc_neg = public.add(acc_neg, public.mul_plain(enc_neg[block, dim], pp))
-                    encrypted_plain_mults += 2
+                left = enc_pos[block, dim] if pp else enc_neg[block, dim]
+                right = enc_neg[block, dim] if pp else enc_pos[block, dim]
+                if acc_pos is None:
+                    acc_pos, acc_neg = left, right
+                else:
+                    acc_pos = public.add(acc_pos, left)
+                    acc_neg = public.add(acc_neg, right)
                     encrypted_additions += 2
-                if pn:
-                    acc_pos = public.add(acc_pos, public.mul_plain(enc_neg[block, dim], pn))
-                    acc_neg = public.add(acc_neg, public.mul_plain(enc_pos[block, dim], pn))
-                    encrypted_plain_mults += 2
-                    encrypted_additions += 2
+            if acc_pos is None:
+                acc_pos = acc_neg = zero
             packed_pos.append(private.decrypt(acc_pos))
             packed_neg.append(private.decrypt(acc_neg))
             decryptions += 2
@@ -65,7 +65,7 @@ def encrypted_scores(db: IDFaceDatabase, queries: np.ndarray, key_bits: int) -> 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data", type=Path, default=Path("data/synthetic_embeddings.npz"))
+    parser.add_argument("--data", type=Path, default=Path("data/paillier_dev.npz"))
     parser.add_argument("--out", type=Path, default=Path("method/smoke/paillier_small"))
     parser.add_argument("--identities", type=int, default=64)
     parser.add_argument("--genuine-queries", type=int, default=32)
@@ -73,7 +73,7 @@ def main() -> None:
     parser.add_argument("--alpha", type=int, default=341)
     parser.add_argument("--beta", type=int, default=63)
     parser.add_argument("--plaintext-bits", type=int, default=50)
-    parser.add_argument("--key-bits", type=int, default=256)
+    parser.add_argument("--key-bits", type=int, default=2048)
     args = parser.parse_args()
 
     data = np.load(args.data)

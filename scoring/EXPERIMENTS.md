@@ -1,26 +1,18 @@
 # Experiments
 
-Both scored experiments measure open-set identification accuracy of a protected template representation on the same benchmark, at two fixed encrypted-cost budgets. A method is a directory with `encoder.json` (see `briefing/evaluation.md`); the evaluator runs its encoder on templates only, computes match scores as the cosine of the returned integer codes (the decrypted result of additively homomorphic matching), computes the encrypted cost from the codes, and computes every metric from its own labels.
+Two equally weighted experiments measure open-set identification from protected integer template codes. Both use real, fixed 512-D face embeddings from LFW, XQLFW and CPLFW. Development and hidden test identities are disjoint. Each split uses 16 fixed draws, 1,200 enrolled people per draw, at most eight genuine probes per enrolled person and at most eight impostor probes per unenrolled person. Enrollment prefers LFW; genuine probes exclude the enrollment image across quality versions. A shared orthogonal basis per draw preserves face cosine geometry and blocks direct vector lookup. Counts are fixed by the evaluator and recorded in `_protocol`.
 
-Benchmark (each split): 10,000 enrolled identities with one template each, 10,000 genuine probes, 20,000 impostor probes from never-enrolled identities; 512-D unit templates with face-embedding-like isotropic coordinates and mixed probe quality (95% usable captures, 5% degraded). The development split is `data/synthetic_embeddings.npz` (`data/generate_synthetic.py`); the hidden test split is an independent draw made by the test evaluator.
+| Experiment | Weight | Maximum mean encrypted additions per probe | Minimum templates per 50-bit slot |
+|---|---:|---:|---:|
+| `face_identification` | 0.5 | 680 | 5 |
+| `face_identification_compressed` | 0.5 | 124 | 8 |
 
-## `synthetic_identification` (weight 0.5)
+The compressed experiment tests representation quality where tighter computation and storage lose identity information. These budgets apply per packed block and every draw; integer code dimension is at most 512. They are feasibility gates, not scored resource quantities.
 
-Budget: mean ciphertext additions per probe ≤ 680 (= 2 × (‖q‖₁ − 1)), at least 5 gallery templates per 50-bit plaintext slot, code dimension ≤ 512. This is the encrypted cost of the high-accuracy operating point studied in the source paper.
+Both experiments score TPIR@1% FPIR (primary, coefficient 1), TPIR@0.1% (0.6), TPIR@10% (0.3), strict top-1 (0.3), open-set score AUC (0.25) and pessimistic MRR (0.15). All are higher-is-better, bounded by [0,1], and averaged over draws. The evaluator runs encoders, derives cosine scores and costs from raw codes, and fixes labels and strict impostor-derived thresholds. A failed run gets zero for every metric in both experiments. See [../briefing/evaluation.md](../briefing/evaluation.md) for exact definitions and the interface.
 
-## `synthetic_identification_compressed` (weight 0.5)
+The rank adds each experiment weight times the absolute metric coefficient times the improvement in its better direction over the measured reference, divided by that metric's population standard deviation over the attempts later ranked. Diagnostics, context rows, saved predictions and separately written ranks are unranked.
 
-Budget: mean ciphertext additions per probe ≤ 124, at least 8 templates per 50-bit slot, code dimension ≤ 512, i.e. roughly 5.5× fewer additions and 1.6× denser packing. This is the paper's fastest operating point, where protected identification loses the most accuracy.
+Official reference-only rows are `idface`, `sign_random_subset` (a simple equal-cost baseline), `sparse_63` (a lower-accuracy sparse baseline) and `random_codes` (a failed-task control). `_context` holds float-cosine matching and full-sign matching on identical inputs for scientific comparison; these ignore the encrypted budgets and are not ranked.
 
-## Metrics (both experiments)
-
-Primary `tpir_at_fpir_0.01` (coefficient 1.0); `tpir_at_fpir_0.001` (0.6); `tpir_at_fpir_0.1` (0.3); `top1_identification` (0.3); `open_set_score_auc` (0.25); `mean_reciprocal_rank` (0.15). Thresholds are set from the benchmark's impostor probes; ties never count as correct. A failed run (missing/crashing encoder, malformed or state-dependent codes, budget exceeded) gets 0 on every metric of that experiment.
-
-## Rows
-
-- `idface`: reproduced reference method (`method/outputs/idface`).
-- `sign_random_subset`: signs of fixed random coordinates with the same sparsity and cost as the reference (no magnitude information); a simple baseline.
-- `random_codes`: codes carrying no template information; chance-level sanity check.
-- `_context.unprotected_float_cosine` (in each score file): accuracy of plain float cosine matching on the same split, which no budget-feasible code can match exactly; an upper reference, not a ranked row.
-
-`scoring/reference.json` keeps the source paper's own reported numbers under `_paper_reported` (face benchmarks, 1M-identity timings) and the paper's IJB-C identification TPIR in the `idface`/`plain` rows for orientation; the synthetic benchmark is not IJB-C.
+The source paper's results remain under `_paper_reported` in `reference.json`. Its scored experiment rows hold measured results on this scaled real-face setup, not source-paper numbers from a different protocol. [RESULTS.md](RESULTS.md) reports reproduction and limitations.

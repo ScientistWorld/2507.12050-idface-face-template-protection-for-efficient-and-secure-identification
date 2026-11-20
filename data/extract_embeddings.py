@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Extract 512-D AdaFace-IR101 (WebFace12M) embeddings from aligned 112x112 faces.
 
-This is a data-preparation step run by ``scripts/download.sh`` (it needs torch,
-which the evaluation container does not; download.sh installs a CPU build in a
-throw-away virtual environment). The network definition below is the IR-101
+This is a data-preparation step run by ``scripts/prepare_data.sh`` (it needs
+torch; ``scripts/download.sh --with-extraction-deps`` installs extraction
+dependencies into .pylib/ for the container's Python 3.11). The network definition below is the IR-101
 backbone of the CVLFace library (https://github.com/mk-minchul/CVLface), the
 feature extractor used by the paper; weights come from the public Hugging Face
 repository ``minchul/cvlface_adaface_ir101_webface12m``.

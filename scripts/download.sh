@@ -44,8 +44,14 @@ fi
 if [ "${1:-}" = "--with-extraction-deps" ]; then
   # Embedding extraction needs torch, which the evaluation container does not ship.
   # Install a CUDA build for the container's Python 3.11 into .pylib/ (gitignored).
-  uv pip install --target .pylib --python-version 3.11 --python-platform x86_64-manylinux_2_28 \
-     --index-url https://download.pytorch.org/whl/cu121 --extra-index-url https://pypi.org/simple \
-     "torch==2.5.1" safetensors pillow
+  if command -v uv >/dev/null 2>&1; then
+    uv pip install --target .pylib --python-version 3.11 --python-platform x86_64-manylinux_2_28 \
+       --index-url https://download.pytorch.org/whl/cu121 --extra-index-url https://pypi.org/simple \
+       "torch==2.5.1" safetensors pillow
+  else
+    python -m pip install --target .pylib \
+       --index-url https://download.pytorch.org/whl/cu121 --extra-index-url https://pypi.org/simple \
+       "torch==2.5.1" safetensors pillow
+  fi
 fi
 echo "downloads complete in $DL"

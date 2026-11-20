@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-# Job: extract AdaFace IR-101 embeddings of LFW / XQLFW / CPLFW (data preparation).
+# One combined verification job. All method runs are serial.
 set -euo pipefail
 cd /home/user
-export PYTHONPATH="$PWD/.pylib${PYTHONPATH:+:$PYTHONPATH}"
-nvidia-smi || true
-python -c "import torch; print('cuda', torch.cuda.is_available(), torch.__version__)"
-python data/extract_embeddings.py
-ls -la data/downloads/embeddings
+export OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 MKL_NUM_THREADS=4
+# Public AdaFace extraction was completed in the preceding preparation job.
+# Build banks once; the partition builder is kept on the hidden side.
+if [ ! -s data/face_embeddings_dev.npz ] || [ ! -s eval/test/face_embeddings_test.npz ]; then
+  python eval/test/prepare_data.py
+fi
+bash scripts/reproduce.sh
+python redteam/hardening/review_audit.py
+python validate.py

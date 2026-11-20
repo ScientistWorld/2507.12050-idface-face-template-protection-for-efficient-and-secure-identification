@@ -1,0 +1,1 @@
+{"command": ["python", "baseline/encode_sparse.py"], "experiments": {"face_identification": {}, "face_identification_compressed": {}}, "description": "Paper sparse (63,63) ablation; magnitude selection with less information on both sides."}

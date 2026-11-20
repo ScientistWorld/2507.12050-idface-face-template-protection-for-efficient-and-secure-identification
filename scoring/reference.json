@@ -1,6 +1,6 @@
 {
   "_paper_reported": {
-    "note": "Numbers reported in the paper (arXiv 2507.12050), kept unchanged for context. Table 3: AdaFace-IResNet101 (WebFace12M) face verification/identification accuracy in percent; Tables 1-2: 1M-identity identification time/storage on the authors' i7-11700K with IPCL/HEaaN. The gym does not reproduce face images, the AdaFace backbone, IJB-C, or wall-clock HE timings, so none of these values are on the gym's scale or targets it must match.",
+    "note": "Numbers reported in the paper (arXiv 2507.12050), kept unchanged for context. Table 3: AdaFace-IResNet101 (WebFace12M) face verification/identification accuracy in percent; Tables 1-2: 1M-identity identification time/storage on the authors' i7-11700K with IPCL/HEaaN. The gym extracts real face templates using the pretrained AdaFace backbone but does not reproduce IJB-C or wall-clock HE timings, so none of these values are on the gym's scale or targets it must match.",
     "face_benchmark_accuracy": {
       "description": "Paper Table 3: AdaFace-IResNet101 face verification/identification accuracy with and without IDFace.",
       "primary_metric": "ijbc_verification_tar_fpr_1e-3",
@@ -91,7 +91,7 @@
         "ciphertext_multiplications_per_query": {
           "higher_is_better": false,
           "coefficient": 0.0,
-          "description": "Context-only paper count of encrypted multiplications per query; the portable gym scores its own artifact metadata instead."
+          "description": "Context-only paper encrypted multiplication count; the gym enforces fixed encrypted-cost budgets from raw integer codes."
         },
         "ciphertext_rotations_per_query": {
           "higher_is_better": false,
@@ -132,9 +132,9 @@
     }
   },
   "experiments": {
-    "synthetic_identification": {
-      "description": "Protected identification at the paper's (alpha, beta) = (341, 341) encrypted-cost operating point: at most 680 ciphertext additions per probe on average and at least 5 templates packed per 50-bit plaintext slot (codes of dimension <= 512). A run over budget fails.",
-      "notes": "Scored synthetic benchmark (10,000 enrolled identities; 10,000 genuine and 20,000 impostor probes; 512-D unit templates with mixed probe quality). The hidden test draws a fresh benchmark of the same distribution from a seed held only by eval/test. Every method is run through its encoder on templates only; the evaluator computes scores, costs and metrics. Rows 'idface' and 'plain' hold the paper's Table 3 IJB-C identification TPIR (AdaFace-IResNet101) at the matching operating point, as fractions, for orientation only: the synthetic benchmark is not IJB-C. Its difficulty was set so the unprotected float-cosine context lies in the same high-accuracy regime as the paper's plain model; the protected rows were not tuned. Baseline rows without values have no paper counterpart.",
+    "face_identification": {
+      "description": "Protected identification at the paper's (alpha, beta) = (341, 341) encrypted-cost operating point: at most 680 ciphertext additions per probe on average in every draw and at least 5 templates packed per 50-bit plaintext slot (codes of dimension <= 512). A run over budget fails.",
+      "notes": "Real AdaFace IR-101 / WebFace12M embeddings from LFW, XQLFW and CPLFW. Identity-disjoint development/test banks; 16 fixed gallery/basis draws with 1200 enrolled identities each, up to 8 probes per identity. This is a scaled open-set protocol, not IJB-C; paper numbers stay under _paper_reported. Hidden labels, partition and basis seeds are confined to eval/test. Every scored quantity is recomputed from encoder codes.",
       "weight": 0.5,
       "primary_metric": "tpir_at_fpir_0.01",
       "budget": {
@@ -177,26 +177,22 @@
       },
       "results": {
         "idface": {
-          "type": "proposed",
-          "tpir_at_fpir_0.01": 0.9595,
-          "tpir_at_fpir_0.001": 0.8511
-        },
-        "plain": {
-          "type": "baseline",
-          "tpir_at_fpir_0.01": 0.9642,
-          "tpir_at_fpir_0.001": 0.8581
+          "type": "proposed"
         },
         "sign_random_subset": {
           "type": "baseline"
         },
         "random_codes": {
           "type": "baseline"
+        },
+        "sparse_63": {
+          "type": "baseline"
         }
       }
     },
-    "synthetic_identification_compressed": {
-      "description": "Protected identification at the paper's compressed (alpha, beta) = (341, 63) operating point: at most 124 ciphertext additions per probe on average and at least 8 templates packed per 50-bit plaintext slot (codes of dimension <= 512). A run over budget fails.",
-      "notes": "Scored synthetic benchmark (10,000 enrolled identities; 10,000 genuine and 20,000 impostor probes; 512-D unit templates with mixed probe quality). The hidden test draws a fresh benchmark of the same distribution from a seed held only by eval/test. Every method is run through its encoder on templates only; the evaluator computes scores, costs and metrics. Rows 'idface' and 'plain' hold the paper's Table 3 IJB-C identification TPIR (AdaFace-IResNet101) at the matching operating point, as fractions, for orientation only: the synthetic benchmark is not IJB-C. Its difficulty was set so the unprotected float-cosine context lies in the same high-accuracy regime as the paper's plain model; the protected rows were not tuned. Baseline rows without values have no paper counterpart.",
+    "face_identification_compressed": {
+      "description": "Protected identification at the paper's compressed (alpha, beta) = (341, 63) operating point: at most 124 ciphertext additions per probe on average in every draw and at least 8 templates packed per 50-bit plaintext slot (codes of dimension <= 512). A run over budget fails.",
+      "notes": "Real AdaFace IR-101 / WebFace12M embeddings from LFW, XQLFW and CPLFW. Identity-disjoint development/test banks; 16 fixed gallery/basis draws with 1200 enrolled identities each, up to 8 probes per identity. This is a scaled open-set protocol, not IJB-C; paper numbers stay under _paper_reported. Hidden labels, partition and basis seeds are confined to eval/test. Every scored quantity is recomputed from encoder codes.",
       "weight": 0.5,
       "primary_metric": "tpir_at_fpir_0.01",
       "budget": {
@@ -239,19 +235,15 @@
       },
       "results": {
         "idface": {
-          "type": "proposed",
-          "tpir_at_fpir_0.01": 0.9519,
-          "tpir_at_fpir_0.001": 0.8596
-        },
-        "plain": {
-          "type": "baseline",
-          "tpir_at_fpir_0.01": 0.9642,
-          "tpir_at_fpir_0.001": 0.8581
+          "type": "proposed"
         },
         "sign_random_subset": {
           "type": "baseline"
         },
         "random_codes": {
+          "type": "baseline"
+        },
+        "sparse_63": {
           "type": "baseline"
         }
       }
